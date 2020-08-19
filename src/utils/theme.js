@@ -54,19 +54,17 @@ const theme = {
     heading: 1.125,
   },
   styles: {
-    html: {
-      boxSizing: 'border-box',
-      margin: '0',
-    },
     root: {
       fontFamily: 'body',
       lineHeight: 'body',
       fontWeight: 'body',
       boxSizing: 'border-box',
+      padding: '0',
+      margin: '0',
       '::before, ::after': {
         boxSizing: 'inherit',
-        m: '0',
-        p: '0',
+        margin: '0',
+        padding: '0',
       },
     },
     h1: {
@@ -117,6 +115,12 @@ const theme = {
     td: {
       textAlign: 'left',
       borderBottomStyle: 'solid',
+    },
+    ul: {
+      listStyleType: 'none',
+    },
+    a: {
+      textDecoration: 'none',
     },
   },
 };

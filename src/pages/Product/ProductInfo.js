@@ -1,12 +1,14 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 
-const CartPage = () => {
+const ProductPage = () => {
   return (
     <Layout>
-      <h2>Cart Page</h2>
+      <div>
+        <h2>Product Page</h2>
+      </div>
     </Layout>
   );
 };
 
-export default CartPage;
+export default ProductPage;

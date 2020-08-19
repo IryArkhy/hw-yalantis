@@ -5,8 +5,8 @@ import Header from '../Header';
 import HomePage from '../../pages/Home/HomePage';
 import CartPage from '../../pages/Cart/Cart';
 import theme from '../../utils/theme';
-import Layout from '../Layout';
 import routes from '../../routes';
+import Footer from '../Footer/Footer';
 
 const App = () => {
   return (
@@ -19,9 +19,7 @@ const App = () => {
           <Redirect to={routes.HOME_PAGE} />
         </Switch>
       </BrowserRouter>
-      <Layout>
-        <h1>My online shop</h1>
-      </Layout>
+      <Footer />
     </ThemeProvider>
   );
 };
