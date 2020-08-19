@@ -54,13 +54,24 @@ const theme = {
     heading: 1.125,
   },
   styles: {
+    html: {
+      boxSizing: 'border-box',
+      margin: '0',
+    },
     root: {
       fontFamily: 'body',
       lineHeight: 'body',
       fontWeight: 'body',
+      boxSizing: 'border-box',
+      '::before, ::after': {
+        boxSizing: 'inherit',
+        m: '0',
+        p: '0',
+      },
     },
     h1: {
       variant: 'text.heading',
+      textAlign: 'center',
       fontSize: 8,
     },
     h2: {
