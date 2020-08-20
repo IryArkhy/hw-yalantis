@@ -1,37 +1,23 @@
-/** @jsx jsx */
-import { jsx } from 'theme-ui';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import routes from '../../routes';
+import styles from './header.module.css';
 
 const Header = () => {
   return (
-    <header
-      sx={{
-        width: '100%',
-        height: '100px',
-        bg: 'primary',
-        marginTop: '-13px',
-        boxShadow: '-5px 5px 38px 2px rgba(0,0,0,0.19)',
-      }}
-    >
-      <ul sx={{ variant: 'styles.ul' }}>
-        <li>
-          <NavLink
-            exact
-            to={routes.HOME_PAGE}
-            sx={{ variant: 'styles.a', color: 'background' }}
-          >
+    <header className={styles.header}>
+      <ul className={styles.headerMenu}>
+        <li className={styles.headerHomeLink}>
+          <NavLink exact to={routes.HOME_PAGE}>
             HOME
+            <span />
+            <span />
+            <span />
+            <span />
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to={routes.CART_PAGE}
-            sx={{ variant: 'styles.a', color: 'background', fontSize: 'bold' }}
-          >
-            CART
-          </NavLink>
+        <li className={styles.headerCartLink}>
+          <NavLink to={routes.CART_PAGE}>CART</NavLink>
         </li>
       </ul>
     </header>

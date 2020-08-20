@@ -1,0 +1,40 @@
+.header {
+  width: 100%;
+  height: 100px;
+  background-color: var(--independance);
+  box-shadow: -5px 5px 38px 2px rgba(0, 0, 0, 0.19);
+}
+
+.headerMenu {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.headerMenu > li > a {
+  font-weight: bold;
+  color: var(--neutral-100);
+}
+
+.headerHomeLink {
+  position: absolute;
+  top: 34%;
+  left: 46%;
+  font-size: var(--h2);
+}
+
+.headerHomeLink::after {
+  display: block;
+  content: '';
+  width: 100%;
+  height: 7px;
+  margin-top: 5px;
+  background-color: var(--greensheen);
+}
+
+.headerCartLink {
+  position: absolute;
+  top: 40%;
+  right: 5%;
+  font-size: var(--h4);
+}
