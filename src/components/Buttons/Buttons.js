@@ -116,3 +116,11 @@ export const ChangePageButton = ({ type, onChangePage }) => {
     </button>
   );
 };
+
+export const ClearCart = ({ onClearCart }) => {
+  return (
+    <button className={styles.clearCart} type="button" onClick={onClearCart}>
+      Clear Cart
+    </button>
+  );
+};

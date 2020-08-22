@@ -7,8 +7,9 @@
   right: 25%;
 }
 
-.changePage {
-  width: 100px;
+.changePage,
+.clearCart {
+  width: 120px;
   height: 60px;
   border: none;
   font-weight: 700;

@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import { ShopContext } from '../../hoc/withContext';
 import styles from './shoplist.module.css';
 import { countTotalPrice } from '../../helpers/cartHelpers';
+import { ClearCart } from '../Buttons/Buttons';
 
 const ShoppingList = () => {
-  const { cart } = useContext(ShopContext);
+  const { cart, actions } = useContext(ShopContext);
+  const { addProductToCart, removeProductFromCart } = actions;
   return (
     <>
       {cart.length > 0 && (
@@ -24,19 +26,37 @@ const ShoppingList = () => {
                 <tr key={id} className={styles.shoplist_tr}>
                   <td>{name}</td>
                   <td>{price}$</td>
-                  <td>{count}</td>
+                  <td>
+                    {count}
+                    <div className={styles.shoplist_tr_controllers}>
+                      <button
+                        type="button"
+                        onClick={() => addProductToCart(id)}
+                      >
+                        +1
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => removeProductFromCart(id)}
+                      >
+                        -1
+                      </button>
+                    </div>
+                  </td>
                   <td>{count * price}$</td>
-                  {/* <td>
-                  <Button label="Delete" onClick={() => onRemove(id)} />
-                </td> */}
                 </tr>
               ))}
             </tbody>
           </table>
-          <p>Total {countTotalPrice(cart)}</p>
+          <div className={styles.bottomSectionWrapper}>
+            <p>Total {countTotalPrice(cart)}$</p>
+            <ClearCart onClearCart={actions.clearCart} />
+          </div>
         </>
       )}
-      {cart.length === 0 && <p>Your shopping list is empty...</p>}
+      {cart.length === 0 && (
+        <p className={styles.emptyCart}>Your shopping list is empty...</p>
+      )}
     </>
   );
 };

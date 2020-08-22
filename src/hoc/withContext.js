@@ -30,6 +30,7 @@ export const ShopProvider = ({ children }) => {
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(0);
 
+  // load initial data on the page
   useEffect(() => {
     setProducts([]);
     api.getProducts
@@ -43,6 +44,7 @@ export const ShopProvider = ({ children }) => {
     setCart(storage.get('cart') ? storage.get('cart') : []);
   }, [page]);
 
+  // save any changes in the cart to LocalStorage
   useEffect(() => storage.save('cart', cart), [cart]);
 
   const addProductToCart = useCallback(
