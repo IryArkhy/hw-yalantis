@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import routes from '../../routes';
 import styles from './header.module.css';
+import { CartButton } from '../Buttons/Buttons';
 
 const Header = () => {
   return (
@@ -17,7 +18,9 @@ const Header = () => {
           </NavLink>
         </li>
         <li className={styles.headerCartLink}>
-          <NavLink to={routes.CART_PAGE}>CART</NavLink>
+          <NavLink to={routes.CART_PAGE} className={styles.btn}>
+            <CartButton />
+          </NavLink>
         </li>
       </ul>
     </header>

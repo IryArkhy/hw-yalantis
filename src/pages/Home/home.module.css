@@ -1,0 +1,13 @@
+.home_title {
+  font-size: var(--h2);
+  color: var(--terracota);
+  font-weight: 900;
+  text-align: center;
+  margin: 0 0 30px 0;
+}
+
+.products_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}

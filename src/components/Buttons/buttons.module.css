@@ -1,0 +1,18 @@
+.btnCart {
+  height: 40px;
+  width: 40px;
+  z-index: 3;
+  position: absolute;
+  top: 23%;
+  right: 25%;
+}
+
+.changePage {
+  width: 100px;
+  height: 60px;
+  border: none;
+  font-weight: 700;
+  font-size: var(--h4);
+  background-color: var(--champane);
+  color: var(--independance);
+}

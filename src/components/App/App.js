@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { ShopProvider } from '../../hoc/withContext';
 import Header from '../Header';
 import HomePage from '../../pages/Home/HomePage';
 import CartPage from '../../pages/Cart/Cart';
@@ -9,7 +10,7 @@ import '../../assets/stylesheets/main.css';
 
 const App = () => {
   return (
-    <>
+    <ShopProvider>
       <BrowserRouter>
         <Header />
         <Switch>
@@ -19,7 +20,7 @@ const App = () => {
         </Switch>
       </BrowserRouter>
       <Footer />
-    </>
+    </ShopProvider>
   );
 };
 

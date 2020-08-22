@@ -1,0 +1,24 @@
+.shoplist {
+  border-collapse: collapse;
+  text-align: center;
+  width: 100%;
+}
+
+/* .shoplist_column {}
+
+.shoplist_row{} */
+.shoplist_tr {
+  border-bottom: 1px solid #212121;
+}
+
+.shoplist_th {
+}
+
+.shoplist_td {
+}
+
+.shoplist_tr > th,
+.shoplist_tr > td {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
