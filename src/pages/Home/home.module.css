@@ -10,4 +10,22 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.buttons_wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons_wrapper>button {
+  margin: 10px;
+}
+
+.buttons_wrapper>p {
+  font-weight: 700;
+  font-size: var(--h5);
+  margin: 10px;
 }

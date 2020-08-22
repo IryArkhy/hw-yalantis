@@ -1,12 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import ProductCard from '../../components/Card';
 import Layout from '../../components/Layout';
 import { ShopContext } from '../../hoc/withContext';
 import styles from './home.module.css';
 import { ChangePageButton } from '../../components/Buttons/Buttons';
+import api from '../../servises/api';
 
 const HomePage = () => {
-  const { products } = useContext(ShopContext);
+  const { products, page, pages, actions } = useContext(ShopContext);
+
+  // const nextPage = useCallback(() => {
+  //   api
+  //     .getNextProductsPage(page + 1)
+  //     .then(res => {
+  //       const { items, page: currentPage } = res.data;
+  //       actions.setProducts(items);
+  //       actions.setPage(currentPage);
+  //     })
+  //     .catch(error => new Error(error));
+  // }, [page, actions]);
   return (
     <Layout>
       <h2 className={styles.home_title}>Products List</h2>
@@ -21,8 +33,11 @@ const HomePage = () => {
           />
         ))}
       </div>
-      <div>
+      <div className={styles.buttons_wrapper}>
         <ChangePageButton type="Previous" />
+        <p>
+          Page: {page}/{pages}
+        </p>
         <ChangePageButton type="Next" />
       </div>
     </Layout>

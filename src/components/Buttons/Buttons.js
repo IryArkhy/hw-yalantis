@@ -109,9 +109,9 @@ export const RemoveFromCartButton = () => {
   );
 };
 
-export const ChangePageButton = ({ type, changePage }) => {
+export const ChangePageButton = ({ type, onChangePage }) => {
   return (
-    <button className={styles.changePage} type="button" onClick={changePage}>
+    <button className={styles.changePage} type="button" onClick={onChangePage}>
       {type}
     </button>
   );

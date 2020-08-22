@@ -13,10 +13,14 @@ import storage from '../helpers/storageHelpers';
 export const ShopContext = createContext({
   products: [],
   page: 0,
+  pages: 0,
   cart: [],
   actions: {
     addProductToCart: () => undefined,
     removeProductFromCart: () => undefined,
+    setPage: () => undefined,
+    clearCart: () => undefined,
+    setProducts: () => undefined,
   },
 });
 
@@ -24,17 +28,20 @@ export const ShopProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [page, setPage] = useState(1);
+  const [pages, setPages] = useState(0);
 
   useEffect(() => {
     setProducts([]);
     api.getProducts
       .then(res => {
-        setProducts(res.data.items);
-        setPage(res.data.page);
+        const { items, perPage, page: currentPage, totalItems } = res.data;
+        setProducts(items);
+        setPage(currentPage);
+        setPages(Math.floor(totalItems / perPage));
       })
       .catch(error => new Error(error));
     setCart(storage.get('cart') ? storage.get('cart') : []);
-  }, []);
+  }, [page]);
 
   useEffect(() => storage.save('cart', cart), [cart]);
 
@@ -86,9 +93,25 @@ export const ShopProvider = ({ children }) => {
       products,
       cart,
       page,
-      actions: { addProductToCart, removeProductFromCart, setPage, clearCart },
+      pages,
+      actions: {
+        addProductToCart,
+        removeProductFromCart,
+        setPage,
+        clearCart,
+        setProducts,
+      },
     }),
-    [products, cart, page, addProductToCart, removeProductFromCart, clearCart],
+    [
+      products,
+      cart,
+      page,
+      pages,
+      addProductToCart,
+      removeProductFromCart,
+      clearCart,
+      setProducts,
+    ],
   );
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
 };
