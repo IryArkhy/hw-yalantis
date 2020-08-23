@@ -3,11 +3,15 @@ import { NavLink } from 'react-router-dom';
 import routes from '../../routes';
 import styles from './header.module.css';
 import { CartButton } from '../Buttons/Buttons';
+import Logo from '../Logo/Logo';
 
 const Header = () => {
   return (
     <header className={styles.header}>
       <ul className={styles.headerMenu}>
+        <li>
+          <Logo />
+        </li>
         <li className={styles.headerHomeLink}>
           <NavLink exact to={routes.HOME_PAGE}>
             HOME

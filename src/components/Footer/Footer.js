@@ -13,7 +13,7 @@ const Footer = () => {
         <li>
           <a href={placeholder}>Privacy</a>
         </li>
-        <li>S</li>
+        <li>ShopOnLine</li>
         <li>
           <a href={placeholder}>Security</a>
         </li>
