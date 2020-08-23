@@ -4,6 +4,7 @@ import { ShopProvider } from '../../hoc/withContext';
 import Header from '../Header';
 import HomePage from '../../pages/HomePage';
 import CartPage from '../../pages/CartPage';
+import ProductInfo from '../../pages/ProductPage/ProductInfo';
 import routes from '../../routes';
 import Footer from '../Footer/Footer';
 import '../../assets/stylesheets/main.css';
@@ -16,6 +17,7 @@ const App = () => {
         <Switch>
           <Route exact path={routes.HOME_PAGE} component={HomePage} />
           <Route path={routes.CART_PAGE} component={CartPage} />
+          <Route path={routes.PRODUCT_PAGE} component={ProductInfo} />
           <Redirect to={routes.HOME_PAGE} />
         </Switch>
       </BrowserRouter>
