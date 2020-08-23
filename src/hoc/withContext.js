@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 import React, {
   useState,
   createContext,
@@ -6,6 +5,7 @@ import React, {
   useCallback,
   useEffect,
 } from 'react';
+import T from 'prop-types';
 import api from '../servises/api';
 import { findProductById } from '../helpers/cartHelpers';
 import storage from '../helpers/storageHelpers';
@@ -30,7 +30,7 @@ export const ShopProvider = ({ children }) => {
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(0);
 
-  // load initial data on the page
+  // load initial data (first products page) on the page
   useEffect(() => {
     setProducts([]);
     api.getProducts
@@ -38,14 +38,32 @@ export const ShopProvider = ({ children }) => {
         const { items, perPage, page: currentPage, totalItems } = res.data;
         setProducts(items);
         setPage(currentPage);
-        setPages(Math.floor(totalItems / perPage));
+        setPages(Math.ceil(totalItems / perPage));
       })
       .catch(error => new Error(error));
     setCart(storage.get('cart') ? storage.get('cart') : []);
-  }, [page]);
+  }, []);
 
   // save any changes in the cart to LocalStorage
   useEffect(() => storage.save('cart', cart), [cart]);
+
+  // load new set of products when the page changes
+  useEffect(() => {
+    api.getNextOrPrevProductsPage(page).then(res => {
+      const { items } = res.data;
+      setProducts(items);
+    });
+  }, [page]);
+
+  const getNextPage = useCallback(() => {
+    if (page === pages) return;
+    setPage(page + 1);
+  }, [page, pages]);
+
+  const getPreviousPage = useCallback(() => {
+    if (page === 1) return;
+    setPage(page - 1);
+  }, [page]);
 
   const addProductToCart = useCallback(
     (productId = '') => {
@@ -97,11 +115,11 @@ export const ShopProvider = ({ children }) => {
       page,
       pages,
       actions: {
+        getNextPage,
+        getPreviousPage,
         addProductToCart,
         removeProductFromCart,
-        setPage,
         clearCart,
-        setProducts,
       },
     }),
     [
@@ -111,9 +129,14 @@ export const ShopProvider = ({ children }) => {
       pages,
       addProductToCart,
       removeProductFromCart,
+      getNextPage,
+      getPreviousPage,
       clearCart,
-      setProducts,
     ],
   );
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
+};
+
+ShopProvider.propTypes = {
+  children: T.node.isRequired,
 };

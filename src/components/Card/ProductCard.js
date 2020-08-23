@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
+import T from 'prop-types';
 import { ShopContext } from '../../hoc/withContext';
-import styles from './card.module.css';
 import { AddToCartButton, RemoveFromCartButton } from '../Buttons/Buttons';
 import { findProductById } from '../../helpers/cartHelpers';
+import styles from './card.module.css';
 
 const ProductCard = ({ origin, name, price, id }) => {
   const { actions, cart } = useContext(ShopContext);
@@ -28,5 +29,12 @@ const ProductCard = ({ origin, name, price, id }) => {
       </div>
     </div>
   );
+};
+
+ProductCard.propTypes = {
+  id: T.string.isRequired,
+  name: T.string.isRequired,
+  price: T.number.isRequired,
+  origin: T.string.isRequired,
 };
 export default ProductCard;

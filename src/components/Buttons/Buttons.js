@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Button } from 'theme-ui';
+import T from 'prop-types';
 import styles from './buttons.module.css';
 
 export const CartButton = () => {
@@ -109,9 +109,14 @@ export const RemoveFromCartButton = () => {
   );
 };
 
-export const ChangePageButton = ({ type, onChangePage }) => {
+export const ChangePageButton = ({ type, onChangePage, isDisabled }) => {
   return (
-    <button className={styles.changePage} type="button" onClick={onChangePage}>
+    <button
+      className={styles.changePage}
+      disabled={isDisabled}
+      type="button"
+      onClick={onChangePage}
+    >
       {type}
     </button>
   );
@@ -123,4 +128,17 @@ export const ClearCart = ({ onClearCart }) => {
       Clear Cart
     </button>
   );
+};
+
+ChangePageButton.defaultProps = {
+  isDisabled: false,
+};
+ChangePageButton.propTypes = {
+  type: T.string.isRequired,
+  onChangePage: T.func.isRequired,
+  isDisabled: T.bool,
+};
+
+ClearCart.propTypes = {
+  onClearCart: T.func.isRequired,
 };

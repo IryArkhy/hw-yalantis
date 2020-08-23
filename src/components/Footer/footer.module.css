@@ -2,9 +2,11 @@
   width: 100%;
   height: 60px;
   background-color: var(--independance);
+  position: absolute;
+  bottom: 0;
 }
 
-.footer>ul {
+.footer > ul {
   width: 100%;
   height: 100%;
   display: flex;
@@ -12,10 +14,10 @@
   align-items: center;
 }
 
-.footer>ul>li {
+.footer > ul > li {
   color: var(--neutral-100);
 }
 
-.footer>ul>li>a {
+.footer > ul > li > a {
   color: var(--neutral-100);
 }

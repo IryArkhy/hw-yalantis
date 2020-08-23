@@ -17,3 +17,8 @@
   background-color: var(--champane);
   color: var(--independance);
 }
+
+.changePage[disabled],
+.changePage:disabled {
+  background: var(--neutral-300);
+}

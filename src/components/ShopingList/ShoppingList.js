@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { ShopContext } from '../../hoc/withContext';
-import styles from './shoplist.module.css';
-import { countTotalPrice } from '../../helpers/cartHelpers';
 import { ClearCart } from '../Buttons/Buttons';
+import { countTotalPrice } from '../../helpers/cartHelpers';
+import styles from './shoplist.module.css';
 
 const ShoppingList = () => {
   const { cart, actions } = useContext(ShopContext);

@@ -20,12 +20,16 @@
   align-items: center;
 }
 
-.buttons_wrapper>button {
+.buttons_wrapper > button {
   margin: 10px;
 }
 
-.buttons_wrapper>p {
+.buttons_wrapper > p {
   font-weight: 700;
   font-size: var(--h5);
   margin: 10px;
+}
+
+.mute:disabled {
+  background: var(--neutral-300);
 }
