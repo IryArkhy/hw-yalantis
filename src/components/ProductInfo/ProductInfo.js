@@ -1,30 +1,21 @@
 import React, { useContext } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
 import T from 'prop-types';
+import { ToastContainer } from 'react-toastify';
+import { GoBackButton, AddToCartSecond } from '../Buttons/Buttons';
 import { ShopContext } from '../../hoc/withContext';
-import styles from './product-info.module.css';
-import 'react-toastify/dist/ReactToastify.css';
 import useRouter from '../../hooks/useRouter';
+import { USER_MESSAGES } from '../../constants';
+import styles from './product-info.module.css';
+import { addToCartAndNotify } from '../../helpers/cartHelpers';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductInfo = ({ product }) => {
   const { actions } = useContext(ShopContext);
   const { addProductToCart } = actions;
   const { history } = useRouter();
   const { name, origin, price, id } = product;
-
-  const addToCartAndNotify = () => {
-    addProductToCart(id);
-    toast.success('🎉 The product is in your shopping list!!', {
-      position: 'top-left',
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
-  };
-
   const returnToPreviusPage = () => history.goBack();
+
   return (
     <section className={styles.productSection}>
       <h3>{name}</h3>
@@ -37,12 +28,16 @@ const ProductInfo = ({ product }) => {
         </p>
       </div>
       <div className={styles.productSection_buttonsWrapper}>
-        <button type="button" onClick={returnToPreviusPage}>
-          Go Back
-        </button>
-        <button type="button" onClick={addToCartAndNotify}>
-          Add to Cart
-        </button>
+        <GoBackButton onGoBack={returnToPreviusPage} />
+        <AddToCartSecond
+          onAddToCart={() =>
+            addToCartAndNotify(
+              id,
+              addProductToCart,
+              USER_MESSAGES.ADD_TO_CART_SUCCESS,
+            )
+          }
+        />
         <ToastContainer />
       </div>
     </section>

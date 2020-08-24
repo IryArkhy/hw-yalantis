@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 /**
  * @param {object[]} array - array of products to loop through
  * @param {string} id - id of a product
@@ -15,3 +16,21 @@ export const countTotalPrice = array =>
     acc += price * count;
     return acc;
   }, 0);
+
+/**
+ * @param {string} productId
+ * @param {function} addToCart
+ * @param {string} notifMessage - message for a user
+ * @returns {void}
+ */
+export const addToCartAndNotify = (productId, addToCart, notifMessage) => {
+  addToCart(productId);
+  toast.success(notifMessage, {
+    position: 'top-left',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+  });
+};

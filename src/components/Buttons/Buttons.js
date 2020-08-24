@@ -130,6 +130,26 @@ export const ClearCart = ({ onClearCart }) => {
   );
 };
 
+export const GoBackButton = ({ onGoBack }) => {
+  return (
+    <button className={styles.goBackBtn} type="button" onClick={onGoBack}>
+      Go Back
+    </button>
+  );
+};
+
+export const AddToCartSecond = ({ onAddToCart }) => {
+  return (
+    <button
+      className={styles.addToCartSecondBtn}
+      type="button"
+      onClick={onAddToCart}
+    >
+      Add to Cart
+    </button>
+  );
+};
+
 ChangePageButton.defaultProps = {
   isDisabled: false,
 };
@@ -141,4 +161,11 @@ ChangePageButton.propTypes = {
 
 ClearCart.propTypes = {
   onClearCart: T.func.isRequired,
+};
+
+GoBackButton.propTypes = {
+  onGoBack: T.func.isRequired,
+};
+AddToCartSecond.propTypes = {
+  onAddToCart: T.func.isRequired,
 };

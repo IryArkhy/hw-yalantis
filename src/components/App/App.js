@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { ShopProvider } from '../../hoc/withContext';
-import Header from '../Header';
 import HomePage from '../../pages/HomePage';
 import CartPage from '../../pages/CartPage';
-import ProductInfo from '../../pages/ProductPage/ProductInfo';
-import routes from '../../routes';
+import ProductInfo from '../../pages/ProductPage';
+import Header from '../Header';
 import Footer from '../Footer/Footer';
+import routes from '../../routes';
 import '../../assets/stylesheets/main.css';
 
 const App = () => {

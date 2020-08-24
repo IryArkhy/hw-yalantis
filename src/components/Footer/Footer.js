@@ -1,27 +1,28 @@
 import React from 'react';
+import { PLACEHOLDER_URL } from '../../constants';
 import styles from './footer.module.css';
 
-const placeholder = 'https://google.com';
 const Footer = () => {
+  const year = new Date().getFullYear();
   return (
     <footer className={styles.footer}>
       <ul>
-        <li>{new Date().getFullYear()} ShopOnLine, Inc</li>
+        <li>{year} ShopOnLine, Inc</li>
         <li>
-          <a href={placeholder}>Terms</a>
+          <a href={PLACEHOLDER_URL}>Terms</a>
         </li>
         <li>
-          <a href={placeholder}>Privacy</a>
+          <a href={PLACEHOLDER_URL}>Privacy</a>
         </li>
         <li>ShopOnLine</li>
         <li>
-          <a href={placeholder}>Security</a>
+          <a href={PLACEHOLDER_URL}>Security</a>
         </li>
         <li>
-          <a href={placeholder}>Contact ShopOnLine</a>
+          <a href={PLACEHOLDER_URL}>Contact ShopOnLine</a>
         </li>
         <li>
-          <a href={placeholder}>Help</a>
+          <a href={PLACEHOLDER_URL}>Help</a>
         </li>
       </ul>
     </footer>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Logo from '../Logo/Logo';
+import { CartButton } from '../Buttons/Buttons';
 import routes from '../../routes';
 import styles from './header.module.css';
-import { CartButton } from '../Buttons/Buttons';
-import Logo from '../Logo/Logo';
 
 const Header = () => {
   return (
