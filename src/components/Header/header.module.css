@@ -116,3 +116,12 @@
 
 .headerCartLink:hover {
 }
+
+.headerMenu > li:last-child {
+  color: var(--champane);
+  font-weight: 700;
+  font-size: var(--h3);
+  position: absolute;
+  right: 200px;
+  top: 35px;
+}

@@ -46,10 +46,10 @@ const ProductInfo = ({ product }) => {
 
 ProductInfo.propTypes = {
   product: T.shape({
-    id: T.string.isRequired,
-    name: T.string.isRequired,
-    origin: T.string.isRequired,
-    price: T.number.isRequired,
+    id: T.string,
+    name: T.string,
+    origin: T.string,
+    price: T.number,
   }).isRequired,
 };
 export default ProductInfo;
