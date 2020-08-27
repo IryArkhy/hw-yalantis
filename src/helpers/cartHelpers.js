@@ -1,4 +1,5 @@
-import { toast } from 'react-toastify';
+import { notifySuccess } from './userNotifiers';
+
 /**
  * @param {object[]} array - array of products to loop through
  * @param {string} id - id of a product
@@ -25,12 +26,5 @@ export const countTotalPrice = array =>
  */
 export const addToCartAndNotify = (productId, addToCart, notifMessage) => {
   addToCart(productId);
-  toast.success(notifMessage, {
-    position: 'top-left',
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-  });
+  notifySuccess(notifMessage);
 };

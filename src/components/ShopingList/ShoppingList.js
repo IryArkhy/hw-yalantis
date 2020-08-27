@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { ShopContext } from '../../hoc/withContext';
-import { ClearCart } from '../Buttons/Buttons';
 import { countTotalPrice } from '../../helpers/cartHelpers';
 import styles from './shoplist.module.css';
+import CustomBtn from '../Buttons/CustomButton';
 
 const ShoppingList = () => {
   const { cart, actions } = useContext(ShopContext);
@@ -18,7 +18,6 @@ const ShoppingList = () => {
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
-                <th />
               </tr>
             </thead>
             <tbody>
@@ -50,7 +49,7 @@ const ShoppingList = () => {
           </table>
           <div className={styles.bottomSectionWrapper}>
             <p>Total {countTotalPrice(cart)}$</p>
-            <ClearCart onClearCart={actions.clearCart} />
+            <CustomBtn text="Clear Cart" actionCallback={actions.clearCart} />
           </div>
         </>
       )}

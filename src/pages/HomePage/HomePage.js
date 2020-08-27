@@ -3,7 +3,7 @@ import ProductCard from '../../components/Card';
 import Layout from '../../components/Layout';
 import { ShopContext } from '../../hoc/withContext';
 import styles from './home.module.css';
-import { ChangePageButton } from '../../components/Buttons/Buttons';
+import CustomBtn from '../../components/Buttons/CustomButton';
 
 const HomePage = () => {
   const { products, page, pages, actions } = useContext(ShopContext);
@@ -23,18 +23,18 @@ const HomePage = () => {
         ))}
       </div>
       <div className={styles.buttons_wrapper}>
-        <ChangePageButton
-          type="Previous"
+        <CustomBtn
+          actionCallback={getPreviousPage}
+          text="Previous"
           isDisabled={page === 1}
-          onChangePage={getPreviousPage}
         />
         <p>
           Page: {page}/{pages}
         </p>
-        <ChangePageButton
-          type="Next"
+        <CustomBtn
+          text="Next"
           isDisabled={page === pages}
-          onChangePage={getNextPage}
+          actionCallback={getNextPage}
         />
       </div>
     </Layout>

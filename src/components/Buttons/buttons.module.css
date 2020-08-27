@@ -7,10 +7,7 @@
   right: 25%;
 }
 
-.changePage,
-.clearCart,
-.goBackBtn,
-.addToCartSecondBtn {
+.customBtn {
   width: 120px;
   height: 60px;
   border: none;
@@ -18,14 +15,10 @@
   font-size: var(--h4);
   background-color: var(--champane);
   color: var(--independance);
-}
-
-.changePage[disabled],
-.changePage:disabled {
-  background: var(--neutral-300);
-}
-
-.goBackBtn,
-.addToCartSecondBtn {
   font-size: var(--h5);
+}
+
+.customBtn[disabled],
+.customBtn:disabled {
+  background: var(--neutral-300);
 }

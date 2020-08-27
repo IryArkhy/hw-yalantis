@@ -3,7 +3,7 @@ import Layout from '../../components/Layout';
 import useRouter from '../../hooks/useRouter';
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
 import api from '../../servises/api';
-import notifyError from '../../helpers/otherHelpers';
+import { notifyError } from '../../helpers/userNotifiers';
 import { USER_MESSAGES } from '../../constants';
 
 const ProductPage = () => {

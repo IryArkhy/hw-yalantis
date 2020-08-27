@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import T from 'prop-types';
 import { ToastContainer } from 'react-toastify';
-import { GoBackButton, AddToCartSecond } from '../Buttons/Buttons';
 import { ShopContext } from '../../hoc/withContext';
 import useRouter from '../../hooks/useRouter';
 import { USER_MESSAGES } from '../../constants';
 import styles from './product-info.module.css';
 import { addToCartAndNotify } from '../../helpers/cartHelpers';
+import CustomBtn from '../Buttons/CustomButton';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ProductInfo = ({ product }) => {
@@ -15,7 +15,8 @@ const ProductInfo = ({ product }) => {
   const { history } = useRouter();
   const { name, origin, price, id } = product;
   const returnToPreviusPage = () => history.goBack();
-
+  const addToCart = () =>
+    addToCartAndNotify(id, addProductToCart, USER_MESSAGES.ADD_TO_CART_SUCCESS);
   return (
     <section className={styles.productSection}>
       <h3>{name}</h3>
@@ -28,16 +29,8 @@ const ProductInfo = ({ product }) => {
         </p>
       </div>
       <div className={styles.productSection_buttonsWrapper}>
-        <GoBackButton onGoBack={returnToPreviusPage} />
-        <AddToCartSecond
-          onAddToCart={() =>
-            addToCartAndNotify(
-              id,
-              addProductToCart,
-              USER_MESSAGES.ADD_TO_CART_SUCCESS,
-            )
-          }
-        />
+        <CustomBtn actionCallback={returnToPreviusPage} text="Go Back" />
+        <CustomBtn actionCallback={addToCart} text="Add To Cart" />
         <ToastContainer />
       </div>
     </section>

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import T from 'prop-types';
-import { AddToCartButton, RemoveFromCartButton } from '../Buttons/Buttons';
+import { AddToCartButton, RemoveFromCartButton } from '../Buttons';
 import { ShopContext } from '../../hoc/withContext';
 import useRouter from '../../hooks/useRouter';
 import { findProductById } from '../../helpers/cartHelpers';

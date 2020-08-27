@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import Logo from '../Logo/Logo';
-import { CartButton } from '../Buttons/Buttons';
+import { CartButton } from '../Buttons';
 import routes from '../../routes';
 import styles from './header.module.css';
 import { ShopContext } from '../../hoc/withContext';
