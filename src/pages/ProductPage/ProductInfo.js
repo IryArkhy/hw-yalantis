@@ -13,7 +13,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     api
-      .getProductsByID(id)
+      .getProducts('get', `/${id}`)
       .then(({ data }) => {
         setProduct(data);
       })

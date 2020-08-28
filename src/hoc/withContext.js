@@ -32,7 +32,8 @@ export const ShopProvider = ({ children }) => {
 
   // load initial data (first products page) on the page
   useEffect(() => {
-    api.getProducts
+    api
+      .getProducts('get', '', { perPage: 18 })
       .then(res => {
         const { items, perPage, page: currentPage, totalItems } = res.data;
         setProducts(items);
@@ -48,7 +49,7 @@ export const ShopProvider = ({ children }) => {
 
   // load new set of products when the page changes
   useEffect(() => {
-    api.getNextOrPrevProductsPage(page).then(res => {
+    api.getProducts('get', '', { page, perPage: 18 }).then(res => {
       const { items } = res.data;
       setProducts(items);
     });
