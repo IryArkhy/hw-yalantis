@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import T from 'prop-types';
 import { ToastContainer } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 import { ShopContext } from '../../hoc/withContext';
-import useRouter from '../../hooks/useRouter';
 import { USER_MESSAGES } from '../../constants';
 import styles from './product-info.module.css';
 import { addToCartAndNotify } from '../../helpers/cartHelpers';
@@ -12,11 +12,13 @@ import 'react-toastify/dist/ReactToastify.css';
 const ProductInfo = ({ product }) => {
   const { actions } = useContext(ShopContext);
   const { addProductToCart } = actions;
-  const { history } = useRouter();
+  const history = useHistory();
   const { name, origin, price, id } = product;
+
   const returnToPreviusPage = () => history.goBack();
   const addToCart = () =>
     addToCartAndNotify(id, addProductToCart, USER_MESSAGES.ADD_TO_CART_SUCCESS);
+
   return (
     <section className={styles.productSection}>
       <h3>{name}</h3>

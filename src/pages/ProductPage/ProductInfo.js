@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Layout from '../../components/Layout';
-import useRouter from '../../hooks/useRouter';
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
 import api from '../../servises/api';
 import { notifyError } from '../../helpers/userNotifiers';
@@ -8,8 +8,9 @@ import { USER_MESSAGES } from '../../constants';
 
 const ProductPage = () => {
   const [product, setProduct] = useState({});
-  const router = useRouter();
-  const id = router.query.productId;
+  const params = useParams();
+  const id = params.productId;
+
   useEffect(() => {
     api
       .getProductsByID(id)

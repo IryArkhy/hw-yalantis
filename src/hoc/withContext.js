@@ -32,7 +32,6 @@ export const ShopProvider = ({ children }) => {
 
   // load initial data (first products page) on the page
   useEffect(() => {
-    setProducts([]);
     api.getProducts
       .then(res => {
         const { items, perPage, page: currentPage, totalItems } = res.data;
@@ -73,13 +72,13 @@ export const ShopProvider = ({ children }) => {
         setCart([...cart, { ...productToAdd, count: 1 }]);
         return;
       }
-      setCart([
-        ...cart.map(product =>
+      setCart(
+        cart.map(product =>
           product.id === productId
             ? { ...product, count: product.count + 1 }
             : product,
         ),
-      ]);
+      );
     },
     [cart, products],
   );
@@ -92,13 +91,13 @@ export const ShopProvider = ({ children }) => {
         setCart(cart.filter(product => product.id !== productId));
         return;
       }
-      setCart([
-        ...cart.map(product =>
+      setCart(
+        cart.map(product =>
           product.id === productId
             ? { ...product, count: product.count - 1 }
             : product,
         ),
-      ]);
+      );
     },
     [cart, setCart],
   );
