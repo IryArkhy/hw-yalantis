@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import T from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { AddToCartButton, RemoveFromCartButton } from '../Buttons';
 import { ShopContext } from '../../hoc/withContext';
-import useRouter from '../../hooks/useRouter';
 import { findProductById } from '../../helpers/cartHelpers';
 import styles from './card.module.css';
 
@@ -10,7 +10,7 @@ const ProductCard = ({ origin, name, price, id }) => {
   const { actions, cart } = useContext(ShopContext);
   const { addProductToCart, removeProductFromCart } = actions;
   const isInCart = findProductById(cart, id);
-  const router = useRouter();
+  const history = useHistory();
   const getToProductPage = ({ target }) => {
     if (
       target.type === 'button' ||
@@ -18,7 +18,7 @@ const ProductCard = ({ origin, name, price, id }) => {
       target.nodeName === 'svg'
     )
       return;
-    router.history.push(`/products/${id}`);
+    history.push(`/products/${id}`);
   };
   return (
     <div
