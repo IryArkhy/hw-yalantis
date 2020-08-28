@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Logo from '../Logo/Logo';
 import { CartButton } from '../Buttons';
 import routes from '../../routes';
 import styles from './header.module.css';
-import { ShopContext } from '../../hoc/withContext';
 import { countTotalPrice } from '../../helpers/cartHelpers';
 
 const Header = () => {
-  const { cart } = useContext(ShopContext);
+  const cart = useSelector(state => state.cart.cart);
   const totalPrice = countTotalPrice(cart);
   return (
     <header className={styles.header}>

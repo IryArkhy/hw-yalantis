@@ -1,13 +1,18 @@
-import React, { useContext } from 'react';
-import { ShopContext } from '../../hoc/withContext';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { countTotalPrice } from '../../helpers/cartHelpers';
 import styles from './shoplist.module.css';
 import CustomBtn from '../Buttons/CustomButton';
 import TableRow from '../TableRow';
+import {
+  addProductToCart,
+  removeProductFromCart,
+  clearCart,
+} from '../../redux/cart/cartOperations';
 
 const ShoppingList = () => {
-  const { cart, actions } = useContext(ShopContext);
-  const { addProductToCart, removeProductFromCart } = actions;
+  const cart = useSelector(state => state.cart.cart);
+  const dispatch = useDispatch();
   return (
     <>
       {cart.length > 0 && (
@@ -38,7 +43,10 @@ const ShoppingList = () => {
           </table>
           <div className={styles.bottomSectionWrapper}>
             <p>Total {countTotalPrice(cart)}$</p>
-            <CustomBtn text="Clear Cart" actionCallback={actions.clearCart} />
+            <CustomBtn
+              text="Clear Cart"
+              actionCallback={() => dispatch(clearCart())}
+            />
           </div>
         </>
       )}

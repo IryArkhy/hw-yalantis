@@ -45,7 +45,7 @@ export const ShopProvider = ({ children }) => {
   }, []);
 
   // save any changes in the cart to LocalStorage
-  useEffect(() => storage.save('cart', cart), [cart]);
+  // useEffect(() => storage.save('cart', cart), [cart]);
 
   // load new set of products when the page changes
   useEffect(() => {

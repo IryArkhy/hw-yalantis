@@ -1,26 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../../components/Layout';
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
-import api from '../../servises/api';
-import { notifyError } from '../../helpers/userNotifiers';
-import { USER_MESSAGES } from '../../constants';
+import { getProduct } from '../../redux/products/productsOperations';
 
 const ProductPage = () => {
-  const [product, setProduct] = useState({});
+  const product = useSelector(state => state.products.currentProduct);
   const params = useParams();
   const id = params.productId;
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    api
-      .getProducts('get', `/${id}`)
-      .then(({ data }) => {
-        setProduct(data);
-      })
-      .catch(err =>
-        notifyError(USER_MESSAGES.FIND_PRODUCT_BY_ID_REQUEST_ERROR),
-      );
-  }, [id]);
+    dispatch(getProduct(id));
+  }, [dispatch, id]);
   return (
     <Layout>
       <ProductInfo product={{ ...product }} />

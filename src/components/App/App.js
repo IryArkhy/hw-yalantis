@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { ShopProvider } from '../../hoc/withContext';
+import { useDispatch } from 'react-redux';
 import HomePage from '../../pages/HomePage';
 import CartPage from '../../pages/CartPage';
 import ProductInfo from '../../pages/ProductPage';
 import Header from '../Header';
 import Footer from '../Footer/Footer';
 import routes from '../../routes';
+import { getAllProducts } from '../../redux/products/productsOperations';
 import '../../assets/stylesheets/main.css';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllProducts({ perPage: 18 }));
+  });
   return (
-    <ShopProvider>
+    <>
       <BrowserRouter>
         <Header />
         <Switch>
@@ -22,7 +28,7 @@ const App = () => {
         </Switch>
       </BrowserRouter>
       <Footer />
-    </ShopProvider>
+    </>
   );
 };
 
