@@ -6,6 +6,7 @@ import Layout from '../../components/Layout';
 import styles from './home.module.css';
 import CustomBtn from '../../components/Buttons/CustomButton';
 import { getAllProducts } from '../../redux/products/productsOperations';
+import ControlPanel from '../../components/ControlPanel/ControlPanel';
 
 const HomePage = () => {
   const products = useSelector(state => state.products.products);
@@ -23,6 +24,7 @@ const HomePage = () => {
   };
   return (
     <Layout>
+      <ControlPanel />
       <h2 className={styles.home_title}>Products List</h2>
       <div className={styles.products_wrapper}>
         {products.map(({ id, name, origin, price }) => (
