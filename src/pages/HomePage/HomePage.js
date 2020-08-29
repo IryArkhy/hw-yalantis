@@ -53,7 +53,6 @@ const HomePage = () => {
       ),
     );
 
-  // does not work correctly
   const clearFilters = () => {
     setPerPage(PROD_PER_PAGE);
     setPrices(DEFAULT_PRICE_RANGE);
