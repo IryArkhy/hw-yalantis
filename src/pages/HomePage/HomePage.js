@@ -14,7 +14,7 @@ const HomePage = () => {
   // state
   const [perPage, setPerPage] = useState(PROD_PER_PAGE);
   const [prices, setPrices] = useState(DEFAULT_PRICE_RANGE);
-  const [region, setOrigin] = useState('');
+  const [region, setOrigin] = useState([]);
 
   // selectors
   const products = useSelector(state => state.products.products);
@@ -56,13 +56,13 @@ const HomePage = () => {
   const clearFilters = () => {
     setPerPage(PROD_PER_PAGE);
     setPrices(DEFAULT_PRICE_RANGE);
-    setOrigin('');
+    setOrigin([]);
     dispatch(
       getAllProducts(
         createProductParams(
           1,
           PROD_PER_PAGE,
-          '',
+          [],
           DEFAULT_PRICE_RANGE[0],
           DEFAULT_PRICE_RANGE[1],
         ),

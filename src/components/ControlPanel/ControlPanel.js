@@ -37,7 +37,7 @@ ControlPanel.propTypes = {
     handleChangePerPage: T.func.isRequired,
     prices: T.arrayOf(T.number).isRequired,
     handleChangePrice: T.func.isRequired,
-    origin: T.string.isRequired,
+    origin: T.arrayOf(T.string).isRequired,
     handleChangeOrigin: T.func.isRequired,
     loadUserChosenProducts: T.func.isRequired,
     clearFilters: T.func.isRequired,

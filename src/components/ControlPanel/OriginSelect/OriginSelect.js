@@ -1,34 +1,42 @@
 import React from 'react';
 import T from 'prop-types';
 import { useSelector } from 'react-redux';
+import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import useStyles from './select-styles';
+import Chip from '@material-ui/core/Chip';
+import { useStyles, MenuProps } from './select-styles';
 
 const OriginSelect = ({ origin, onHandleChangeOrigin }) => {
-  const origins = useSelector(({ products }) => products.productOrigins);
   const classes = useStyles();
+  const origins = useSelector(({ products }) => products.productOrigins);
 
   return (
     <div>
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">Origin</InputLabel>
+      <FormControl className={classes.formControl}>
+        <InputLabel id="demo-mutiple-chip-label">Origin</InputLabel>
         <Select
-          native
+          labelId="demo-mutiple-chip-label"
+          id="demo-mutiple-chip"
+          multiple
           value={origin}
           onChange={onHandleChangeOrigin}
-          label="Origin"
-          inputProps={{
-            origin: 'origin',
-            id: 'outlined-age-native-simple',
-          }}
+          input={<Input id="select-multiple-chip" />}
+          renderValue={selected => (
+            <div className={classes.chips}>
+              {selected.map(value => (
+                <Chip key={value} label={value} className={classes.chip} />
+              ))}
+            </div>
+          )}
+          MenuProps={MenuProps}
         >
-          <option aria-label="None" value="" />
           {origins.map(({ value, displayName }) => (
-            <option key={value} value={value}>
+            <MenuItem key={value} value={value}>
               {displayName}
-            </option>
+            </MenuItem>
           ))}
         </Select>
       </FormControl>
@@ -37,7 +45,7 @@ const OriginSelect = ({ origin, onHandleChangeOrigin }) => {
 };
 
 OriginSelect.propTypes = {
-  origin: T.string.isRequired,
+  origin: T.arrayOf(T.string).isRequired,
   onHandleChangeOrigin: T.func.isRequired,
 };
 export default OriginSelect;
