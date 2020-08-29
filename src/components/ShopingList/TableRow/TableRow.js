@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import T from 'prop-types';
+import RemoveFromCartButton from '../../Buttons/RemoveFromCartButton';
 import styles from './table-row.module.css';
 
 const TableRow = ({
@@ -10,6 +11,7 @@ const TableRow = ({
   count,
   onAddProductToCart,
   onRemoveProductFromCart,
+  onRemoveAllInstances,
 }) => {
   const dispatch = useDispatch();
   return (
@@ -34,6 +36,11 @@ const TableRow = ({
         </div>
       </td>
       <td>{count * price}$</td>
+      <td>
+        <button type="button" onClick={onRemoveAllInstances}>
+          <RemoveFromCartButton />
+        </button>
+      </td>
     </tr>
   );
 };
@@ -44,5 +51,6 @@ TableRow.propTypes = {
   count: T.number.isRequired,
   onAddProductToCart: T.func.isRequired,
   onRemoveProductFromCart: T.func.isRequired,
+  onRemoveAllInstances: T.func.isRequired,
 };
 export default TableRow;

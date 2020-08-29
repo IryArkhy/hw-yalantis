@@ -40,6 +40,23 @@ const removeFromCartFailure = error => ({
 });
 
 //--
+const removeAllInstancesStart = () => ({
+  type: cartTypes.REMOVE_ALL_INSTANCES_START,
+});
+
+const removeAllInstancesSuccess = id => ({
+  type: cartTypes.REMOVE_ALL_INSTANCES_SUCCESS,
+  payload: {
+    id,
+  },
+});
+const removeAllInstancesFailure = error => ({
+  type: cartTypes.REMOVE_ALL_INSTANCES_FAILURE,
+  payload: {
+    error,
+  },
+});
+//--
 const clearCartStart = () => ({
   type: cartTypes.CLEAR_CART_START,
 });
@@ -63,6 +80,10 @@ export default {
   removeFromCartStart,
   removeFromCartSuccess,
   removeFromCartFailure,
+
+  removeAllInstancesStart,
+  removeAllInstancesSuccess,
+  removeAllInstancesFailure,
 
   clearCartStart,
   clearCartSuccess,

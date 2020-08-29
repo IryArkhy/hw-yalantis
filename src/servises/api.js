@@ -6,7 +6,7 @@ const getProducts = (method, url, params, data) =>
   axios({
     method,
     url,
-    baseURL: `${axios.defaults.baseURL}products`,
+    baseURL: `${axios.defaults.baseURL}`,
     params,
     responseType: 'json',
     data,

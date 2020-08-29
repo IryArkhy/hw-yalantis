@@ -1,10 +1,9 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 import Loader from 'react-loader-spinner';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import { LOADER_ROOT } from '../../constants';
 import styles from './loader.module.css';
-
-const LOADER_ROOT = document.querySelector('#loader-root');
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 const Spinner = () =>
   createPortal(

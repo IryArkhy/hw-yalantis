@@ -23,6 +23,9 @@ const cartReducer = (state = [], { type, payload }) => {
       );
     }
 
+    case cartTypes.REMOVE_ALL_INSTANCES_SUCCESS:
+      return state.filter(product => product.id !== payload.id);
+
     case cartTypes.CLEAR_CART_SUCCESS:
       return [];
     default:

@@ -7,7 +7,10 @@ import ProductInfo from '../../pages/ProductPage';
 import Header from '../Header';
 import Footer from '../Footer/Footer';
 import routes from '../../routes';
-import { getAllProducts } from '../../redux/products/productsOperations';
+import {
+  getAllProducts,
+  getProductsOrigins,
+} from '../../redux/products/productsOperations';
 import '../../assets/stylesheets/main.css';
 
 const App = () => {
@@ -15,6 +18,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getAllProducts({ perPage: 18 }));
+    dispatch(getProductsOrigins());
   });
   return (
     <>

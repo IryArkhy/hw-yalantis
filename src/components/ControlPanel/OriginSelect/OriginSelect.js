@@ -1,27 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import T from 'prop-types';
+import { useSelector } from 'react-redux';
 import InputLabel from '@material-ui/core/InputLabel';
-// import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import useStyles from './select-styles';
 
-const useStyles = makeStyles(theme => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
-const OriginSelect = () => {
+const OriginSelect = ({ origin, onHandleChangeOrigin }) => {
+  const origins = useSelector(({ products }) => products.productOrigins);
   const classes = useStyles();
-  const [origin, setOrigin] = React.useState('');
-
-  const handleChange = event => {
-    setOrigin(event.target.value);
-  };
 
   return (
     <div>
@@ -30,7 +17,7 @@ const OriginSelect = () => {
         <Select
           native
           value={origin}
-          onChange={handleChange}
+          onChange={onHandleChangeOrigin}
           label="Origin"
           inputProps={{
             origin: 'origin',
@@ -38,13 +25,19 @@ const OriginSelect = () => {
           }}
         >
           <option aria-label="None" value="" />
-          <option value="usa">Usa</option>
-          <option value="europa">Europa</option>
-          <option value="asia">Asia</option>
+          {origins.map(({ value, displayName }) => (
+            <option key={value} value={value}>
+              {displayName}
+            </option>
+          ))}
         </Select>
       </FormControl>
     </div>
   );
 };
 
+OriginSelect.propTypes = {
+  origin: T.string.isRequired,
+  onHandleChangeOrigin: T.func.isRequired,
+};
 export default OriginSelect;

@@ -30,3 +30,18 @@
   align-items: center;
   justify-content: space-evenly;
 }
+
+.shoplist_tr > td:last-child > button {
+  border: none;
+  background-color: transparent;
+}
+
+.shoplist_tr > td:last-child > button > svg {
+  width: 30px;
+  height: 30px;
+  margin: auto;
+  border: none;
+  display: block;
+  border-radius: 9px;
+  fill: var(--terracota);
+}

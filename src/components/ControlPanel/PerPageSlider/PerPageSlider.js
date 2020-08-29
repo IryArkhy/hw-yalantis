@@ -1,27 +1,21 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import T from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
+import useStyles from './slider-styles';
 
-const useStyles = makeStyles({
-  root: {
-    width: 300,
-  },
-});
-
-const DiscreteSlider = () => {
-  const [value, setValue] = useState(18);
+const PerPageSlider = ({ perPage, setPerPage }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Typography id="discrete-slider" gutterBottom>
+      <Typography id="products-per-page-slider" gutterBottom>
         Products Per Page
       </Typography>
       <Slider
         defaultValue={18}
-        getAriaValueText={setValue}
-        aria-labelledby="discrete-slider"
+        getAriaValueText={setPerPage}
+        aria-labelledby="products-per-page-slider"
         valueLabelDisplay="auto"
         step={18}
         marks
@@ -31,4 +25,9 @@ const DiscreteSlider = () => {
     </div>
   );
 };
-export default DiscreteSlider;
+
+PerPageSlider.propTypes = {
+  perPage: T.number.isRequired,
+  setPerPage: T.func.isRequired,
+};
+export default PerPageSlider;

@@ -3,10 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { countTotalPrice } from '../../helpers/cartHelpers';
 import styles from './shoplist.module.css';
 import CustomBtn from '../Buttons/CustomButton';
-import TableRow from '../TableRow';
+import TableRow from './TableRow';
 import {
   addProductToCart,
   removeProductFromCart,
+  removeAllInstancesOfProduct,
   clearCart,
 } from '../../redux/cart/cartOperations';
 
@@ -24,6 +25,7 @@ const ShoppingList = () => {
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
+                <th />
               </tr>
             </thead>
             <tbody>
@@ -37,6 +39,9 @@ const ShoppingList = () => {
                   count={count}
                   onAddProductToCart={addProductToCart}
                   onRemoveProductFromCart={removeProductFromCart}
+                  onRemoveAllInstances={() =>
+                    dispatch(removeAllInstancesOfProduct(id))
+                  }
                 />
               ))}
             </tbody>

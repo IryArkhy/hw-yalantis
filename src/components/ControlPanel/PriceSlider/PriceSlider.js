@@ -1,23 +1,12 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import T from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
+import useStyles from './slider-styles';
+import valuetext from '../../../helpers/accessibilityHelpers';
 
-const useStyles = makeStyles({
-  root: {
-    width: 300,
-  },
-});
-function valuetext(value) {
-  return `${value}$`;
-}
-const PriceSlider = () => {
+const PriceSlider = ({ prices, onHandleChangePrice }) => {
   const classes = useStyles();
-  const [value, setValue] = useState([80, 1000]);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   return (
     <div className={classes.root}>
@@ -25,8 +14,8 @@ const PriceSlider = () => {
         Price range
       </Typography>
       <Slider
-        value={value}
-        onChange={handleChange}
+        value={prices}
+        onChange={onHandleChangePrice}
         valueLabelDisplay="auto"
         getAriaLabel={index =>
           index === 0 ? 'Minimum price' : 'Maximum price'
@@ -38,5 +27,10 @@ const PriceSlider = () => {
       />
     </div>
   );
+};
+
+PriceSlider.propTypes = {
+  prices: T.arrayOf(T.number).isRequired,
+  onHandleChangePrice: T.func.isRequired,
 };
 export default PriceSlider;
