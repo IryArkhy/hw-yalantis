@@ -3,8 +3,9 @@ import T from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import useStyles from './slider-styles';
+import { PROD_PER_PAGE } from '../../../constants';
 
-const PerPageSlider = ({ perPage, setPerPage }) => {
+const PerPageSlider = ({ perPage, onSetPerPage }) => {
   const classes = useStyles();
 
   return (
@@ -13,8 +14,9 @@ const PerPageSlider = ({ perPage, setPerPage }) => {
         Products Per Page
       </Typography>
       <Slider
-        defaultValue={18}
-        getAriaValueText={setPerPage}
+        defaultValue={PROD_PER_PAGE}
+        value={perPage}
+        onChange={onSetPerPage}
         aria-labelledby="products-per-page-slider"
         valueLabelDisplay="auto"
         step={18}
@@ -28,6 +30,6 @@ const PerPageSlider = ({ perPage, setPerPage }) => {
 
 PerPageSlider.propTypes = {
   perPage: T.number.isRequired,
-  setPerPage: T.func.isRequired,
+  onSetPerPage: T.func.isRequired,
 };
 export default PerPageSlider;

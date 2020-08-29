@@ -43,6 +43,7 @@ const HomePage = () => {
   };
 
   const handleChangePrice = (event, newValue) => setPrices(newValue);
+  const handleChangePerPage = (event, newValue) => setPerPage(newValue);
   const handleChangeOrigin = ({ target }) => setOrigin(target.value);
 
   const loadUserChosenProducts = () =>
@@ -52,6 +53,24 @@ const HomePage = () => {
       ),
     );
 
+  // does not work correctly
+  const clearFilters = () => {
+    setPerPage(PROD_PER_PAGE);
+    setPrices(DEFAULT_PRICE_RANGE);
+    setOrigin('');
+    dispatch(
+      getAllProducts(
+        createProductParams(
+          1,
+          PROD_PER_PAGE,
+          '',
+          DEFAULT_PRICE_RANGE[0],
+          DEFAULT_PRICE_RANGE[1],
+        ),
+      ),
+    );
+  };
+
   const optionsForControlPanel = {
     perPage,
     setPerPage,
@@ -60,6 +79,8 @@ const HomePage = () => {
     origin: region,
     handleChangeOrigin,
     loadUserChosenProducts,
+    clearFilters,
+    handleChangePerPage,
   };
   return (
     <Layout>

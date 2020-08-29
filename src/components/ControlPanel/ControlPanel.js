@@ -4,24 +4,29 @@ import PerPageSlider from './PerPageSlider';
 import PriceSlider from './PriceSlider';
 import OriginSelect from './OriginSelect/OriginSelect';
 import styles from './controlPanel.module.css';
-import { LoadProducts } from '../Buttons';
+import { LoadProducts, ClearFilters } from '../Buttons';
 
 const ControlPanel = ({ options }) => {
   const {
     perPage,
-    setPerPage,
+    handleChangePerPage,
     prices,
     handleChangePrice,
     origin,
     handleChangeOrigin,
     loadUserChosenProducts,
+    clearFilters,
   } = options;
+
   return (
     <div className={styles.panelWrapper}>
-      <PerPageSlider perPage={perPage} setPerPage={setPerPage} />
+      <PerPageSlider perPage={perPage} onSetPerPage={handleChangePerPage} />
       <PriceSlider prices={prices} onHandleChangePrice={handleChangePrice} />
       <OriginSelect origin={origin} onHandleChangeOrigin={handleChangeOrigin} />
-      <LoadProducts actionCallback={loadUserChosenProducts} />
+      <div>
+        <LoadProducts actionCallback={loadUserChosenProducts} />
+        <ClearFilters actionCallback={clearFilters} />
+      </div>
     </div>
   );
 };
@@ -29,12 +34,13 @@ const ControlPanel = ({ options }) => {
 ControlPanel.propTypes = {
   options: T.shape({
     perPage: T.number.isRequired,
-    setPerPage: T.func.isRequired,
+    handleChangePerPage: T.func.isRequired,
     prices: T.arrayOf(T.number).isRequired,
     handleChangePrice: T.func.isRequired,
     origin: T.string.isRequired,
     handleChangeOrigin: T.func.isRequired,
     loadUserChosenProducts: T.func.isRequired,
+    clearFilters: T.func.isRequired,
   }).isRequired,
 };
 export default ControlPanel;
