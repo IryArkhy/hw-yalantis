@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import ProductCard from '../../components/Card';
 import Spinner from '../../components/Loader';
 import Layout from '../../components/Layout';
-import styles from './home.module.css';
 import CustomBtn from '../../components/Buttons/CustomButton';
-import { getAllProducts } from '../../redux/products/productsOperations';
 import ControlPanel from '../../components/ControlPanel/ControlPanel';
+import { getAllProducts } from '../../redux/products/productsOperations';
 import createProductParams from '../../helpers/requestHelpers';
 import { DEFAULT_PRICE_RANGE, PROD_PER_PAGE } from '../../constants';
+import styles from './home.module.css';
 
 const HomePage = () => {
   // state
@@ -57,17 +57,7 @@ const HomePage = () => {
     setPerPage(PROD_PER_PAGE);
     setPrices(DEFAULT_PRICE_RANGE);
     setOrigin([]);
-    dispatch(
-      getAllProducts(
-        createProductParams(
-          1,
-          PROD_PER_PAGE,
-          [],
-          DEFAULT_PRICE_RANGE[0],
-          DEFAULT_PRICE_RANGE[1],
-        ),
-      ),
-    );
+    dispatch(getAllProducts(createProductParams()));
   };
 
   const optionsForControlPanel = {

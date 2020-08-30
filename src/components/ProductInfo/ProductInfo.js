@@ -1,23 +1,20 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import T from 'prop-types';
 import { ToastContainer } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
-import { ShopContext } from '../../hoc/withContext';
-import { USER_MESSAGES } from '../../constants';
+import { useDispatch } from 'react-redux';
 import styles from './product-info.module.css';
-import { addToCartAndNotify } from '../../helpers/cartHelpers';
 import CustomBtn from '../Buttons/CustomButton';
+import { addProductToCart } from '../../redux/cart/cartOperations';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ProductInfo = ({ product }) => {
-  const { actions } = useContext(ShopContext);
-  const { addProductToCart } = actions;
   const history = useHistory();
+  const dispatch = useDispatch();
   const { name, origin, price, id } = product;
 
   const returnToPreviusPage = () => history.goBack();
-  const addToCart = () =>
-    addToCartAndNotify(id, addProductToCart, USER_MESSAGES.ADD_TO_CART_SUCCESS);
+  const addToCart = () => dispatch(addProductToCart(id));
 
   return (
     <section className={styles.productSection}>

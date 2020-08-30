@@ -1,6 +1,6 @@
 import cartActions from './cartActions';
 import { findProductById } from '../../helpers/cartHelpers';
-import { notifyError } from '../../helpers/userNotifiers';
+import { notifyError, notifySuccess } from '../../helpers/userNotifiers';
 import { USER_MESSAGES } from '../../constants';
 
 export const addProductToCart = productId => (dispatch, getState) => {
@@ -18,6 +18,7 @@ export const addProductToCart = productId => (dispatch, getState) => {
   dispatch(cartActions.addToCartStart());
   if (!alreadyInCart) {
     dispatch(cartActions.addToCartSuccess({ ...productToAdd, count: 1 }));
+    notifySuccess(USER_MESSAGES.ADD_TO_CART_SUCCESS);
     return;
   }
   dispatch(
@@ -26,6 +27,7 @@ export const addProductToCart = productId => (dispatch, getState) => {
       count: alreadyInCart.count + 1,
     }),
   );
+  notifySuccess(USER_MESSAGES.ADD_TO_CART_SUCCESS);
 };
 
 export const removeProductFromCart = productId => (dispatch, getState) => {

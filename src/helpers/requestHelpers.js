@@ -1,9 +1,8 @@
-// https://yalantis-react-school-api.yalantis.com/api/v1/products?perPage=20&origins=usa,asia&minPrice=300&maxPrice=900
 const createProductParams = (
   page = 1,
   perPage = 18,
   origins = [],
-  minPrice = 0,
+  minPrice = 80,
   maxPrice = 1000,
 ) => ({
   page,
