@@ -30,30 +30,25 @@ export const ShopProvider = ({ children }) => {
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(0);
 
-  // load initial data (first products page) on the page
-  useEffect(() => {
+  const callPage = useCallback(neededPage => {
     api
-      .getProducts('get', '', { perPage: 18 })
+      .getProducts('get', '', { page: neededPage, perPage: 18 })
       .then(res => {
-        const { items, perPage, page: currentPage, totalItems } = res.data;
+        const { items, perPage, totalItems } = res.data;
         setProducts(items);
-        setPage(currentPage);
         setPages(Math.ceil(totalItems / perPage));
       })
       .catch(error => new Error(error));
-    setCart(storage.get('cart') ? storage.get('cart') : []);
   }, []);
+
+  // load new data into products as soon as page changes
+  useEffect(() => {
+    callPage(page);
+    setCart(storage.get('cart') ? storage.get('cart') : []);
+  }, [callPage, page]);
 
   // save any changes in the cart to LocalStorage
   useEffect(() => storage.save('cart', cart), [cart]);
-
-  // load new set of products when the page changes
-  useEffect(() => {
-    api.getProducts('get', '', { page, perPage: 18 }).then(res => {
-      const { items } = res.data;
-      setProducts(items);
-    });
-  }, [page]);
 
   const getNextPage = useCallback(() => {
     if (page === pages) return;
