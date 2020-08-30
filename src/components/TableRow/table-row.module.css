@@ -1,0 +1,32 @@
+.shoplist_tr {
+  border-bottom: 1px solid #212121;
+}
+
+.shoplist_tr_controllers > button {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+}
+
+.shoplist_tr_controllers > button:first-child {
+  border: 1px solid var(--greensheen);
+  color: var(--greensheen);
+  margin-right: 10px;
+}
+
+.shoplist_tr_controllers > button:last-child {
+  border: 1px solid var(--terracota);
+  color: var(--terracota);
+}
+
+.shoplist_tr > td {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.shoplist_tr > td:nth-child(3) {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}

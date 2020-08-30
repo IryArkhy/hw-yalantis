@@ -1,7 +1,17 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://yalantis-react-school-api.yalantis.com/api';
+axios.defaults.baseURL = process.env.REACT_APP_BASE_API_URL;
 
-const fetch = axios.get('');
+const getProducts = (method, url, params, data) =>
+  axios({
+    method,
+    url,
+    baseURL: `${axios.defaults.baseURL}products`,
+    params,
+    responseType: 'json',
+    data,
+  });
 
-export default fetch;
+export default {
+  getProducts,
+};

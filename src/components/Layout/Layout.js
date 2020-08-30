@@ -1,20 +1,9 @@
-/** @jsx jsx */
-import { jsx } from 'theme-ui';
 import React from 'react';
 import T from 'prop-types';
+import styles from './layout.module.css';
 
 const Layout = ({ children }) => {
-  return (
-    <div
-      sx={{
-        padding: '50px 80px',
-        height: '100vh',
-        color: 'textInverted',
-      }}
-    >
-      {children}
-    </div>
-  );
+  return <div className={styles.layout}>{children}</div>;
 };
 
 Layout.propTypes = {

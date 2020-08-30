@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+.footer {
+  width: 100%;
+  height: 60px;
+  background-color: var(--independance);
+  position: absolute;
+  bottom: 0;
+}
+
+.footer > ul {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.footer > ul > li {
+  color: var(--neutral-100);
+}
+
+.footer > ul > li > a {
+  color: var(--neutral-100);
+}
+.footer > ul > li:nth-child(4) {
+  font-family: 'Indie Flower', cursive;
+  font-size: 20px;
+}
