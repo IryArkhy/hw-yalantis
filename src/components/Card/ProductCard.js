@@ -1,20 +1,18 @@
 import React from 'react';
 import T from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { AddToCartButton, RemoveFromCartButton } from '../Buttons';
-import { findProductById } from '../../helpers/cartHelpers';
+import findProductById from '../../helpers/cartHelpers';
 import styles from './card.module.css';
-import {
-  addProductToCart,
-  removeProductFromCart,
-} from '../../redux/cart/cartOperations';
+import useCart from '../../hooks/useCart';
 
 const ProductCard = ({ origin, name, price, id }) => {
-  const cart = useSelector(state => state.cart.cart);
+  const { cart, addOneToCart, removeOneFromCart } = useCart();
+
   const isInCart = findProductById(cart, id);
+
   const history = useHistory();
-  const dispatch = useDispatch();
+
   const getToProductPage = ({ target }) => {
     if (
       target.type === 'button' ||
@@ -24,6 +22,7 @@ const ProductCard = ({ origin, name, price, id }) => {
       return;
     history.push(`/products/${id}`);
   };
+
   return (
     <div
       role="presentation"
@@ -38,13 +37,10 @@ const ProductCard = ({ origin, name, price, id }) => {
         <p>{origin}</p>
         <p>{price} $</p>
         <div>
-          <button type="button" onClick={() => dispatch(addProductToCart(id))}>
+          <button type="button" onClick={() => addOneToCart(id)}>
             {isInCart && isInCart.count >= 1 ? '+1' : <AddToCartButton />}
           </button>
-          <button
-            type="button"
-            onClick={() => dispatch(removeProductFromCart(id))}
-          >
+          <button type="button" onClick={() => removeOneFromCart(id)}>
             {isInCart && isInCart.count > 1 ? '-1' : <RemoveFromCartButton />}
           </button>
         </div>

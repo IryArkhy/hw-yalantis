@@ -1,15 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import Logo from '../Logo/Logo';
 import { CartButton } from '../Buttons';
 import routes from '../../routes';
 import styles from './header.module.css';
-import { countTotalPrice } from '../../helpers/cartHelpers';
+// import { countTotalPrice } from '../../helpers/cartHelpers';
+import useCart from '../../hooks/useCart';
 
 const Header = () => {
-  const cart = useSelector(state => state.cart.cart);
-  const totalPrice = countTotalPrice(cart);
+  const { totalPrice } = useCart();
+
   return (
     <header className={styles.header}>
       <ul className={styles.headerMenu}>

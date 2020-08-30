@@ -8,12 +8,13 @@ import { getProduct } from '../../redux/products/productsOperations';
 const ProductPage = () => {
   const product = useSelector(state => state.products.currentProduct);
   const params = useParams();
-  const id = params.productId;
   const dispatch = useDispatch();
+  const id = params.productId;
 
   useEffect(() => {
     dispatch(getProduct(id));
   }, [dispatch, id]);
+
   return (
     <Layout>
       <ProductInfo product={{ ...product }} />

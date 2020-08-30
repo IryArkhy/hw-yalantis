@@ -1,6 +1,5 @@
 import React from 'react';
 import T from 'prop-types';
-import { useSelector } from 'react-redux';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -8,18 +7,19 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 import { useStyles, MenuProps } from './select-styles';
+import useFilters from '../../../hooks/useFilters';
 
 const OriginSelect = ({ origin, onHandleChangeOrigin }) => {
   const classes = useStyles();
-  const origins = useSelector(({ products }) => products.productOrigins);
+  const { origins } = useFilters();
 
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-chip-label">Origin</InputLabel>
+        <InputLabel id="mutiple-chip-label">Origin</InputLabel>
         <Select
-          labelId="demo-mutiple-chip-label"
-          id="demo-mutiple-chip"
+          labelId="mutiple-chip-label"
+          id="mutiple-chip"
           multiple
           value={origin}
           onChange={onHandleChangeOrigin}

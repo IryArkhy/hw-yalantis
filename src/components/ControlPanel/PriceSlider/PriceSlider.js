@@ -10,7 +10,7 @@ const PriceSlider = ({ prices, onHandleChangePrice }) => {
 
   return (
     <div className={classes.root}>
-      <Typography id="range-slider" gutterBottom>
+      <Typography id="price-range-slider" gutterBottom>
         Price range
       </Typography>
       <Slider
@@ -20,7 +20,7 @@ const PriceSlider = ({ prices, onHandleChangePrice }) => {
         getAriaLabel={index =>
           index === 0 ? 'Minimum price' : 'Maximum price'
         }
-        aria-labelledby="range-slider"
+        aria-labelledby="price-range-slider"
         defaultValue={[100, 1000]}
         getAriaValueText={valuetext}
         max={1000}

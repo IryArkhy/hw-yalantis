@@ -1,19 +1,18 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { countTotalPrice } from '../../helpers/cartHelpers';
 import styles from './shoplist.module.css';
 import CustomBtn from '../Buttons/CustomButton';
 import TableRow from './TableRow';
-import {
-  addProductToCart,
-  removeProductFromCart,
-  removeAllInstancesOfProduct,
-  clearCart,
-} from '../../redux/cart/cartOperations';
+import useCart from '../../hooks/useCart';
 
 const ShoppingList = () => {
-  const cart = useSelector(state => state.cart.cart);
-  const dispatch = useDispatch();
+  const {
+    cart,
+    addOneToCart,
+    removeOneFromCart,
+    removeAllFromCart,
+    emptyCart,
+    totalPrice,
+  } = useCart();
   return (
     <>
       {cart.length > 0 && (
@@ -37,21 +36,16 @@ const ShoppingList = () => {
                   name={name}
                   price={price}
                   count={count}
-                  onAddProductToCart={addProductToCart}
-                  onRemoveProductFromCart={removeProductFromCart}
-                  onRemoveAllInstances={() =>
-                    dispatch(removeAllInstancesOfProduct(id))
-                  }
+                  onAddProductToCart={addOneToCart}
+                  onRemoveProductFromCart={removeOneFromCart}
+                  onRemoveAllInstances={removeAllFromCart}
                 />
               ))}
             </tbody>
           </table>
           <div className={styles.bottomSectionWrapper}>
-            <p>Total {countTotalPrice(cart)}$</p>
-            <CustomBtn
-              text="Clear Cart"
-              actionCallback={() => dispatch(clearCart())}
-            />
+            <p>Total {totalPrice}$</p>
+            <CustomBtn text="Clear Cart" actionCallback={emptyCart} />
           </div>
         </>
       )}

@@ -2,19 +2,17 @@ import React from 'react';
 import T from 'prop-types';
 import { ToastContainer } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import styles from './product-info.module.css';
 import CustomBtn from '../Buttons/CustomButton';
-import { addProductToCart } from '../../redux/cart/cartOperations';
+import useCart from '../../hooks/useCart';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ProductInfo = ({ product }) => {
   const history = useHistory();
-  const dispatch = useDispatch();
+  const { addOneToCart } = useCart();
   const { name, origin, price, id } = product;
 
   const returnToPreviusPage = () => history.goBack();
-  const addToCart = () => dispatch(addProductToCart(id));
 
   return (
     <section className={styles.productSection}>
@@ -29,7 +27,7 @@ const ProductInfo = ({ product }) => {
       </div>
       <div className={styles.productSection_buttonsWrapper}>
         <CustomBtn actionCallback={returnToPreviusPage} text="Go Back" />
-        <CustomBtn actionCallback={addToCart} text="Add To Cart" />
+        <CustomBtn actionCallback={() => addOneToCart(id)} text="Add To Cart" />
         <ToastContainer />
       </div>
     </section>

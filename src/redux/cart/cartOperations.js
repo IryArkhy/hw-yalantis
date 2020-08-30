@@ -1,5 +1,5 @@
 import cartActions from './cartActions';
-import { findProductById } from '../../helpers/cartHelpers';
+import findProductById from '../../helpers/cartHelpers';
 import { notifyError, notifySuccess } from '../../helpers/userNotifiers';
 import { USER_MESSAGES } from '../../constants';
 
@@ -35,11 +35,8 @@ export const removeProductFromCart = productId => (dispatch, getState) => {
   const { cart } = state;
   const productToDelete = findProductById(cart.cart, productId);
 
-  if (!productToDelete) {
-    notifyError(USER_MESSAGES.ADD_OR_REMOVE_FROM_CART_FAILURE);
-    dispatch(cartActions.addToCartFailure(new Error()));
-    return;
-  }
+  if (!productToDelete) return;
+
   dispatch(cartActions.removeFromCartStart());
 
   if (productToDelete.count === 1) {

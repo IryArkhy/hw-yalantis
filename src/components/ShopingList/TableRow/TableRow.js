@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import T from 'prop-types';
 import RemoveFromCartButton from '../../Buttons/RemoveFromCartButton';
 import styles from './table-row.module.css';
@@ -13,7 +12,6 @@ const TableRow = ({
   onRemoveProductFromCart,
   onRemoveAllInstances,
 }) => {
-  const dispatch = useDispatch();
   return (
     <tr className={styles.shoplist_tr}>
       <td>{name}</td>
@@ -21,23 +19,17 @@ const TableRow = ({
       <td>
         {count}
         <div className={styles.shoplist_tr_controllers}>
-          <button
-            type="button"
-            onClick={() => dispatch(onAddProductToCart(id))}
-          >
+          <button type="button" onClick={() => onAddProductToCart(id)}>
             +1
           </button>
-          <button
-            type="button"
-            onClick={() => dispatch(onRemoveProductFromCart(id))}
-          >
+          <button type="button" onClick={() => onRemoveProductFromCart(id)}>
             -1
           </button>
         </div>
       </td>
       <td>{count * price}$</td>
       <td>
-        <button type="button" onClick={onRemoveAllInstances}>
+        <button type="button" onClick={() => onRemoveAllInstances(id)}>
           <RemoveFromCartButton />
         </button>
       </td>
