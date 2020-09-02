@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const ProductInfo = ({ product }) => {
   const history = useHistory();
   const { addOneToCart } = useCart();
+  const addProductToCart = () => addOneToCart(id);
   const { name, origin, price, id } = product;
 
   const returnToPreviusPage = () => history.goBack();
@@ -27,7 +28,7 @@ const ProductInfo = ({ product }) => {
       </div>
       <div className={styles.productSection_buttonsWrapper}>
         <CustomBtn actionCallback={returnToPreviusPage} text="Go Back" />
-        <CustomBtn actionCallback={() => addOneToCart(id)} text="Add To Cart" />
+        <CustomBtn actionCallback={addProductToCart} text="Add To Cart" />
         <ToastContainer />
       </div>
     </section>

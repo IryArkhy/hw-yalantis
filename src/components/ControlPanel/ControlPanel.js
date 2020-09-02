@@ -4,7 +4,7 @@ import PerPageSlider from './PerPageSlider';
 import PriceSlider from './PriceSlider';
 import OriginSelect from './OriginSelect/OriginSelect';
 import styles from './controlPanel.module.css';
-import { LoadProducts, ClearFilters } from '../Buttons';
+import { ControlPanelBtn } from '../Buttons';
 
 const ControlPanel = ({ options }) => {
   const {
@@ -24,8 +24,16 @@ const ControlPanel = ({ options }) => {
       <PriceSlider prices={prices} onHandleChangePrice={handleChangePrice} />
       <OriginSelect origin={origin} onHandleChangeOrigin={handleChangeOrigin} />
       <div>
-        <LoadProducts actionCallback={loadUserChosenProducts} />
-        <ClearFilters actionCallback={clearFilters} />
+        <ControlPanelBtn
+          onClickCallback={loadUserChosenProducts}
+          text="Load"
+          styles={styles.loadProducts}
+        />
+        <ControlPanelBtn
+          onClickCallback={clearFilters}
+          text="Reset"
+          styles={styles.clearFilters}
+        />
       </div>
     </div>
   );
