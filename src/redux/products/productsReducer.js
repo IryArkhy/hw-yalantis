@@ -34,7 +34,6 @@ const currentPageReducer = (state = 1, { type, payload }) => {
 };
 
 const totalPagesReducer = (state = 0, { type, payload }) => {
-  // console.log(payload.pages);
   switch (type) {
     case productsTypes.GET_ALL_PRODUCTS_SUCCESS:
       return payload.pages;

@@ -5,9 +5,10 @@ import {
   removeAllInstancesOfProduct,
   clearCart,
 } from '../redux/cart/cartOperations';
+import { getCart } from '../redux/selectors/selectors';
 
 const useCart = () => {
-  const cart = useSelector(state => state.cart.cart);
+  const cart = useSelector(getCart);
   const dispatch = useDispatch();
 
   const addOneToCart = productId => dispatch(addProductToCart(productId));

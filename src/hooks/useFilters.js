@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { DEFAULT_PRICE_RANGE, PROD_PER_PAGE } from '../constants';
+import { getProductsOrigins } from '../redux/selectors/selectors';
 import useProducts from './useProducts';
 
 const useFilters = () => {
   const [perPage, setPerPage] = useState(PROD_PER_PAGE);
   const [prices, setPrices] = useState(DEFAULT_PRICE_RANGE);
   const [origin, setOrigin] = useState([]);
-  const origins = useSelector(({ products }) => products.productOrigins);
+  const origins = useSelector(getProductsOrigins);
   const { loadProducts } = useProducts();
 
   const handleChangePrice = (event, newValue) => setPrices(newValue);

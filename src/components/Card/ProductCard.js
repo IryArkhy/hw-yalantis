@@ -5,6 +5,7 @@ import { AddToCartButton, RemoveFromCartButton } from '../Buttons';
 import findProductById from '../../helpers/cartHelpers';
 import styles from './card.module.css';
 import useCart from '../../hooks/useCart';
+import routes from '../../routes';
 
 const ProductCard = ({ origin, name, price, id }) => {
   const { cart, addOneToCart, removeOneFromCart } = useCart();
@@ -20,7 +21,7 @@ const ProductCard = ({ origin, name, price, id }) => {
       target.nodeName === 'svg'
     )
       return;
-    history.push(`/products/${id}`);
+    history.push(routes.PRODUCT_PAGE.createPath(id));
   };
 
   return (

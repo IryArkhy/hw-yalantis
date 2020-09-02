@@ -8,6 +8,7 @@ import ControlPanel from '../../components/ControlPanel/ControlPanel';
 import styles from './home.module.css';
 import useProducts from '../../hooks/useProducts';
 import useFilters from '../../hooks/useFilters';
+import { getLoading } from '../../redux/selectors/selectors';
 
 const HomePage = () => {
   const {
@@ -29,10 +30,16 @@ const HomePage = () => {
     clearFilters,
   } = useFilters();
 
-  const loading = useSelector(state => state.loading);
+  const loading = useSelector(getLoading);
 
   const loadUserChosenProducts = () =>
     loadProducts(null, perPage, origin, prices[0], prices[1]);
+
+  const handleChangePage = ({ target }) => {
+    if (target.innerText === 'Previous')
+      return getPreviousPage(page, perPage, origin, prices[0], prices[1]);
+    return getNextPage(page, perPage, origin, prices[0], prices[1]);
+  };
 
   const optionsForControlPanel = {
     perPage,
@@ -62,9 +69,7 @@ const HomePage = () => {
       {loading && <Spinner />}
       <div className={styles.buttons_wrapper}>
         <CustomBtn
-          actionCallback={() =>
-            getPreviousPage(page, perPage, origin, prices[0], prices[1])
-          }
+          actionCallback={handleChangePage}
           text="Previous"
           isDisabled={page === 1}
         />
@@ -74,9 +79,7 @@ const HomePage = () => {
         <CustomBtn
           text="Next"
           isDisabled={page === pages}
-          actionCallback={() =>
-            getNextPage(page, perPage, origin, prices[0], prices[1])
-          }
+          actionCallback={handleChangePage}
         />
       </div>
     </Layout>

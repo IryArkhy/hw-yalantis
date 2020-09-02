@@ -2,11 +2,12 @@ import api from '../../servises/api';
 import productsActions from './productsActions';
 import { notifyError } from '../../helpers/userNotifiers';
 import { USER_MESSAGES } from '../../constants';
-
+import ENDPOINTS from '../../servises/api-constants';
+//
 export const getAllProducts = params => dispatch => {
   dispatch(productsActions.getAllProductsStart());
   api
-    .getProducts('get', 'products', params)
+    .getProducts('get', ENDPOINTS.GET_PRODUCTS, params)
     .then(res => {
       const { items, page, perPage, totalItems } = res.data;
       dispatch(
@@ -23,11 +24,11 @@ export const getAllProducts = params => dispatch => {
     });
 };
 
-export const getProduct = id => dispatch => {
+export const getProduct = productId => dispatch => {
   dispatch(productsActions.getProductStart());
 
   api
-    .getProducts('get', `products/${id}`)
+    .getProducts('get', ENDPOINTS.GET_PRODUCT_BY_ID.createURL(productId))
     .then(({ data }) => {
       dispatch(productsActions.getProductSuccess(data));
     })
@@ -41,7 +42,7 @@ export const getProductsOrigins = () => dispatch => {
   dispatch(productsActions.getProductOriginsStart());
 
   api
-    .getProducts('get', 'products-origins')
+    .getProducts('get', ENDPOINTS.GET_PRODUCTS_ORIGINS)
     .then(({ data }) => {
       dispatch(productsActions.getProductOriginsSuccess(data.items));
     })

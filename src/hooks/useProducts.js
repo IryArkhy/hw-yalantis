@@ -1,11 +1,16 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllProducts } from '../redux/products/productsOperations';
 import createProductParams from '../helpers/requestHelpers';
+import {
+  getProducts,
+  getCurrentPage,
+  getTotalPages,
+} from '../redux/selectors/selectors';
 
 const useProducts = () => {
-  const products = useSelector(state => state.products.products);
-  const page = useSelector(state => state.products.page);
-  const pages = useSelector(state => state.products.pages);
+  const products = useSelector(getProducts);
+  const page = useSelector(getCurrentPage);
+  const pages = useSelector(getTotalPages);
 
   const dispatch = useDispatch();
 

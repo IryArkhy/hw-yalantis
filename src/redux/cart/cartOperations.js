@@ -1,33 +1,37 @@
+import api from '../../servises/api';
 import cartActions from './cartActions';
 import findProductById from '../../helpers/cartHelpers';
 import { notifyError, notifySuccess } from '../../helpers/userNotifiers';
 import { USER_MESSAGES } from '../../constants';
+import ENDPOINTS from '../../servises/api-constants';
 
 export const addProductToCart = productId => (dispatch, getState) => {
   const state = getState();
-  const { cart, products } = state;
-
-  const productToAdd = findProductById(products.products, productId);
-  if (!productToAdd) {
-    notifyError(USER_MESSAGES.ADD_OR_REMOVE_FROM_CART_FAILURE);
-    dispatch(cartActions.addToCartFailure(new Error()));
-    return;
-  }
-  const alreadyInCart = findProductById(cart.cart, productId);
+  const { cart } = state;
 
   dispatch(cartActions.addToCartStart());
-  if (!alreadyInCart) {
-    dispatch(cartActions.addToCartSuccess({ ...productToAdd, count: 1 }));
+  const alreadyInCart = findProductById(cart.cart, productId);
+
+  if (alreadyInCart) {
+    dispatch(
+      cartActions.addToCartSuccess({
+        ...alreadyInCart,
+        count: alreadyInCart.count + 1,
+      }),
+    );
     notifySuccess(USER_MESSAGES.ADD_TO_CART_SUCCESS);
     return;
   }
-  dispatch(
-    cartActions.addToCartSuccess({
-      ...alreadyInCart,
-      count: alreadyInCart.count + 1,
-    }),
-  );
-  notifySuccess(USER_MESSAGES.ADD_TO_CART_SUCCESS);
+  api
+    .getProducts('get', ENDPOINTS.GET_PRODUCT_BY_ID.createURL(productId))
+    .then(({ data }) => {
+      dispatch(cartActions.addToCartSuccess({ ...data, count: 1 }));
+      notifySuccess(USER_MESSAGES.ADD_TO_CART_SUCCESS);
+    })
+    .catch(error => {
+      notifyError(USER_MESSAGES.ADD_OR_REMOVE_FROM_CART_FAILURE);
+      dispatch(cartActions.addToCartFailure(error));
+    });
 };
 
 export const removeProductFromCart = productId => (dispatch, getState) => {
