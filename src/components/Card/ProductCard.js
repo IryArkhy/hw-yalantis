@@ -24,6 +24,9 @@ const ProductCard = ({ origin, name, price, id }) => {
     history.push(routes.PRODUCT_PAGE.createPath(id));
   };
 
+  const addToCart = () => addOneToCart(id);
+  const removeFromCard = () => removeOneFromCart(id);
+
   return (
     <div
       role="presentation"
@@ -38,10 +41,10 @@ const ProductCard = ({ origin, name, price, id }) => {
         <p>{origin}</p>
         <p>{price} $</p>
         <div>
-          <button type="button" onClick={() => addOneToCart(id)}>
+          <button type="button" onClick={addToCart}>
             {isInCart && isInCart.count >= 1 ? '+1' : <AddToCartButton />}
           </button>
-          <button type="button" onClick={() => removeOneFromCart(id)}>
+          <button type="button" onClick={removeFromCard}>
             {isInCart && isInCart.count > 1 ? '-1' : <RemoveFromCartButton />}
           </button>
         </div>
