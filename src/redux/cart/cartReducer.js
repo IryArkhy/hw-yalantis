@@ -13,7 +13,7 @@ const cartReducer = (state = [], { type, payload }) => {
       );
     }
 
-    case cartTypes.REMOVE_FROM_CART_SUCCESS: {
+    case cartTypes.REMOVE_FROM_CART: {
       if (payload.id) return state.filter(product => product.id !== payload.id);
 
       return state.map(product =>
@@ -23,10 +23,10 @@ const cartReducer = (state = [], { type, payload }) => {
       );
     }
 
-    case cartTypes.REMOVE_ALL_INSTANCES_SUCCESS:
+    case cartTypes.REMOVE_ALL_INSTANCES:
       return state.filter(product => product.id !== payload.id);
 
-    case cartTypes.CLEAR_CART_SUCCESS:
+    case cartTypes.CLEAR_CART:
       return [];
     default:
       return state;
@@ -36,8 +36,6 @@ const cartReducer = (state = [], { type, payload }) => {
 const cartErrorReducer = (state = null, { type, payload }) => {
   switch (type) {
     case cartTypes.ADD_TO_CART_FAILURE:
-    case cartTypes.REMOVE_FROM_CART_FAILURE:
-    case cartTypes.CLEAR_CART_FAILURE:
       return payload.error;
 
     default:

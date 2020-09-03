@@ -20,18 +20,18 @@ export const addProductToCart = productId => (dispatch, getState) => {
       }),
     );
     notifySuccess(USER_MESSAGES.ADD_TO_CART_SUCCESS);
-    return;
+  } else {
+    api
+      .getProducts('get', ENDPOINTS.GET_PRODUCT_BY_ID.createURL(productId))
+      .then(({ data }) => {
+        dispatch(cartActions.addToCartSuccess({ ...data, count: 1 }));
+        notifySuccess(USER_MESSAGES.ADD_TO_CART_SUCCESS);
+      })
+      .catch(error => {
+        notifyError(USER_MESSAGES.ADD_OR_REMOVE_FROM_CART_FAILURE);
+        dispatch(cartActions.addToCartFailure(error));
+      });
   }
-  api
-    .getProducts('get', ENDPOINTS.GET_PRODUCT_BY_ID.createURL(productId))
-    .then(({ data }) => {
-      dispatch(cartActions.addToCartSuccess({ ...data, count: 1 }));
-      notifySuccess(USER_MESSAGES.ADD_TO_CART_SUCCESS);
-    })
-    .catch(error => {
-      notifyError(USER_MESSAGES.ADD_OR_REMOVE_FROM_CART_FAILURE);
-      dispatch(cartActions.addToCartFailure(error));
-    });
 };
 
 export const removeProductFromCart = productId => (dispatch, getState) => {
@@ -41,39 +41,20 @@ export const removeProductFromCart = productId => (dispatch, getState) => {
 
   if (!productToDelete) return;
 
-  dispatch(cartActions.removeFromCartStart());
-
   if (productToDelete.count === 1) {
-    dispatch(cartActions.removeFromCartSuccess(productId, {}));
-    return;
+    dispatch(cartActions.removeFromCart(productId, {}));
+  } else {
+    dispatch(
+      cartActions.removeFromCart('', {
+        ...productToDelete,
+        count: productToDelete.count - 1,
+      }),
+    );
   }
-  dispatch(
-    cartActions.removeFromCartSuccess('', {
-      ...productToDelete,
-      count: productToDelete.count - 1,
-    }),
-  );
 };
 
-export const removeAllInstancesOfProduct = productId => (
-  dispatch,
-  getState,
-) => {
-  const state = getState();
-  const { cart } = state;
-  const productToDelete = findProductById(cart.cart, productId);
-
-  if (!productToDelete) {
-    notifyError(USER_MESSAGES.ADD_OR_REMOVE_FROM_CART_FAILURE);
-    dispatch(cartActions.addToCartFailure(new Error()));
-    return;
-  }
-
-  dispatch(cartActions.removeAllInstancesStart());
-  dispatch(cartActions.removeAllInstancesSuccess(productId));
+export const removeAllInstancesOfProduct = productId => dispatch => {
+  dispatch(cartActions.removeAllInstances(productId));
 };
 
-export const clearCart = () => dispatch => {
-  dispatch(cartActions.clearCartStart());
-  dispatch(cartActions.clearCartSuccess());
-};
+export const clearCart = () => dispatch => dispatch(cartActions.clearCart());

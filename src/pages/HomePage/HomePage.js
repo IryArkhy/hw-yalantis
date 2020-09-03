@@ -36,9 +36,11 @@ const HomePage = () => {
     loadProducts(null, perPage, origin, prices[0], prices[1]);
 
   const handleChangePage = ({ target }) => {
-    if (target.innerText === 'Previous')
-      return getPreviousPage(page, perPage, origin, prices[0], prices[1]);
-    return getNextPage(page, perPage, origin, prices[0], prices[1]);
+    if (target.innerText === 'Previous') {
+      getPreviousPage(page, perPage, origin, prices[0], prices[1]);
+    } else {
+      getNextPage(page, perPage, origin, prices[0], prices[1]);
+    }
   };
 
   const optionsForControlPanel = {
