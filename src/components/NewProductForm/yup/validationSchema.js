@@ -8,9 +8,7 @@ const schema = Yup.object().shape({
   price: Yup.number()
     .moreThan(0, 'Hey, get at least 1 dollar')
     .required('You cannnot give stuff away'),
-  origin: Yup.string()
-    // .oneOf(['asia', 'usa', 'africa', 'europe'])
-    .required('You should write the origin'),
+  origin: Yup.string().required('You should write the origin'),
 });
 
 export default schema;

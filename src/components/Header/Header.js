@@ -5,8 +5,11 @@ import { CartButton } from '../Buttons';
 import routes from '../../routes';
 import styles from './header.module.css';
 import useCart from '../../hooks/useCart';
+import useModal from '../../hooks/useModal';
+import Modal from '../Modal/Modal';
 
 const Header = () => {
+  const { isShowing, toggle } = useModal();
   const { totalPrice } = useCart();
 
   return (
@@ -14,6 +17,11 @@ const Header = () => {
       <ul className={styles.headerMenu}>
         <li>
           <Logo />
+        </li>
+        <li>
+          <button type="button" onClick={toggle}>
+            OpenModal
+          </button>
         </li>
         <li className={styles.headerHomeLink}>
           <NavLink exact to={routes.HOME_PAGE}>
@@ -31,6 +39,7 @@ const Header = () => {
         </li>
         <li>{totalPrice} $</li>
       </ul>
+      {isShowing && <Modal onClose={toggle} />}
     </header>
   );
 };

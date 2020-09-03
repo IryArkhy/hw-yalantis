@@ -7,7 +7,7 @@ import ENDPOINTS from '../../servises/api-constants';
 export const getAllProducts = params => dispatch => {
   dispatch(productsActions.getAllProductsStart());
   api
-    .getProducts('get', ENDPOINTS.GET_PRODUCTS, params)
+    .getProducts('get', ENDPOINTS.PRODUCTS, params)
     .then(res => {
       const { items, page, perPage, totalItems } = res.data;
       dispatch(
@@ -49,5 +49,19 @@ export const getProductsOrigins = () => dispatch => {
     .catch(error => {
       notifyError(USER_MESSAGES.LOAD_PRODUCT_ORIGINS_ERROR);
       dispatch(productsActions.getProductOriginsFailure(error));
+    });
+};
+
+export const createProduct = productData => dispatch => {
+  dispatch(productsActions.createProductStart());
+
+  api
+    .getProducts('post', ENDPOINTS.PRODUCTS, {}, productData)
+    .then(({ data }) => {
+      dispatch(productsActions.createProductSuccess(data));
+    })
+    .catch(error => {
+      notifyError(USER_MESSAGES.LOAD_PRODUCT_ORIGINS_ERROR);
+      dispatch(productsActions.createProductFailure(error));
     });
 };

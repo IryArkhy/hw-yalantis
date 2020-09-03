@@ -1,5 +1,5 @@
 const ENDPOINTS = {
-  GET_PRODUCTS: 'products',
+  PRODUCTS: 'products',
   GET_PRODUCT_BY_ID: {
     INDEX: 'products',
     createURL: function createURL(productId) {
