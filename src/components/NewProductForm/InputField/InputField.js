@@ -15,7 +15,7 @@ const InputField = ({
   return (
     <>
       <div className={errorStyles}>
-        <ErrorMessage className={errorStyles} name="name" />
+        <ErrorMessage className={errorStyles} name={name} />
       </div>
       <Field
         type={type}

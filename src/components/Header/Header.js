@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Logo from '../Logo/Logo';
-import { CartButton } from '../Buttons';
+import { CartButton, AddNewProduct } from '../Buttons';
 import routes from '../../routes';
 import styles from './header.module.css';
 import useCart from '../../hooks/useCart';
@@ -19,9 +19,10 @@ const Header = () => {
           <Logo />
         </li>
         <li>
-          <button type="button" onClick={toggle}>
-            OpenModal
-          </button>
+          <AddNewProduct
+            onModalOpen={toggle}
+            styles={styles.addNewProductBtn}
+          />
         </li>
         <li className={styles.headerHomeLink}>
           <NavLink exact to={routes.HOME_PAGE}>

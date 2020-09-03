@@ -16,7 +16,7 @@ const NewProductForm = ({
   const { name, price } = values;
   const { origins } = useFilters();
   return (
-    <Form>
+    <Form className={styles.formWraper}>
       <InputField
         type="text"
         name="name"
@@ -25,7 +25,7 @@ const NewProductForm = ({
         handleChange={handleChange}
         isSubmitting={isSubmitting}
         errorStyles={styles.invalid}
-        inputStyles={styles.invalid}
+        inputStyles={styles.input}
       />
       <InputField
         type="number"
@@ -35,7 +35,7 @@ const NewProductForm = ({
         handleChange={handleChange}
         isSubmitting={isSubmitting}
         errorStyles={styles.invalid}
-        inputStyles={styles.invalid}
+        inputStyles={styles.input}
       />
       <SelectField
         values={origins}
@@ -43,7 +43,7 @@ const NewProductForm = ({
         placeholder="Origin"
         disabled={isSubmitting}
         errorStyles={styles.invalid}
-        selectStyles={styles.invalid}
+        selectStyles={styles.select}
       />
       <FormControls handleReset={handleReset} isSubmitting={isSubmitting} />
     </Form>
@@ -53,7 +53,7 @@ const NewProductForm = ({
 NewProductForm.propTypes = {
   values: T.shape({
     name: T.string.isRequired,
-    price: T.string.isRequired,
+    price: T.number.isRequired,
     origin: T.string.isRequired,
   }).isRequired,
   handleChange: T.func.isRequired,

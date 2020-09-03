@@ -4,6 +4,7 @@ import T from 'prop-types';
 import styles from './modal.module.css';
 import { MODAL_ROOT } from '../../constants';
 import FormikContainer from '../NewProductForm/FormikContainer/FormikContainer';
+import { CloseModal } from '../Buttons';
 
 const Modal = ({ onClose }) => {
   const backdropRef = createRef();
@@ -34,10 +35,13 @@ const Modal = ({ onClose }) => {
       onClick={handleBackdropClick}
       className={styles.overlay}
     >
-      <FormikContainer onClose={onClose} />
-      <button type="button" onClick={onClose}>
-        Close
-      </button>
+      <div className={styles.modalContentWrpr}>
+        <div className={styles.modal_header}>
+          <h2>Add your product</h2>
+          <CloseModal onClose={onClose} styles={styles.closeModalBtn} />
+        </div>
+        <FormikContainer className={styles.formWraper} onClose={onClose} />
+      </div>
     </div>,
     MODAL_ROOT,
   );

@@ -6,7 +6,7 @@ const schema = Yup.object().shape({
     .max(30, 'The maximum length is 30 characters')
     .required('The name is required'),
   price: Yup.number()
-    .moreThan(0, 'Hey, get at least 1 dollar')
+    .moreThan(0, 'Hey, get at least 3 dollars')
     .required('You cannnot give stuff away'),
   origin: Yup.string().required('You should write the origin'),
 });
