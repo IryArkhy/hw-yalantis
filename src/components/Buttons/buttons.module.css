@@ -22,3 +22,18 @@
 .customBtn:disabled {
   background: var(--neutral-300);
 }
+
+.userBtn {
+  height: 60px;
+  width: 60px;
+}
+
+.userBtn:hover .yellow {
+  fill: var(--terracota);
+  transition: all 0.3s;
+}
+
+.userBtn:hover .orange {
+  fill: var(--terracota);
+  transition: all 0.3s;
+}

@@ -3,12 +3,10 @@ import { createPortal } from 'react-dom';
 import T from 'prop-types';
 import styles from './modal.module.css';
 import { MODAL_ROOT } from '../../constants';
-import FormikContainer from '../NewProductForm/FormikContainer/FormikContainer';
 import { CloseModal } from '../Buttons';
 
-const Modal = ({ onClose }) => {
+const Modal = ({ onClose, ModalDiscription, ModalContent }) => {
   const backdropRef = createRef();
-
   const handleKeyPress = useCallback(
     e => {
       if (e.code !== 'Escape') return;
@@ -37,10 +35,10 @@ const Modal = ({ onClose }) => {
     >
       <div className={styles.modalContentWrpr}>
         <div className={styles.modal_header}>
-          <h2>Add your product</h2>
+          <ModalDiscription />
           <CloseModal onClose={onClose} styles={styles.closeModalBtn} />
         </div>
-        <FormikContainer className={styles.formWraper} onClose={onClose} />
+        <ModalContent onClose={onClose} />
       </div>
     </div>,
     MODAL_ROOT,
@@ -49,5 +47,7 @@ const Modal = ({ onClose }) => {
 
 Modal.propTypes = {
   onClose: T.func.isRequired,
+  ModalDiscription: T.func.isRequired,
+  ModalContent: T.func.isRequired,
 };
 export default Modal;

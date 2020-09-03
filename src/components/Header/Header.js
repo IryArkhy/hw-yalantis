@@ -1,12 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Logo from '../Logo/Logo';
-import { CartButton, AddNewProduct } from '../Buttons';
+import Modal from '../Modal/Modal';
+import { AddProductModalDescrip } from '../Modal/ModalDiscriptions';
+import FormikContainer from '../NewProductForm/FormikContainer/FormikContainer';
+import { CartButton, AddNewProduct, UserProfileBtn } from '../Buttons';
 import routes from '../../routes';
 import styles from './header.module.css';
 import useCart from '../../hooks/useCart';
 import useModal from '../../hooks/useModal';
-import Modal from '../Modal/Modal';
 
 const Header = () => {
   const { isShowing, toggle } = useModal();
@@ -24,6 +26,11 @@ const Header = () => {
             styles={styles.addNewProductBtn}
           />
         </li>
+        <li className={styles.headerProfileLink}>
+          <NavLink to={routes.PROFILE_PAGE_PODUCTS}>
+            <UserProfileBtn />
+          </NavLink>
+        </li>
         <li className={styles.headerHomeLink}>
           <NavLink exact to={routes.HOME_PAGE}>
             HOME
@@ -40,7 +47,13 @@ const Header = () => {
         </li>
         <li>{totalPrice} $</li>
       </ul>
-      {isShowing && <Modal onClose={toggle} />}
+      {isShowing && (
+        <Modal
+          onClose={toggle}
+          ModalDiscription={AddProductModalDescrip}
+          ModalContent={FormikContainer}
+        />
+      )}
     </header>
   );
 };

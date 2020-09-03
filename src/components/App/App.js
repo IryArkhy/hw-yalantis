@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import HomePage from '../../pages/HomePage';
 import CartPage from '../../pages/CartPage';
 import ProductInfo from '../../pages/ProductPage';
+import UserProfile from '../../pages/UserProfilePage/UserProfile';
 import Header from '../Header';
 import Footer from '../Footer/Footer';
 import routes from '../../routes';
@@ -30,6 +31,7 @@ const App = () => {
         <Switch>
           <Route exact path={routes.HOME_PAGE} component={HomePage} />
           <Route path={routes.CART_PAGE} component={CartPage} />
+          <Route path={routes.PROFILE_PAGE_PODUCTS} component={UserProfile} />
           <Route path={routes.PRODUCT_PAGE.INDEX} component={ProductInfo} />
           <Redirect to={routes.HOME_PAGE} />
         </Switch>

@@ -137,7 +137,7 @@
   border: none;
   position: absolute;
   top: 23%;
-  left: 78%;
+  right: 25%;
 }
 
 .addNewProductBtn > svg {
@@ -150,4 +150,10 @@
 
 .addNewProductBtn > svg:hover {
   transform: rotate(90deg);
+}
+
+.headerProfileLink {
+  position: absolute;
+  top: 23%;
+  right: 20%;
 }
