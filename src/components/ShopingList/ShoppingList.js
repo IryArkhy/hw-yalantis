@@ -5,6 +5,8 @@ import TableRow from './TableRow';
 import useCart from '../../hooks/useCart';
 import useOrders from '../../hooks/useOrders';
 
+// TODO: maybe create the component for bottomSectionWrapper and move it to the Cart page --> because these are separate components
+// TODO: maybe (!) remove the logic form here to Cart page and pass it as props
 const ShoppingList = () => {
   const {
     cart,

@@ -10,6 +10,8 @@ import styles from './header.module.css';
 import useCart from '../../hooks/useCart';
 import useModal from '../../hooks/useModal';
 
+// TODO: Make order of ul>li in order they are shown in the header. Make shure, you dont mess up the styles. Think of adding scss loader in config
+
 const Header = () => {
   const { isShowing, toggle } = useModal();
   const { totalPrice } = useCart();

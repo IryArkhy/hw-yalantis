@@ -25,7 +25,6 @@ const useProducts = () => {
         createProductParams(pageNum, perPage, region, minPrice, maxPrice),
       ),
     );
-
   const postProduct = productData => dispatch(createProduct(productData));
   const updateProduct = productData => dispatch(editProduct(productData));
   const deleteProductForever = productId => dispatch(deleteProduct(productId));
@@ -44,11 +43,11 @@ const useProducts = () => {
     page,
     pages,
     loadProducts,
-    getPreviousPage,
-    getNextPage,
     postProduct,
     updateProduct,
     deleteProductForever,
+    getPreviousPage,
+    getNextPage,
   };
 };
 

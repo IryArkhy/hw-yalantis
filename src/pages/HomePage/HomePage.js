@@ -10,6 +10,8 @@ import useProducts from '../../hooks/useProducts';
 import useFilters from '../../hooks/useFilters';
 import { getLoading } from '../../redux/selectors/selectors';
 
+// TODO: create a new Component for pagination section with buttons
+// TODO: create a new Component for cards container
 const HomePage = () => {
   const {
     products,
@@ -58,13 +60,10 @@ const HomePage = () => {
       <ControlPanel options={optionsForControlPanel} />
       <h2 className={styles.home_title}>Products List</h2>
       <div className={styles.products_wrapper}>
-        {products.map(({ id, name, origin: region, price }) => (
+        {products.map(({ id, name, price, origin: region, isEditable }) => (
           <ProductCard
+            product={{ id, price, name, origin: region, isEditable }}
             key={id}
-            name={name}
-            origin={region}
-            price={price}
-            id={id}
           />
         ))}
       </div>

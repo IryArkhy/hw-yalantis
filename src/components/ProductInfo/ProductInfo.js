@@ -7,6 +7,8 @@ import CustomBtn from '../Buttons/CustomButton';
 import useCart from '../../hooks/useCart';
 import 'react-toastify/dist/ReactToastify.css';
 
+// TODO: maybe move this logic to productinfo page and leave the html
+
 const ProductInfo = ({ product }) => {
   const history = useHistory();
   const { addOneToCart } = useCart();

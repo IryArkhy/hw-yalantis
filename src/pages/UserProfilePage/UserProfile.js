@@ -8,6 +8,8 @@ import useProducts from '../../hooks/useProducts';
 import useFilters from '../../hooks/useFilters';
 import routes from '../../routes';
 
+// TODO: make request (getOrders) in useEffect
+// TODO: think about filters. Do you leave this control panel (after refactoring) or make the other one?
 const UserProfile = () => {
   const {
     // products,

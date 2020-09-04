@@ -5,6 +5,8 @@ import schema from '../yup/validationSchema';
 import NewProductForm from '../NewProductForm';
 import useProducts from '../../../hooks/useProducts';
 
+// TODO: close modal on submit of create product --> redirect to user's products page
+// TODO: close modal on submit of update product
 const FormikWraper = ({ initialValues, productId }) => {
   const { postProduct, updateProduct } = useProducts();
   const { name, origin } = initialValues;

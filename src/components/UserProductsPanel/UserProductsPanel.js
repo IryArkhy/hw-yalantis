@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from '../Card';
+import ProductCard from '../Card';
 import useModal from '../../hooks/useModal';
 import Modal from '../Modal';
 import { UpdateProductModalDescr } from '../Modal/ModalDiscriptions';
@@ -16,20 +16,22 @@ const testData = {
   isEditable: true,
 };
 const UserProductsPanel = () => {
-  const { name, price, origin, id } = testData;
+  const { isShowing, toggle } = useModal();
   const { deleteProductForever } = useProducts();
+
+  const { name, price, origin, id } = testData;
   const initialValues = {
     name,
     price,
     origin,
   };
-  const { isShowing, toggle } = useModal();
+
   const deleteProduct = () => deleteProductForever(id);
   return (
     <>
       <div className={styles.productsContainer}>
-        <Card
-          {...testData}
+        <ProductCard
+          product={testData}
           openModal={toggle}
           onDeleteProduct={deleteProduct}
         />

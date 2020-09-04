@@ -7,21 +7,13 @@ import useCart from '../../hooks/useCart';
 import routes from '../../routes';
 import { GeneralBtnSection, UserProductBtnSection } from './CardButtonSections';
 
-const ProductCard = ({
-  origin,
-  name,
-  price,
-  id,
-  isEditable,
-  openModal,
-  onDeleteProduct,
-}) => {
+// TODO: remove onDeleteProduct from props inside the CardComponent (useProducts())
+
+const ProductCard = ({ product, openModal, onDeleteProduct }) => {
   const { cart, addOneToCart, removeOneFromCart } = useCart();
-
-  const isInCart = findProductById(cart, id);
-
   const history = useHistory();
-
+  const { origin, name, price, id, isEditable } = product;
+  const isInCart = findProductById(cart, id);
   const getToProductPage = ({ target }) => {
     if (
       target.type === 'button' ||
@@ -65,16 +57,17 @@ const ProductCard = ({
   );
 };
 ProductCard.defaultProps = {
-  isEditable: false,
   openModal: null,
   onDeleteProduct: null,
 };
 ProductCard.propTypes = {
-  id: T.string.isRequired,
-  name: T.string.isRequired,
-  price: T.number.isRequired,
-  origin: T.string.isRequired,
-  isEditable: T.bool,
+  product: T.shape({
+    id: T.string.isRequired,
+    name: T.string.isRequired,
+    price: T.number.isRequired,
+    origin: T.string.isRequired,
+    isEditable: T.bool,
+  }).isRequired,
   openModal: T.func,
   onDeleteProduct: T.func,
 };
