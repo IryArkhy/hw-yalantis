@@ -6,8 +6,9 @@ import findProductById from '../../helpers/cartHelpers';
 import styles from './card.module.css';
 import useCart from '../../hooks/useCart';
 import routes from '../../routes';
+import { GeneralBtnSection, UserProductBtnSection } from './CardButtonSections';
 
-const ProductCard = ({ origin, name, price, id }) => {
+const ProductCard = ({ origin, name, price, id, isEditable }) => {
   const { cart, addOneToCart, removeOneFromCart } = useCart();
 
   const isInCart = findProductById(cart, id);
@@ -40,23 +41,35 @@ const ProductCard = ({ origin, name, price, id }) => {
       <div className={styles.card_wrapper_content}>
         <p>{origin}</p>
         <p>{price} $</p>
-        <div>
+        {/* <div>
           <button type="button" onClick={addToCart}>
             {isInCart && isInCart.count >= 1 ? '+1' : <AddToCartButton />}
           </button>
           <button type="button" onClick={removeFromCard}>
             {isInCart && isInCart.count > 1 ? '-1' : <RemoveFromCartButton />}
           </button>
-        </div>
+        </div> */}
+        {isEditable ? (
+          <UserProductBtnSection />
+        ) : (
+          <GeneralBtnSection
+            productInCart={isInCart}
+            addToCart={addToCart}
+            removeFromCard={removeFromCard}
+          />
+        )}
       </div>
     </div>
   );
 };
-
+ProductCard.defaultProps = {
+  isEditable: false,
+};
 ProductCard.propTypes = {
   id: T.string.isRequired,
   name: T.string.isRequired,
   price: T.number.isRequired,
   origin: T.string.isRequired,
+  isEditable: T.bool,
 };
 export default ProductCard;

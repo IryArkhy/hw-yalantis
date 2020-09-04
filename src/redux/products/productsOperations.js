@@ -3,7 +3,7 @@ import productsActions from './productsActions';
 import { notifyError } from '../../helpers/userNotifiers';
 import { USER_MESSAGES } from '../../constants';
 import ENDPOINTS from '../../servises/api-constants';
-//
+
 export const getAllProducts = params => dispatch => {
   dispatch(productsActions.getAllProductsStart());
   api
@@ -28,7 +28,7 @@ export const getProduct = productId => dispatch => {
   dispatch(productsActions.getProductStart());
 
   api
-    .getProducts('get', ENDPOINTS.GET_PRODUCT_BY_ID.createURL(productId))
+    .getProducts('get', ENDPOINTS.CRUD_PRODUCT_BY_ID.createURL(productId))
     .then(({ data }) => {
       dispatch(productsActions.getProductSuccess(data));
     })

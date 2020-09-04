@@ -20,6 +20,7 @@ const useCart = () => {
     dispatch(removeAllInstancesOfProduct(productId));
 
   const emptyCart = () => dispatch(clearCart());
+
   const totalPrice = cart.reduce((acc, { price, count }) => {
     acc += price * count;
     return acc;

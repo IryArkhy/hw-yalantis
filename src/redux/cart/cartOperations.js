@@ -22,7 +22,7 @@ export const addProductToCart = productId => (dispatch, getState) => {
     notifySuccess(USER_MESSAGES.ADD_TO_CART_SUCCESS);
   } else {
     api
-      .getProducts('get', ENDPOINTS.GET_PRODUCT_BY_ID.createURL(productId))
+      .getProducts('get', ENDPOINTS.CRUD_PRODUCT_BY_ID.createURL(productId))
       .then(({ data }) => {
         dispatch(cartActions.addToCartSuccess({ ...data, count: 1 }));
         notifySuccess(USER_MESSAGES.ADD_TO_CART_SUCCESS);

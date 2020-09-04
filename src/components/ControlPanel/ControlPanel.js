@@ -6,7 +6,7 @@ import OriginSelect from './OriginSelect/OriginSelect';
 import styles from './controlPanel.module.css';
 import { ControlPanelBtn } from '../Buttons';
 
-const ControlPanel = ({ options }) => {
+const ControlPanel = ({ options, style }) => {
   const {
     perPage,
     handleChangePerPage,
@@ -19,7 +19,7 @@ const ControlPanel = ({ options }) => {
   } = options;
 
   return (
-    <div className={styles.panelWrapper}>
+    <div className={style}>
       <PerPageSlider perPage={perPage} onSetPerPage={handleChangePerPage} />
       <PriceSlider prices={prices} onHandleChangePrice={handleChangePrice} />
       <OriginSelect origin={origin} onHandleChangeOrigin={handleChangeOrigin} />
@@ -38,7 +38,9 @@ const ControlPanel = ({ options }) => {
     </div>
   );
 };
-
+ControlPanel.defaultProps = {
+  style: styles.panelWrapper,
+};
 ControlPanel.propTypes = {
   options: T.shape({
     perPage: T.number.isRequired,
@@ -50,5 +52,6 @@ ControlPanel.propTypes = {
     loadUserChosenProducts: T.func.isRequired,
     clearFilters: T.func.isRequired,
   }).isRequired,
+  style: T.string,
 };
 export default ControlPanel;

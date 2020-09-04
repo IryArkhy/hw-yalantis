@@ -7,7 +7,7 @@ const ordersReducer = (state = [], { type, payload }) => {
       return payload.orders;
 
     case ordersTypes.CREATE_ORDER_SUCCESS:
-      return [...state, payload.data];
+      return [payload.order, ...state];
 
     default:
       return state;

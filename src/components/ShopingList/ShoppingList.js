@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './shoplist.module.css';
-import CustomBtn from '../Buttons/CustomButton';
+import { CustomBtn, ControlPanelBtn } from '../Buttons';
 import TableRow from './TableRow';
 import useCart from '../../hooks/useCart';
+import useOrders from '../../hooks/useOrders';
 
 const ShoppingList = () => {
   const {
@@ -13,6 +14,7 @@ const ShoppingList = () => {
     emptyCart,
     totalPrice,
   } = useCart();
+  const { postOrder } = useOrders();
   return (
     <>
       {cart.length > 0 && (
@@ -46,6 +48,11 @@ const ShoppingList = () => {
           <div className={styles.bottomSectionWrapper}>
             <p>Total {totalPrice}$</p>
             <CustomBtn text="Clear Cart" actionCallback={emptyCart} />
+            <ControlPanelBtn
+              onClickCallback={postOrder}
+              styles={styles.postOrderBtn}
+              text="Buy"
+            />
           </div>
         </>
       )}

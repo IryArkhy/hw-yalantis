@@ -1,0 +1,8 @@
+.container {
+  display: grid;
+  grid-template-columns: [first-col] 20% [second-col]80%;
+  grid-template-rows: 100%;
+  grid-template-areas: 'sidebar  content';
+  justify-items: stretch;
+  align-items: stretch;
+}
