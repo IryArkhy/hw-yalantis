@@ -1,24 +1,21 @@
 import React from 'react';
 import { NavLink, Switch, Route } from 'react-router-dom';
-import Layout from '../../components/Layout';
 import styles from './user-profile.module.css';
 import ControlPanel from '../../components/ControlPanel/ControlPanel';
-import useProducts from '../../hooks/useProducts';
-import useFilters from '../../hooks/useFilters';
-import { CustomBtn } from '../../components/Buttons';
-
-import routes from '../../routes';
 import Grid from '../../components/Grid/Grid';
 import UserProductsPanel from '../../components/UserProductsPanel/UserProductsPanel';
+import useProducts from '../../hooks/useProducts';
+import useFilters from '../../hooks/useFilters';
+import routes from '../../routes';
 
 const UserProfile = () => {
   const {
-    products,
-    page,
-    pages,
+    // products,
+    // page,
+    // pages,
     loadProducts,
-    getPreviousPage,
-    getNextPage,
+    // getPreviousPage,
+    // getNextPage,
   } = useProducts();
 
   const {
@@ -34,13 +31,13 @@ const UserProfile = () => {
   const loadUserChosenProducts = () =>
     loadProducts(null, perPage, origin, prices[0], prices[1]);
 
-  const handleChangePage = ({ target }) => {
-    if (target.innerText === 'Previous') {
-      getPreviousPage(page, perPage, origin, prices[0], prices[1]);
-    } else {
-      getNextPage(page, perPage, origin, prices[0], prices[1]);
-    }
-  };
+  // const handleChangePage = ({ target }) => {
+  //   if (target.innerText === 'Previous') {
+  //     getPreviousPage(page, perPage, origin, prices[0], prices[1]);
+  //   } else {
+  //     getNextPage(page, perPage, origin, prices[0], prices[1]);
+  //   }
+  // };
 
   const optionsForControlPanel = {
     perPage,
@@ -52,6 +49,7 @@ const UserProfile = () => {
     clearFilters,
     handleChangePerPage,
   };
+
   return (
     <>
       <Grid>

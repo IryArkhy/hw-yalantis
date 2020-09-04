@@ -65,3 +65,44 @@ export const createProduct = productData => dispatch => {
       dispatch(productsActions.createProductFailure(error));
     });
 };
+
+export const editProduct = productData => dispatch => {
+  const { id, name, origin, price } = productData;
+  const requestBody = {
+    product: {
+      name,
+      price,
+      origin,
+    },
+  };
+
+  dispatch(productsActions.updateProductStart());
+  api
+    .getProducts(
+      'patch',
+      ENDPOINTS.CRUD_PRODUCT_BY_ID.createURL(id),
+      {},
+      requestBody,
+    )
+    .then(({ data }) => {
+      dispatch(productsActions.updateProductSuccess(data));
+    })
+    .catch(error => {
+      notifyError(USER_MESSAGES.LOAD_PRODUCT_ORIGINS_ERROR);
+      dispatch(productsActions.updateProductFailure(error));
+    });
+};
+
+export const deleteProduct = productId => dispatch => {
+  dispatch(productsActions.deleteProductStart());
+
+  api
+    .getProducts('delete', ENDPOINTS.CRUD_PRODUCT_BY_ID.createURL(productId))
+    .then(({ data }) => {
+      dispatch(productsActions.deleteProductSuccess(data));
+    })
+    .catch(error => {
+      notifyError(USER_MESSAGES.LOAD_PRODUCT_ORIGINS_ERROR);
+      dispatch(productsActions.deleteProductFailure(error));
+    });
+};

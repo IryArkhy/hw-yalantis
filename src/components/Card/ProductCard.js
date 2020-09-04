@@ -1,14 +1,21 @@
 import React from 'react';
 import T from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { AddToCartButton, RemoveFromCartButton } from '../Buttons';
 import findProductById from '../../helpers/cartHelpers';
 import styles from './card.module.css';
 import useCart from '../../hooks/useCart';
 import routes from '../../routes';
 import { GeneralBtnSection, UserProductBtnSection } from './CardButtonSections';
 
-const ProductCard = ({ origin, name, price, id, isEditable }) => {
+const ProductCard = ({
+  origin,
+  name,
+  price,
+  id,
+  isEditable,
+  openModal,
+  onDeleteProduct,
+}) => {
   const { cart, addOneToCart, removeOneFromCart } = useCart();
 
   const isInCart = findProductById(cart, id);
@@ -41,16 +48,11 @@ const ProductCard = ({ origin, name, price, id, isEditable }) => {
       <div className={styles.card_wrapper_content}>
         <p>{origin}</p>
         <p>{price} $</p>
-        {/* <div>
-          <button type="button" onClick={addToCart}>
-            {isInCart && isInCart.count >= 1 ? '+1' : <AddToCartButton />}
-          </button>
-          <button type="button" onClick={removeFromCard}>
-            {isInCart && isInCart.count > 1 ? '-1' : <RemoveFromCartButton />}
-          </button>
-        </div> */}
         {isEditable ? (
-          <UserProductBtnSection />
+          <UserProductBtnSection
+            onDeleteProduct={onDeleteProduct}
+            onOpenModal={openModal}
+          />
         ) : (
           <GeneralBtnSection
             productInCart={isInCart}
@@ -64,6 +66,8 @@ const ProductCard = ({ origin, name, price, id, isEditable }) => {
 };
 ProductCard.defaultProps = {
   isEditable: false,
+  openModal: null,
+  onDeleteProduct: null,
 };
 ProductCard.propTypes = {
   id: T.string.isRequired,
@@ -71,5 +75,7 @@ ProductCard.propTypes = {
   price: T.number.isRequired,
   origin: T.string.isRequired,
   isEditable: T.bool,
+  openModal: T.func,
+  onDeleteProduct: T.func,
 };
 export default ProductCard;

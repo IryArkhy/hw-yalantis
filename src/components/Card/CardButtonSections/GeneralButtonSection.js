@@ -18,7 +18,9 @@ const GeneralBtnSection = ({ productInCart, addToCart, removeFromCard }) => {
     </div>
   );
 };
-
+GeneralBtnSection.defaultProps = {
+  productInCart: null,
+};
 GeneralBtnSection.propTypes = {
   productInCart: T.shape({
     id: T.string.isRequired,
@@ -26,7 +28,7 @@ GeneralBtnSection.propTypes = {
     price: T.number.isRequired,
     origin: T.string.isRequired,
     count: T.number,
-  }).isRequired,
+  }),
   addToCart: T.func.isRequired,
   removeFromCard: T.func.isRequired,
 };

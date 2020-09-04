@@ -1,19 +1,19 @@
 import React from 'react';
 import { Formik } from 'formik';
-import { useDispatch } from 'react-redux';
-import { createProduct } from '../../../redux/products/productsOperations';
+import T from 'prop-types';
 import schema from '../yup/validationSchema';
 import NewProductForm from '../NewProductForm';
+import useProducts from '../../../hooks/useProducts';
 
-const FormikWraper = () => {
-  const initialValues = {
-    name: '',
-    price: 0,
-    origin: '',
-  };
-  const dispatch = useDispatch();
+const FormikWraper = ({ initialValues, productId }) => {
+  const { postProduct, updateProduct } = useProducts();
+  const { name, origin } = initialValues;
   const handleSubmit = values => {
-    dispatch(createProduct(values));
+    if (name === '' && origin === '') {
+      postProduct(values);
+    } else {
+      updateProduct({ ...values, id: productId });
+    }
   };
   return (
     <>
@@ -25,6 +25,17 @@ const FormikWraper = () => {
       />
     </>
   );
+};
+FormikWraper.defaultProps = {
+  productId: null,
+};
+FormikWraper.propTypes = {
+  initialValues: T.shape({
+    name: T.string.isRequired,
+    price: T.number.isRequired,
+    origin: T.string.isRequired,
+  }).isRequired,
+  productId: T.string,
 };
 
 export default FormikWraper;

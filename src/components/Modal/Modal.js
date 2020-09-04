@@ -5,7 +5,7 @@ import styles from './modal.module.css';
 import { MODAL_ROOT } from '../../constants';
 import { CloseModal } from '../Buttons';
 
-const Modal = ({ onClose, ModalDiscription, ModalContent }) => {
+const Modal = ({ onClose, ModalDiscription, children }) => {
   const backdropRef = createRef();
   const handleKeyPress = useCallback(
     e => {
@@ -38,7 +38,7 @@ const Modal = ({ onClose, ModalDiscription, ModalContent }) => {
           <ModalDiscription />
           <CloseModal onClose={onClose} styles={styles.closeModalBtn} />
         </div>
-        <ModalContent onClose={onClose} />
+        {children}
       </div>
     </div>,
     MODAL_ROOT,
@@ -48,6 +48,6 @@ const Modal = ({ onClose, ModalDiscription, ModalContent }) => {
 Modal.propTypes = {
   onClose: T.func.isRequired,
   ModalDiscription: T.func.isRequired,
-  ModalContent: T.func.isRequired,
+  children: T.node.isRequired,
 };
 export default Modal;

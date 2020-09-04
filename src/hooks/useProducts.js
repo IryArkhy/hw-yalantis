@@ -1,5 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllProducts } from '../redux/products/productsOperations';
+import {
+  getAllProducts,
+  createProduct,
+  editProduct,
+  deleteProduct,
+} from '../redux/products/productsOperations';
 import createProductParams from '../helpers/requestHelpers';
 import {
   getProducts,
@@ -21,6 +26,10 @@ const useProducts = () => {
       ),
     );
 
+  const postProduct = productData => dispatch(createProduct(productData));
+  const updateProduct = productData => dispatch(editProduct(productData));
+  const deleteProductForever = productId => dispatch(deleteProduct(productId));
+
   const getPreviousPage = (pageNum, perPage, region, minPrice, maxPrice) => {
     if (page === 1) return;
     loadProducts(pageNum - 1, perPage, region, minPrice, maxPrice);
@@ -37,6 +46,9 @@ const useProducts = () => {
     loadProducts,
     getPreviousPage,
     getNextPage,
+    postProduct,
+    updateProduct,
+    deleteProductForever,
   };
 };
 

@@ -13,6 +13,11 @@ import useModal from '../../hooks/useModal';
 const Header = () => {
   const { isShowing, toggle } = useModal();
   const { totalPrice } = useCart();
+  const initialValues = {
+    name: '',
+    price: 0,
+    origin: '',
+  };
 
   return (
     <header className={styles.header}>
@@ -48,11 +53,9 @@ const Header = () => {
         <li>{totalPrice} $</li>
       </ul>
       {isShowing && (
-        <Modal
-          onClose={toggle}
-          ModalDiscription={AddProductModalDescrip}
-          ModalContent={FormikContainer}
-        />
+        <Modal onClose={toggle} ModalDiscription={AddProductModalDescrip}>
+          <FormikContainer initialValues={initialValues} />
+        </Modal>
       )}
     </header>
   );
