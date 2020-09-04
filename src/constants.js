@@ -1,5 +1,6 @@
 export const PLACEHOLDER_URL = 'https://google.com';
 
+// TODO: MOre user messages for new request
 export const USER_MESSAGES = {
   ADD_TO_CART_SUCCESS: '🎉 The product is in your shopping list!!',
   ADD_OR_REMOVE_FROM_CART_FAILURE: 'The product is not found',
