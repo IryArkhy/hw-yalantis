@@ -1,4 +1,4 @@
-import api from '../../servises/api';
+import makeRequest from '../../servises/api';
 import ordersActions from './ordersActions';
 import { notifyError } from '../../helpers/userNotifiers';
 import { USER_MESSAGES } from '../../constants';
@@ -6,8 +6,7 @@ import ENDPOINTS from '../../servises/api-constants';
 
 export const getAllOrders = () => dispatch => {
   dispatch(ordersActions.getAllOrdersStart());
-  api
-    .getProducts('get', ENDPOINTS.GET_POST_ORDERS)
+  makeRequest('get', ENDPOINTS.GET_POST_ORDERS)
     .then(res => {
       const { items } = res.data;
       dispatch(
@@ -17,7 +16,7 @@ export const getAllOrders = () => dispatch => {
       );
     })
     .catch(error => {
-      notifyError(USER_MESSAGES.LOAD_ORDERS);
+      notifyError(USER_MESSAGES.ERROR.LOAD_ORDERS);
       dispatch(ordersActions.getAllOrdersFailure(error));
     });
 };
@@ -25,13 +24,12 @@ export const getAllOrders = () => dispatch => {
 export const getOrder = orderId => dispatch => {
   dispatch(ordersActions.getOrderStart());
 
-  api
-    .getProducts('get', ENDPOINTS.GET_ORDER_BY_ID.createURL(orderId))
+  makeRequest('get', ENDPOINTS.GET_ORDER_BY_ID.createURL(orderId))
     .then(({ data }) => {
       dispatch(ordersActions.getOrderSuccess(data));
     })
     .catch(error => {
-      notifyError(USER_MESSAGES.GET_ORDER_BY_ID);
+      notifyError(USER_MESSAGES.ERROR.GET_ORDER_BY_ID);
       dispatch(ordersActions.getOrderFailure(error));
     });
 };
@@ -51,13 +49,12 @@ export const postOrder = () => (dispatch, getState) => {
 
   dispatch(ordersActions.createOrderStart());
 
-  api
-    .getProducts('post', ENDPOINTS.GET_POST_ORDERS, {}, requestBody)
+  makeRequest('post', ENDPOINTS.GET_POST_ORDERS, {}, requestBody)
     .then(({ data }) => {
       dispatch(ordersActions.createOrderSuccess(data));
     })
     .catch(error => {
-      notifyError(USER_MESSAGES.POST_ORDER_ERROR);
+      notifyError(USER_MESSAGES.ERROR.POST_ORDER);
       dispatch(ordersActions.createOrderFailure(error));
     });
 };

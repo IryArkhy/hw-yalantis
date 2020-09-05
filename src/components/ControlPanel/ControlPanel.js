@@ -3,7 +3,11 @@ import T from 'prop-types';
 import PerPageSlider from './PerPageSlider';
 import PriceSlider from './PriceSlider';
 import OriginSelect from './OriginSelect/OriginSelect';
-import styles from './controlPanel.module.css';
+import {
+  panelWrapper,
+  loadProducts,
+  clearFilters as clearFiltersStyles,
+} from './controlPanel.module.css';
 import { ControlPanelBtn } from '../Buttons';
 
 const ControlPanel = ({ options, style }) => {
@@ -27,19 +31,19 @@ const ControlPanel = ({ options, style }) => {
         <ControlPanelBtn
           onClickCallback={loadUserChosenProducts}
           text="Load"
-          styles={styles.loadProducts}
+          styles={loadProducts}
         />
         <ControlPanelBtn
           onClickCallback={clearFilters}
           text="Reset"
-          styles={styles.clearFilters}
+          styles={clearFiltersStyles}
         />
       </div>
     </div>
   );
 };
 ControlPanel.defaultProps = {
-  style: styles.panelWrapper,
+  style: panelWrapper,
 };
 ControlPanel.propTypes = {
   options: T.shape({

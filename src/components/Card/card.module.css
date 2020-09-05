@@ -1,4 +1,4 @@
-.card_wrapper {
+.cardWrapper {
   width: 25%;
   height: 120px;
   border: 3px solid var(--independance);
@@ -6,7 +6,7 @@
   margin: 20px;
 }
 
-.card_wrapper_header {
+.cardWrapperHeader {
   width: 100%;
   height: 40px;
   display: flex;
@@ -15,31 +15,31 @@
   margin-bottom: 20px;
   background-color: var(--independance);
 }
-.card_wrapper_header > p,
-.card_wrapper_header > h3 {
+.cardWrapperHeader > p,
+.cardWrapperHeader > h3 {
   color: var(--neutral-100);
 }
-.card_wrapper_header > h3 {
+.cardWrapperHeader > h3 {
   cursor: pointer;
 }
 
-.card_wrapper_header > p {
+.cardWrapperHeader > p {
   font-weight: 700;
 }
 
-.card_wrapper_content,
-.card_wrapper_content > div {
+.cardWrapperContent,
+.cardWrapperContent > div {
   display: flex;
   justify-content: space-around;
 }
-.card_wrapper_content {
+.cardWrapperContent {
   height: auto;
   width: 100%;
   flex-wrap: nowrap;
   align-items: center;
 }
 
-.card_wrapper_content > p {
+.cardWrapperContent > p {
   width: 25%;
   height: 100%;
   display: block;
@@ -48,15 +48,15 @@
   text-transform: capitalize;
 }
 
-.card_wrapper_content > p:first-child {
+.cardWrapperContent > p:first-child {
   color: rgb(47, 143, 18);
 }
 
-.card_wrapper_content > p:nth-child(2) {
+.cardWrapperContent > p:nth-child(2) {
   color: var(--terracota);
 }
 
-.card_wrapper_content > div > button {
+.cardWrapperContent > div > button {
   width: 50px;
   height: 50px;
   background-color: transparent;
@@ -66,16 +66,16 @@
   font-size: var(--h4);
 }
 
-.card_wrapper_content > div > button:first-child {
+.cardWrapperContent > div > button:first-child {
   color: var(--greensheen);
   margin-right: 10px;
 }
 
-.card_wrapper_content > div > button:last-child {
+.cardWrapperContent > div > button:last-child {
   color: var(--red-200);
 }
 
-.card_wrapper_content > div > button > svg {
+.cardWrapperContent > div > button > svg {
   width: 30px;
   height: 30px;
   display: block;
@@ -84,10 +84,10 @@
   border-radius: 9px;
 }
 
-.card_wrapper_content > div > button:first-child > svg {
+.cardWrapperContent > div > button:first-child > svg {
   fill: var(--greensheen);
 }
 
-.card_wrapper_content > div > button:last-child > svg {
+.cardWrapperContent > div > button:last-child > svg {
   fill: var(--terracota);
 }

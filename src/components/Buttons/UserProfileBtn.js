@@ -1,23 +1,23 @@
 import React from 'react';
 import clsx from 'clsx';
-import styles from './buttons.module.css';
+import { btn, userBtn, orange, yellow } from './buttons.module.css';
 
 const UserProfileBtn = () => {
   return (
     <svg
-      className={clsx(styles.btn, styles.userBtn)}
+      className={clsx(btn, userBtn)}
       enableBackground="new 0 0 512 512"
       height="512"
       viewBox="0 0 512 512"
       width="512"
     >
       <path
-        className={styles.orange}
+        className={orange}
         d="m256 0-160.398 256 160.398 256c141.385 0 256-114.615 256-256s-114.615-256-256-256z"
         fill="#FDC367"
       />
       <path
-        className={styles.yellow}
+        className={yellow}
         d="m0 256c0 141.385 114.615 256 256 256v-512c-141.385 0-256 114.615-256 256z"
         fill="#F2CC8F"
       />

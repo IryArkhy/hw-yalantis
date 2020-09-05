@@ -10,6 +10,7 @@
     "dotenv": "^8.2.0",
     "formik": "^2.1.5",
     "gh-pages": "^2.1.1",
+    "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "query-string": "^6.13.1",
     "react": "^16.10.2",

@@ -5,7 +5,7 @@ axios.defaults.headers.post.Authorization = process.env.REACT_APP_API_KEY;
 axios.defaults.headers.patch.Authorization = process.env.REACT_APP_API_KEY;
 axios.defaults.headers.delete.Authorization = process.env.REACT_APP_API_KEY;
 
-const getProducts = (method, url, params, data) =>
+const makeRequest = (method, url, params, data) =>
   axios({
     method,
     url,
@@ -15,6 +15,4 @@ const getProducts = (method, url, params, data) =>
     data,
   });
 
-export default {
-  getProducts,
-};
+export default makeRequest;

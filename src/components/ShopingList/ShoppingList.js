@@ -1,68 +1,61 @@
 import React from 'react';
+import T from 'prop-types';
 import styles from './shoplist.module.css';
-import { CustomBtn, ControlPanelBtn } from '../Buttons';
 import TableRow from './TableRow';
-import useCart from '../../hooks/useCart';
-import useOrders from '../../hooks/useOrders';
 
-// TODO: maybe create the component for bottomSectionWrapper and move it to the Cart page --> because these are separate components
-// TODO: maybe (!) remove the logic form here to Cart page and pass it as props
-const ShoppingList = () => {
-  const {
-    cart,
-    addOneToCart,
-    removeOneFromCart,
-    removeAllFromCart,
-    emptyCart,
-    totalPrice,
-  } = useCart();
-  const { postOrder } = useOrders();
+const ShoppingList = ({
+  cart,
+  onAddProductToCart,
+  onRemoveOneFromCart,
+  onRemoveAllFromCart,
+}) => {
   return (
     <>
       {cart.length > 0 && (
-        <>
-          <table className={styles.shoplist}>
-            <thead>
-              <tr className={styles.shoplist_tr}>
-                <th>Item</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {cart.map(({ id, name, price, count }) => (
-                <TableRow
-                  className={styles.shoplist_tr}
-                  key={id}
-                  id={id}
-                  name={name}
-                  price={price}
-                  count={count}
-                  onAddProductToCart={addOneToCart}
-                  onRemoveProductFromCart={removeOneFromCart}
-                  onRemoveAllInstances={removeAllFromCart}
-                />
-              ))}
-            </tbody>
-          </table>
-          <div className={styles.bottomSectionWrapper}>
-            <p>Total {totalPrice}$</p>
-            <CustomBtn text="Clear Cart" actionCallback={emptyCart} />
-            <ControlPanelBtn
-              onClickCallback={postOrder}
-              styles={styles.postOrderBtn}
-              text="Buy"
-            />
-          </div>
-        </>
+        <table className={styles.shoplist}>
+          <thead>
+            <tr className={styles.shoplist_tr}>
+              <th>Item</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            {cart.map(({ id, name, price, count }) => (
+              <TableRow
+                className={styles.shoplist_tr}
+                key={id}
+                id={id}
+                name={name}
+                price={price}
+                count={count}
+                onAddProductToCart={onAddProductToCart}
+                onRemoveProductFromCart={onRemoveOneFromCart}
+                onRemoveAllInstances={onRemoveAllFromCart}
+              />
+            ))}
+          </tbody>
+        </table>
       )}
-      {cart.length === 0 && (
+      {!cart.length && (
         <p className={styles.emptyCart}>Your shopping list is empty...</p>
       )}
     </>
   );
 };
-
+ShoppingList.propTypes = {
+  cart: T.arrayOf(
+    T.shape({
+      name: T.string.isRequired,
+      price: T.number.isRequired,
+      origin: T.string.isRequired,
+      count: T.number.isRequired,
+    }),
+  ).isRequired,
+  onAddProductToCart: T.func.isRequired,
+  onRemoveOneFromCart: T.func.isRequired,
+  onRemoveAllFromCart: T.func.isRequired,
+};
 export default ShoppingList;

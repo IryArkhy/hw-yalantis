@@ -2,7 +2,11 @@ import React from 'react';
 import T from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import findProductById from '../../helpers/cartHelpers';
-import styles from './card.module.css';
+import {
+  cardWrapper,
+  cardWrapperHeader,
+  cardWrapperContent,
+} from './card.module.css';
 import useCart from '../../hooks/useCart';
 import routes from '../../routes';
 import { GeneralBtnSection, UserProductBtnSection } from './CardButtonSections';
@@ -28,16 +32,12 @@ const ProductCard = ({ product, openModal, onDeleteProduct }) => {
   const removeFromCard = () => removeOneFromCart(id);
 
   return (
-    <div
-      role="presentation"
-      onClick={getToProductPage}
-      className={styles.card_wrapper}
-    >
-      <header className={styles.card_wrapper_header}>
+    <div role="presentation" onClick={getToProductPage} className={cardWrapper}>
+      <header className={cardWrapperHeader}>
         <h3>{name}</h3>
         {isInCart && <p>In cart: {isInCart.count} </p>}
       </header>
-      <div className={styles.card_wrapper_content}>
+      <div className={cardWrapperContent}>
         <p>{origin}</p>
         <p>{price} $</p>
         {isEditable ? (

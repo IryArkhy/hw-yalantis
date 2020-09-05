@@ -1,10 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
-import styles from './buttons.module.css';
+import { btn, btnCart } from './buttons.module.css';
 
 const CartButton = () => {
   return (
-    <svg viewBox="0 0 512 512" className={clsx(styles.btn, styles.btnCart)}>
+    <svg viewBox="0 0 512 512" className={clsx(btn, btnCart)}>
       <g>
         <path
           style={{

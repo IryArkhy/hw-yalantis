@@ -1,26 +1,20 @@
 import React from 'react';
 import T from 'prop-types';
 import { ToastContainer } from 'react-toastify';
-import { useHistory } from 'react-router-dom';
-import styles from './product-info.module.css';
+import {
+  productSection,
+  productSectionDescriptionWrapper,
+  productSectionButtonsWrapper,
+} from './product-info.module.css';
 import CustomBtn from '../Buttons/CustomButton';
-import useCart from '../../hooks/useCart';
 import 'react-toastify/dist/ReactToastify.css';
 
-// TODO: maybe move this logic to productinfo page and leave the html
-
-const ProductInfo = ({ product }) => {
-  const history = useHistory();
-  const { addOneToCart } = useCart();
-  const addProductToCart = () => addOneToCart(id);
-  const { name, origin, price, id } = product;
-
-  const returnToPreviusPage = () => history.goBack();
-
+const ProductInfo = ({ product, onAddToCart, onGoBack }) => {
+  const { name, origin, price } = product;
   return (
-    <section className={styles.productSection}>
+    <section className={productSection}>
       <h3>{name}</h3>
-      <div className={styles.productSection_descriptionWrapper}>
+      <div className={productSectionDescriptionWrapper}>
         <p>
           Origin: <span>{origin}</span>
         </p>
@@ -28,9 +22,9 @@ const ProductInfo = ({ product }) => {
           Price: <span>{price}$</span>
         </p>
       </div>
-      <div className={styles.productSection_buttonsWrapper}>
-        <CustomBtn actionCallback={returnToPreviusPage} text="Go Back" />
-        <CustomBtn actionCallback={addProductToCart} text="Add To Cart" />
+      <div className={productSectionButtonsWrapper}>
+        <CustomBtn actionCallback={onGoBack} text="Go Back" />
+        <CustomBtn actionCallback={onAddToCart} text="Add To Cart" />
         <ToastContainer />
       </div>
     </section>
@@ -44,5 +38,7 @@ ProductInfo.propTypes = {
     origin: T.string,
     price: T.number,
   }).isRequired,
+  onAddToCart: T.func.isRequired,
+  onGoBack: T.func.isRequired,
 };
 export default ProductInfo;
