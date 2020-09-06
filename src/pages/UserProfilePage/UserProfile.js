@@ -4,9 +4,11 @@ import styles from './user-profile.module.css';
 import ControlPanel from '../../components/ControlPanel/ControlPanel';
 import Grid from '../../components/Grid/Grid';
 import UserProductsPanel from '../../components/UserProductsPanel/UserProductsPanel';
+
 import useProducts from '../../hooks/useProducts';
 import useFilters from '../../hooks/useFilters';
 import routes from '../../routes';
+import OrdersPanel from '../../components/OrdersPanel';
 
 // TODO: make request (getOrders) in useEffect
 // TODO: think about filters. Do you leave this control panel (after refactoring) or make the other one?
@@ -70,14 +72,7 @@ const UserProfile = () => {
             path={routes.PROFILE_PAGE_PODUCTS}
             component={UserProductsPanel}
           />
-          <Route
-            path={routes.PROFILE_PAGE_ORDERS}
-            component={() => (
-              <>
-                <h2>orders</h2>
-              </>
-            )}
-          />
+          <Route path={routes.PROFILE_PAGE_ORDERS} component={OrdersPanel} />
         </Switch>
       </Grid>
     </>
