@@ -1,15 +1,15 @@
 .shoplist {
-  border-collapse: collapse;
-  text-align: center;
   width: 60%;
   margin: auto;
   font-family: 'Mulish', sans-serif;
+  border-collapse: collapse;
+  text-align: center;
 }
 
 .shoplist > thead {
-  background-color: var(--champane);
   font-weight: 700;
   font-size: var(--h3);
+  background-color: var(--champane);
 }
 
 .bottomSectionWrapper {
@@ -22,14 +22,14 @@
   width: 120px;
   height: 60px;
   border: none;
-  font-weight: 700;
-  font-size: var(--h4);
-  background-color: var(--champane);
-  color: var(--independance);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  color: var(--independance);
+  font-weight: 700;
+  font-size: var(--h4);
+  background-color: var(--champane);
 }
 
 .bottomSectionWrapper > p,

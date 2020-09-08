@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 .logo {
   height: 100%;
-  font-family: 'Indie Flower', cursive;
-  color: var(--neutral-100);
-  font-size: 50px;
   position: absolute;
   left: 20px;
   top: 35px;
+  font-family: 'Indie Flower', cursive;
+  font-size: 50px;
+  color: var(--neutral-100);
 }

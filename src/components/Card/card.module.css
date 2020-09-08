@@ -2,46 +2,50 @@
   width: 25%;
   height: 120px;
   border: 3px solid var(--independance);
-  margin: 20px;
   border-radius: 10px;
+  margin: 20px;
 }
 
 .card_wrapper_header {
   width: 100%;
   height: 40px;
-  padding: 7px;
-  background-color: var(--independance);
-  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
+  padding: 7px;
+  margin-bottom: 20px;
+  background-color: var(--independance);
 }
-
+.card_wrapper_header > p,
 .card_wrapper_header > h3 {
   color: var(--neutral-100);
+}
+.card_wrapper_header > h3 {
   cursor: pointer;
 }
 
 .card_wrapper_header > p {
-  color: var(--neutral-100);
   font-weight: 700;
 }
 
-.card_wrapper_content {
+.card_wrapper_content,
+.card_wrapper_content > div {
   display: flex;
-  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+.card_wrapper_content {
   height: auto;
   width: 100%;
-  justify-content: space-around;
+  flex-wrap: nowrap;
   align-items: center;
 }
 
 .card_wrapper_content > p {
-  text-transform: capitalize;
-  font-size: var(--h4);
-  font-weight: 700;
-  display: block;
   width: 25%;
   height: 100%;
+  display: block;
+  font-size: var(--h4);
+  font-weight: 700;
+  text-transform: capitalize;
 }
 
 .card_wrapper_content > p:first-child {
@@ -52,19 +56,14 @@
   color: var(--terracota);
 }
 
-.card_wrapper_content > div {
-  display: flex;
-  justify-content: space-around;
-}
-
 .card_wrapper_content > div > button {
-  border: 2px solid var(--terracota);
-  border-radius: 50%;
   width: 50px;
   height: 50px;
+  background-color: transparent;
+  border: 2px solid var(--terracota);
+  border-radius: 50%;
   font-weight: 800;
   font-size: var(--h4);
-  background-color: transparent;
 }
 
 .card_wrapper_content > div > button:first-child {
@@ -79,9 +78,9 @@
 .card_wrapper_content > div > button > svg {
   width: 30px;
   height: 30px;
+  display: block;
   margin: auto;
   border: none;
-  display: block;
   border-radius: 9px;
 }
 

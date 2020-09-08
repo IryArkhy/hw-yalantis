@@ -3,16 +3,16 @@
 }
 
 .shoplist_tr_controllers > button {
-  border-radius: 50%;
   width: 30px;
   height: 30px;
+  border-radius: 50%;
   background-color: transparent;
 }
 
 .shoplist_tr_controllers > button:first-child {
-  border: 1px solid var(--greensheen);
-  color: var(--greensheen);
   margin-right: 10px;
+  color: var(--greensheen);
+  border: 1px solid var(--greensheen);
 }
 
 .shoplist_tr_controllers > button:last-child {
@@ -21,12 +21,26 @@
 }
 
 .shoplist_tr > td {
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding: 8px 0;
 }
 
 .shoplist_tr > td:nth-child(3) {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.shoplist_tr > td:last-child > button {
+  border: none;
+  background-color: transparent;
+}
+
+.shoplist_tr > td:last-child > button > svg {
+  width: 30px;
+  height: 30px;
+  display: block;
+  margin: auto;
+  border: none;
+  border-radius: 9px;
+  fill: var(--terracota);
 }

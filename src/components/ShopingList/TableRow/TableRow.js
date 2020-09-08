@@ -1,5 +1,6 @@
 import React from 'react';
 import T from 'prop-types';
+import RemoveFromCartButton from '../../Buttons/RemoveFromCartButton';
 import styles from './table-row.module.css';
 
 const TableRow = ({
@@ -9,7 +10,11 @@ const TableRow = ({
   count,
   onAddProductToCart,
   onRemoveProductFromCart,
+  onRemoveAllInstances,
 }) => {
+  const addProductToCart = () => onAddProductToCart(id);
+  const removeProductFromCart = () => onRemoveProductFromCart(id);
+  const removeAllInstances = () => onRemoveAllInstances(id);
   return (
     <tr className={styles.shoplist_tr}>
       <td>{name}</td>
@@ -17,15 +22,20 @@ const TableRow = ({
       <td>
         {count}
         <div className={styles.shoplist_tr_controllers}>
-          <button type="button" onClick={() => onAddProductToCart(id)}>
+          <button type="button" onClick={addProductToCart}>
             +1
           </button>
-          <button type="button" onClick={() => onRemoveProductFromCart(id)}>
+          <button type="button" onClick={removeProductFromCart}>
             -1
           </button>
         </div>
       </td>
       <td>{count * price}$</td>
+      <td>
+        <button type="button" onClick={removeAllInstances}>
+          <RemoveFromCartButton />
+        </button>
+      </td>
     </tr>
   );
 };
@@ -36,5 +46,6 @@ TableRow.propTypes = {
   count: T.number.isRequired,
   onAddProductToCart: T.func.isRequired,
   onRemoveProductFromCart: T.func.isRequired,
+  onRemoveAllInstances: T.func.isRequired,
 };
 export default TableRow;

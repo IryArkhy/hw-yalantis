@@ -1,15 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import { CartButton } from '../Buttons';
 import routes from '../../routes';
 import styles from './header.module.css';
-import { ShopContext } from '../../hoc/withContext';
-import { countTotalPrice } from '../../helpers/cartHelpers';
+import useCart from '../../hooks/useCart';
 
 const Header = () => {
-  const { cart } = useContext(ShopContext);
-  const totalPrice = countTotalPrice(cart);
+  const { totalPrice } = useCart();
+
   return (
     <header className={styles.header}>
       <ul className={styles.headerMenu}>

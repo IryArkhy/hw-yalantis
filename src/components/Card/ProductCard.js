@@ -1,16 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import T from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { AddToCartButton, RemoveFromCartButton } from '../Buttons';
-import { ShopContext } from '../../hoc/withContext';
-import { findProductById } from '../../helpers/cartHelpers';
+import findProductById from '../../helpers/cartHelpers';
 import styles from './card.module.css';
+import useCart from '../../hooks/useCart';
+import routes from '../../routes';
 
 const ProductCard = ({ origin, name, price, id }) => {
-  const { actions, cart } = useContext(ShopContext);
-  const { addProductToCart, removeProductFromCart } = actions;
+  const { cart, addOneToCart, removeOneFromCart } = useCart();
+
   const isInCart = findProductById(cart, id);
+
   const history = useHistory();
+
   const getToProductPage = ({ target }) => {
     if (
       target.type === 'button' ||
@@ -18,8 +21,12 @@ const ProductCard = ({ origin, name, price, id }) => {
       target.nodeName === 'svg'
     )
       return;
-    history.push(`/products/${id}`);
+    history.push(routes.PRODUCT_PAGE.createPath(id));
   };
+
+  const addToCart = () => addOneToCart(id);
+  const removeFromCard = () => removeOneFromCart(id);
+
   return (
     <div
       role="presentation"
@@ -34,10 +41,10 @@ const ProductCard = ({ origin, name, price, id }) => {
         <p>{origin}</p>
         <p>{price} $</p>
         <div>
-          <button type="button" onClick={() => addProductToCart(id)}>
+          <button type="button" onClick={addToCart}>
             {isInCart && isInCart.count >= 1 ? '+1' : <AddToCartButton />}
           </button>
-          <button type="button" onClick={() => removeProductFromCart(id)}>
+          <button type="button" onClick={removeFromCard}>
             {isInCart && isInCart.count > 1 ? '-1' : <RemoveFromCartButton />}
           </button>
         </div>

@@ -1,13 +1,18 @@
-import React, { useContext } from 'react';
-import { ShopContext } from '../../hoc/withContext';
-import { countTotalPrice } from '../../helpers/cartHelpers';
+import React from 'react';
 import styles from './shoplist.module.css';
 import CustomBtn from '../Buttons/CustomButton';
-import TableRow from '../TableRow';
+import TableRow from './TableRow';
+import useCart from '../../hooks/useCart';
 
 const ShoppingList = () => {
-  const { cart, actions } = useContext(ShopContext);
-  const { addProductToCart, removeProductFromCart } = actions;
+  const {
+    cart,
+    addOneToCart,
+    removeOneFromCart,
+    removeAllFromCart,
+    emptyCart,
+    totalPrice,
+  } = useCart();
   return (
     <>
       {cart.length > 0 && (
@@ -19,6 +24,7 @@ const ShoppingList = () => {
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
+                <th />
               </tr>
             </thead>
             <tbody>
@@ -30,15 +36,16 @@ const ShoppingList = () => {
                   name={name}
                   price={price}
                   count={count}
-                  onAddProductToCart={addProductToCart}
-                  onRemoveProductFromCart={removeProductFromCart}
+                  onAddProductToCart={addOneToCart}
+                  onRemoveProductFromCart={removeOneFromCart}
+                  onRemoveAllInstances={removeAllFromCart}
                 />
               ))}
             </tbody>
           </table>
           <div className={styles.bottomSectionWrapper}>
-            <p>Total {countTotalPrice(cart)}$</p>
-            <CustomBtn text="Clear Cart" actionCallback={actions.clearCart} />
+            <p>Total {totalPrice}$</p>
+            <CustomBtn text="Clear Cart" actionCallback={emptyCart} />
           </div>
         </>
       )}
