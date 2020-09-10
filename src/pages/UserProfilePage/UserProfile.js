@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { NavLink, Switch, Route } from 'react-router-dom';
 import styles from './user-profile.module.css';
 import ControlPanel from '../../components/ControlPanel/ControlPanel';
@@ -13,14 +13,14 @@ import OrdersPanel from '../../components/OrdersPanel';
 // TODO: make request (getOrders) in useEffect
 // TODO: think about filters. Do you leave this control panel (after refactoring) or make the other one?
 const UserProfile = () => {
-  const {
-    // products,
-    // page,
-    // pages,
-    loadProducts,
-    // getPreviousPage,
-    // getNextPage,
-  } = useProducts();
+  const { loadProducts } = useProducts();
+
+  useEffect(
+    useCallback(() => {
+      loadProducts(null, null, [], null, null, true);
+    }, [loadProducts]),
+    [],
+  );
 
   const {
     perPage,

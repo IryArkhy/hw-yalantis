@@ -7,7 +7,7 @@ const createProductParams = (
 ) => {
   let region;
   if (origins.length === 0) {
-    region = '';
+    region = null;
   } else if (origins.length > 1) {
     region = origins.join(',');
   } else {

@@ -9,7 +9,7 @@ const UserProductBtnSection = ({ onOpenModal, onDeleteProduct }) => {
     <div>
       <IconButton
         style={{ color: '#81b29a' }}
-        aria-label="upload picture"
+        aria-label="edit product"
         component="span"
         onClick={onOpenModal}
       >
@@ -17,7 +17,7 @@ const UserProductBtnSection = ({ onOpenModal, onDeleteProduct }) => {
       </IconButton>
       <IconButton
         style={{ color: '#d0454c' }}
-        aria-label="upload picture"
+        aria-label="delete product"
         component="span"
         onClick={onDeleteProduct}
       >

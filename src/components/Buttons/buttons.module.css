@@ -21,7 +21,7 @@
 
 .customBtn[disabled],
 .customBtn:disabled {
-  background: var(--neutral-300);
+  background-color: var(--neutral-300);
 }
 
 .userBtn {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import ProductCard from '../Card';
 import useModal from '../../hooks/useModal';
 import Modal from '../Modal';
@@ -8,37 +8,54 @@ import styles from './user-products-panel.module.css';
 import useProducts from '../../hooks/useProducts';
 
 // TODO: getUserProductsData from the store and map it. Add card component inside the productsContainer
-const testData = {
-  origin: 'usa',
-  name: 'Test product',
-  price: 100,
-  id: 'id',
-  isEditable: true,
-};
-const UserProductsPanel = () => {
-  const { isShowing, toggle } = useModal();
-  const { deleteProductForever } = useProducts();
 
-  const { name, price, origin, id } = testData;
-  const initialValues = {
-    name,
-    price,
-    origin,
+const UserProductsPanel = () => {
+  const [currentProduct, setCurrentProduct] = useState({
+    name: '',
+    price: 0,
+    origin: '',
+    id: '',
+  });
+  const { userProducts, deleteProductForever } = useProducts();
+  const { isShowing, toggle } = useModal();
+
+  const handleGetProductData = ({ dataset }) => {
+    const { product, id } = dataset;
+    const [name, price, origin] = product.split('-');
+    setCurrentProduct({
+      name: name.trim(),
+      price: Number(price),
+      origin,
+      id,
+    });
   };
 
-  const deleteProduct = () => deleteProductForever(id);
+  const initialValues = {
+    name: currentProduct.name,
+    price: currentProduct.price,
+    origin: currentProduct.origin,
+  };
+  const deleteProduct = () => deleteProductForever(currentProduct.id);
   return (
     <>
       <div className={styles.productsContainer}>
-        <ProductCard
-          product={testData}
-          openModal={toggle}
-          onDeleteProduct={deleteProduct}
-        />
+        {userProducts.map(product => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            openModal={toggle}
+            onDeleteProduct={deleteProduct}
+            onGetProductData={handleGetProductData}
+          />
+        ))}
       </div>
       {isShowing && (
         <Modal onClose={toggle} ModalDiscription={UpdateProductModalDescr}>
-          <FormikContainer initialValues={initialValues} productId={id} />
+          <FormikContainer
+            initialValues={initialValues}
+            productId={currentProduct.id}
+            onModalClose={toggle}
+          />
         </Modal>
       )}
     </>

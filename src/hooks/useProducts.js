@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getAllProducts,
+  getUserProducts,
   createProduct,
   editProduct,
   deleteProduct,
@@ -8,26 +9,45 @@ import {
 import createProductParams from '../helpers/requestHelpers';
 import {
   getProducts,
+  getUserProducts as getProductsOfUser,
+  getUserProductsQuantity,
   getCurrentPage,
   getTotalPages,
 } from '../redux/selectors/selectors';
 
 const useProducts = () => {
   const products = useSelector(getProducts);
+  const userProducts = useSelector(getProductsOfUser);
+  const userProductsQuantity = useSelector(getUserProductsQuantity);
   const page = useSelector(getCurrentPage);
   const pages = useSelector(getTotalPages);
 
   const dispatch = useDispatch();
 
-  const loadProducts = (pageNum, perPage, region, minPrice, maxPrice) =>
-    dispatch(
-      getAllProducts(
-        createProductParams(pageNum, perPage, region, minPrice, maxPrice),
-      ),
-    );
+  const loadProducts = (
+    pageNum,
+    perPage,
+    region,
+    minPrice,
+    maxPrice,
+    isEditable,
+  ) => {
+    if (isEditable) {
+      dispatch(getUserProducts({ editable: isEditable }));
+    } else {
+      dispatch(
+        getAllProducts(
+          createProductParams(pageNum, perPage, region, minPrice, maxPrice),
+        ),
+      );
+    }
+  };
   const postProduct = productData => dispatch(createProduct(productData));
   const updateProduct = productData => dispatch(editProduct(productData));
-  const deleteProductForever = productId => dispatch(deleteProduct(productId));
+  const deleteProductForever = productId => {
+    console.log(productId);
+    dispatch(deleteProduct(productId));
+  };
 
   const getPreviousPage = (pageNum, perPage, region, minPrice, maxPrice) => {
     if (page === 1) return;
@@ -40,6 +60,8 @@ const useProducts = () => {
 
   return {
     products,
+    userProducts,
+    userProductsQuantity,
     page,
     pages,
     loadProducts,

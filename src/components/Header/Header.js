@@ -17,7 +17,7 @@ const Header = () => {
   const { totalPrice } = useCart();
   const initialValues = {
     name: '',
-    price: 0,
+    price: '',
     origin: '',
   };
 
@@ -56,7 +56,10 @@ const Header = () => {
       </ul>
       {isShowing && (
         <Modal onClose={toggle} ModalDiscription={AddProductModalDescrip}>
-          <FormikContainer initialValues={initialValues} />
+          <FormikContainer
+            initialValues={initialValues}
+            onModalClose={toggle}
+          />
         </Modal>
       )}
     </header>

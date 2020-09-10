@@ -23,6 +23,24 @@ export const getAllProducts = params => dispatch => {
     });
 };
 
+export const getUserProducts = params => dispatch => {
+  dispatch(productsActions.getUserProductsStart());
+  makeRequest('get', ENDPOINTS.PRODUCTS, params)
+    .then(res => {
+      const { items, totalItems } = res.data;
+      dispatch(
+        productsActions.getUserProductsSuccess({
+          products: items,
+          count: totalItems,
+        }),
+      );
+    })
+    .catch(error => {
+      notifyError(USER_MESSAGES.ERROR.LOAD_PRODUCTS);
+      dispatch(productsActions.getUserProductsFailure(error));
+    });
+};
+
 export const getProduct = productId => dispatch => {
   dispatch(productsActions.getProductStart());
 
@@ -51,8 +69,15 @@ export const getProductsOrigins = () => dispatch => {
 
 export const createProduct = productData => dispatch => {
   dispatch(productsActions.createProductStart());
-
-  makeRequest('post', ENDPOINTS.PRODUCTS, {}, productData)
+  const { name, price, origin } = productData;
+  const requestBody = {
+    product: {
+      name,
+      price,
+      origin,
+    },
+  };
+  makeRequest('post', ENDPOINTS.PRODUCTS, {}, requestBody)
     .then(({ data }) => {
       dispatch(productsActions.createProductSuccess(data));
       notifySuccess(USER_MESSAGES.SUCCESS.CREATE_PRODUCT);
@@ -95,7 +120,7 @@ export const deleteProduct = productId => dispatch => {
 
   makeRequest('delete', ENDPOINTS.CRUD_PRODUCT_BY_ID.createURL(productId))
     .then(({ data }) => {
-      dispatch(productsActions.deleteProductSuccess(data));
+      dispatch(productsActions.deleteProductSuccess(productId));
       notifySuccess(USER_MESSAGES.SUCCESS.DELETE_PRODUCT);
     })
     .catch(error => {

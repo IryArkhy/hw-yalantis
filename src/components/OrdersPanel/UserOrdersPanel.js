@@ -47,8 +47,8 @@ const UserOrdersPanel = () => {
         </thead>
         <tbody>
           <tr>
-            <td>{createdAt}</td>
-            <td>{pieces.length}</td>
+            {/* <td>{createdAt}</td>
+            <td>{pieces.length}</td> */}
             <td>1000</td>
             <td>Details</td>
           </tr>

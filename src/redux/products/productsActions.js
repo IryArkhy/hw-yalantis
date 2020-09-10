@@ -20,6 +20,25 @@ const getAllProductsFailure = error => ({
   },
 });
 
+const getUserProductsStart = () => ({
+  type: productsTypes.GET_USER_PRODUCTS_START,
+});
+
+const getUserProductsSuccess = ({ products, count }) => ({
+  type: productsTypes.GET_USER_PRODUCTS_SUCCESS,
+  payload: {
+    products,
+    count,
+  },
+});
+
+const getUserProductsFailure = error => ({
+  type: productsTypes.GET_USER_PRODUCTS_FAILURE,
+  payload: {
+    error,
+  },
+});
+
 //--
 const createProductStart = () => ({
   type: productsTypes.CREATE_PRODUCT_START,
@@ -119,6 +138,10 @@ export default {
   getAllProductsStart,
   getAllProductsSuccess,
   getAllProductsFailure,
+
+  getUserProductsStart,
+  getUserProductsSuccess,
+  getUserProductsFailure,
 
   createProductStart,
   createProductSuccess,

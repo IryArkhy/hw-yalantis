@@ -53,7 +53,7 @@ const NewProductForm = ({
 NewProductForm.propTypes = {
   values: T.shape({
     name: T.string.isRequired,
-    price: T.number.isRequired,
+    price: T.oneOfType([T.string, T.number]).isRequired,
     origin: T.string.isRequired,
   }).isRequired,
   handleChange: T.func.isRequired,

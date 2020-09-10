@@ -13,26 +13,39 @@ import { GeneralBtnSection, UserProductBtnSection } from './CardButtonSections';
 
 // TODO: remove onDeleteProduct from props inside the CardComponent (useProducts())
 
-const ProductCard = ({ product, openModal, onDeleteProduct }) => {
+const ProductCard = ({
+  product,
+  openModal,
+  onDeleteProduct,
+  onGetProductData,
+}) => {
   const { cart, addOneToCart, removeOneFromCart } = useCart();
   const history = useHistory();
   const { origin, name, price, id, isEditable } = product;
   const isInCart = findProductById(cart, id);
-  const getToProductPage = ({ target }) => {
+  const getToProductPage = ({ target, currentTarget }) => {
     if (
       target.type === 'button' ||
       target.nodeName === 'path' ||
       target.nodeName === 'svg'
-    )
-      return;
-    history.push(routes.PRODUCT_PAGE.createPath(id));
+    ) {
+      onGetProductData(currentTarget);
+    } else {
+      history.push(routes.PRODUCT_PAGE.createPath(id));
+    }
   };
 
   const addToCart = () => addOneToCart(id);
-  const removeFromCard = () => removeOneFromCart(id);
+  const removeFromCart = () => removeOneFromCart(id);
 
   return (
-    <div role="presentation" onClick={getToProductPage} className={cardWrapper}>
+    <div
+      role="presentation"
+      data-product={`${name}-${price}-${origin}`}
+      data-id={id}
+      onClick={getToProductPage}
+      className={cardWrapper}
+    >
       <header className={cardWrapperHeader}>
         <h3>{name}</h3>
         {isInCart && <p>In cart: {isInCart.count} </p>}
@@ -49,7 +62,7 @@ const ProductCard = ({ product, openModal, onDeleteProduct }) => {
           <GeneralBtnSection
             productInCart={isInCart}
             addToCart={addToCart}
-            removeFromCard={removeFromCard}
+            removeFromCard={removeFromCart}
           />
         )}
       </div>
@@ -59,6 +72,7 @@ const ProductCard = ({ product, openModal, onDeleteProduct }) => {
 ProductCard.defaultProps = {
   openModal: null,
   onDeleteProduct: null,
+  onGetProductData: null,
 };
 ProductCard.propTypes = {
   product: T.shape({
@@ -70,5 +84,6 @@ ProductCard.propTypes = {
   }).isRequired,
   openModal: T.func,
   onDeleteProduct: T.func,
+  onGetProductData: T.func,
 };
 export default ProductCard;
