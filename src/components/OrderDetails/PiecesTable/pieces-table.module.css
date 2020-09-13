@@ -1,0 +1,25 @@
+.innerPiecesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+.tableHead {
+  background-color: var(--champane);
+}
+
+.tableHead > tr {
+  height: 30px;
+  border-left: 2px dotted blanchedalmond;
+}
+
+.tableHead > tr > th {
+  border-right: 2px dotted blanchedalmond;
+}
+
+.tableBody > tr {
+  border-bottom: 2px dotted var(--champane);
+}
+
+.tableBody > tr > th {
+  border-right: 2px dotted var(--champane);
+  height: 25px;
+}

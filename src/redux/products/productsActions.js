@@ -44,10 +44,10 @@ const createProductStart = () => ({
   type: productsTypes.CREATE_PRODUCT_START,
 });
 
-const createProductSuccess = data => ({
+const createProductSuccess = product => ({
   type: productsTypes.CREATE_PRODUCT_SUCCESS,
   payload: {
-    data,
+    product,
   },
 });
 
@@ -63,10 +63,10 @@ const updateProductStart = () => ({
   type: productsTypes.UPDATE_PRODUCT_START,
 });
 
-const updateProductSuccess = data => ({
+const updateProductSuccess = product => ({
   type: productsTypes.UPDATE_PRODUCT_SUCCESS,
   payload: {
-    data,
+    product,
   },
 });
 

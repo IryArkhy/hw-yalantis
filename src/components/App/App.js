@@ -5,23 +5,25 @@ import HomePage from '../../pages/HomePage';
 import CartPage from '../../pages/CartPage';
 import ProductInfo from '../../pages/ProductPage';
 import UserProfile from '../../pages/UserProfilePage/UserProfile';
+import OrderPage from '../../pages/OrderInfoPage';
 import Header from '../Header';
 import Footer from '../Footer/Footer';
 import routes from '../../routes';
-import {
-  getAllProducts,
-  getProductsOrigins,
-} from '../../redux/products/productsOperations';
+import { getProductsOrigins } from '../../redux/products/productsOperations';
+import useProducts from '../../hooks/useProducts';
 import '../../assets/stylesheets/main.css';
 
 const App = () => {
+  const { loadProducts } = useProducts();
   const dispatch = useDispatch();
 
   useEffect(
     useCallback(() => {
-      dispatch(getAllProducts({ perPage: 18 }));
+      loadProducts(null, 18);
+      loadProducts(null, null, [], null, null, true);
       dispatch(getProductsOrigins());
-    }, [dispatch]),
+    }, [dispatch, loadProducts]),
+    [],
   );
 
   return (
@@ -31,6 +33,7 @@ const App = () => {
         <Switch>
           <Route exact path={routes.HOME_PAGE} component={HomePage} />
           <Route path={routes.CART_PAGE} component={CartPage} />
+          <Route path={routes.ORDER_PAGE.INDEX} component={OrderPage} />
           <Route path={routes.PROFILE_PAGE} component={UserProfile} />
           <Route path={routes.PRODUCT_PAGE.INDEX} component={ProductInfo} />
           <Redirect to={routes.HOME_PAGE} />

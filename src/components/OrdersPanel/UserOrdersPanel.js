@@ -1,43 +1,20 @@
-import React, { useEffect, useHistory, useParams } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useCallback } from 'react';
 import useOrders from '../../hooks/useOrders';
-import { getOrder } from '../../redux/selectors/selectors';
+import TableRow from './OrderTableRow/TableRow';
+import styles from './user-orders-panel.module.css';
 
-const testData = {
-  id: 'string',
-  pieces: [
-    {
-      product: {
-        id: 'string',
-        name: 'string',
-        price: 0,
-        origin: 'europe',
-        createdAt: 'string',
-        updatedAt: 'string',
-        isEditable: true,
-      },
-      count: 0,
-    },
-  ],
-  createdAt: 'string',
-};
 const UserOrdersPanel = () => {
-  // const { pieces, createdAt, id } = testData;
-  const { getToOrderDetailsPage, getOrderById } = useOrders();
-  const params = useParams();
-  const history = useHistory();
-  const id = params.productId;
-  const goToOrderPage = () => getToOrderDetailsPage(id);
-  const returnToPreviusPage = () => history.goBack();
-
-  useEffect(() => {
-    getOrderById(id);
-  }, [getOrderById, id]);
+  const { getToOrderDetailsPage, getAllOrders, allOrders } = useOrders();
+  const goToOrderPage = id => {
+    getToOrderDetailsPage(id);
+  };
+  useEffect(useCallback(() => getAllOrders(), [getAllOrders]), []);
 
   return (
-    <div>
-      <table>
-        <thead>
+    <div className={styles.ordersWraper}>
+      <h3>Your orders</h3>
+      <table className={styles.ordersTable}>
+        <thead className={styles.tableHead}>
           <tr>
             <th>Date</th>
             <th>Number of items</th>
@@ -45,13 +22,25 @@ const UserOrdersPanel = () => {
             <th>Order details</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            {/* <td>{createdAt}</td>
-            <td>{pieces.length}</td> */}
-            <td>1000</td>
-            <td>Details</td>
-          </tr>
+        <tbody className={styles.tableBody}>
+          {allOrders.length > 0 &&
+            allOrders.map(({ id, createdAt, pieces }) => {
+              const total = pieces.reduce(
+                (acc, item) => acc + item.count * item.product.price,
+                0,
+              );
+              const itemsNumber = pieces.length;
+              const changePage = () => goToOrderPage(id);
+              return (
+                <TableRow
+                  key={id}
+                  date={createdAt}
+                  totalPrice={total}
+                  itemsNumber={itemsNumber}
+                  onChangePage={changePage}
+                />
+              );
+            })}
         </tbody>
       </table>
     </div>

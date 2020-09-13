@@ -29,6 +29,7 @@ const ProductCard = ({
       target.nodeName === 'path' ||
       target.nodeName === 'svg'
     ) {
+      if (!onGetProductData) return;
       onGetProductData(currentTarget);
     } else {
       history.push(routes.PRODUCT_PAGE.createPath(id));
@@ -37,6 +38,7 @@ const ProductCard = ({
 
   const addToCart = () => addOneToCart(id);
   const removeFromCart = () => removeOneFromCart(id);
+  const deleteProduct = () => onDeleteProduct(id);
 
   return (
     <div
@@ -55,7 +57,7 @@ const ProductCard = ({
         <p>{price} $</p>
         {isEditable ? (
           <UserProductBtnSection
-            onDeleteProduct={onDeleteProduct}
+            onDeleteProduct={deleteProduct}
             onOpenModal={openModal}
           />
         ) : (

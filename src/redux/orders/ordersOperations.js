@@ -9,11 +9,7 @@ export const getAllOrders = () => dispatch => {
   makeRequest('get', ENDPOINTS.GET_POST_ORDERS)
     .then(res => {
       const { items } = res.data;
-      dispatch(
-        ordersActions.getAllOrdersSuccess({
-          orders: items,
-        }),
-      );
+      dispatch(ordersActions.getAllOrdersSuccess(items));
     })
     .catch(error => {
       notifyError(USER_MESSAGES.ERROR.LOAD_ORDERS);

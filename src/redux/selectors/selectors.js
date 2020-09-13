@@ -9,4 +9,4 @@ export const getTotalPages = store => store.products.pages;
 export const getProductsOrigins = store => store.products.productOrigins;
 export const getCart = store => store.cart.cart;
 export const getOrders = store => store.orders.orders;
-export const getOrder = store => store.orders.order;
+export const getOrder = store => store.orders.currentOrder;

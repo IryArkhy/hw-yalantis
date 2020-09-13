@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import ProductCard from '../Card';
 import useModal from '../../hooks/useModal';
 import Modal from '../Modal';
@@ -7,7 +7,7 @@ import FormikContainer from '../NewProductForm/FormikContainer/FormikContainer';
 import styles from './user-products-panel.module.css';
 import useProducts from '../../hooks/useProducts';
 
-// TODO: getUserProductsData from the store and map it. Add card component inside the productsContainer
+// TODO: Add card component inside the productsContainer
 
 const UserProductsPanel = () => {
   const [currentProduct, setCurrentProduct] = useState({
@@ -35,19 +35,21 @@ const UserProductsPanel = () => {
     price: currentProduct.price,
     origin: currentProduct.origin,
   };
-  const deleteProduct = () => deleteProductForever(currentProduct.id);
+  const deleteProduct = id => deleteProductForever(id);
   return (
     <>
       <div className={styles.productsContainer}>
-        {userProducts.map(product => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            openModal={toggle}
-            onDeleteProduct={deleteProduct}
-            onGetProductData={handleGetProductData}
-          />
-        ))}
+        {userProducts.length > 0 &&
+          userProducts.map(item => (
+            <ProductCard
+              key={item.id}
+              product={item}
+              openModal={toggle}
+              onDeleteProduct={deleteProduct}
+              onGetProductData={handleGetProductData}
+            />
+          ))}
+        {!userProducts.length && <p>You dont have any products</p>}
       </div>
       {isShowing && (
         <Modal onClose={toggle} ModalDiscription={UpdateProductModalDescr}>

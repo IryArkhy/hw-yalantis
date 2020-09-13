@@ -13,10 +13,15 @@ const CartPage = () => {
     addOneToCart,
     removeOneFromCart,
     removeAllFromCart,
+    // createOrder,
     emptyCart,
     totalPrice,
   } = useCart();
   const { postOrder } = useOrders();
+  const postOrderAndClearCart = () => {
+    postOrder();
+    emptyCart();
+  };
   return (
     <Layout>
       <h2 className={cartPageTitle}>Your shopping list</h2>
@@ -29,7 +34,7 @@ const CartPage = () => {
       {cart.length && (
         <CartControllers
           totalPrice={totalPrice}
-          onPostOrder={postOrder}
+          onPostOrder={postOrderAndClearCart}
           onClearCart={emptyCart}
         />
       )}

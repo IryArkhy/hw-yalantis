@@ -14,7 +14,10 @@ const useOrders = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const postOrder = () => dispatch(createOrder());
+  const postOrder = () => {
+    dispatch(createOrder());
+    history.push(routes.PROFILE_PAGE_ORDERS);
+  };
   const getAllOrders = () => dispatch(getAllOrdersRequest());
   const getOrderById = orderId => dispatch(getOrderRequest(orderId));
   const getToOrderDetailsPage = id =>
