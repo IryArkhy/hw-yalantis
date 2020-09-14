@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Switch, Route } from 'react-router-dom';
+import { NavLink, Switch, Route, useLocation } from 'react-router-dom';
 import styles from './user-profile.module.css';
 import ControlPanel from '../../components/ControlPanel/ControlPanel';
 import Grid from '../../components/Grid/Grid';
@@ -9,9 +9,9 @@ import useFilters from '../../hooks/useFilters';
 import routes from '../../routes';
 import OrdersPanel from '../../components/OrdersPanel';
 
-// TODO: think about filters. Do you leave this control panel (after refactoring) or make the other one?
 const UserProfile = () => {
   const { loadProducts } = useProducts();
+  const { pathname } = useLocation();
   const {
     perPage,
     prices,
@@ -23,15 +23,7 @@ const UserProfile = () => {
   } = useFilters();
 
   const loadUserChosenProducts = () =>
-    loadProducts(null, perPage, origin, prices[0], prices[1]);
-
-  // const handleChangePage = ({ target }) => {
-  //   if (target.innerText === 'Previous') {
-  //     getPreviousPage(page, perPage, origin, prices[0], prices[1]);
-  //   } else {
-  //     getNextPage(page, perPage, origin, prices[0], prices[1]);
-  //   }
-  // };
+    loadProducts(null, perPage, origin, prices[0], prices[1], true);
 
   const optionsForControlPanel = {
     perPage,
@@ -52,10 +44,12 @@ const UserProfile = () => {
             <NavLink to={routes.PROFILE_PAGE_PODUCTS}>Your Products</NavLink>
             <NavLink to={routes.PROFILE_PAGE_ORDERS}>Your Orders</NavLink>
           </div>
-          <ControlPanel
-            options={optionsForControlPanel}
-            style={styles.controlPanelWrpr}
-          />
+          {pathname === '/profile/products' && (
+            <ControlPanel
+              options={optionsForControlPanel}
+              style={styles.controlPanelWrpr}
+            />
+          )}
         </div>
         <Switch>
           <Route

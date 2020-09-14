@@ -10,7 +10,7 @@ import CustomBtn from '../Buttons/CustomButton';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ProductInfo = ({ product, onAddToCart, onGoBack }) => {
-  const { name, origin, price } = product;
+  const { name, origin, price, isEditable } = product;
   return (
     <section className={productSection}>
       <h3>{name}</h3>
@@ -24,7 +24,9 @@ const ProductInfo = ({ product, onAddToCart, onGoBack }) => {
       </div>
       <div className={productSectionButtonsWrapper}>
         <CustomBtn actionCallback={onGoBack} text="Go Back" />
-        <CustomBtn actionCallback={onAddToCart} text="Add To Cart" />
+        {!isEditable && (
+          <CustomBtn actionCallback={onAddToCart} text="Add To Cart" />
+        )}
         <ToastContainer />
       </div>
     </section>
@@ -37,6 +39,7 @@ ProductInfo.propTypes = {
     name: T.string,
     origin: T.string,
     price: T.number,
+    isEditable: T.bool,
   }).isRequired,
   onAddToCart: T.func.isRequired,
   onGoBack: T.func.isRequired,

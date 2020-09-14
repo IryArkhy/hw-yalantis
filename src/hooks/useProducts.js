@@ -33,7 +33,19 @@ const useProducts = () => {
     isEditable,
   ) => {
     if (isEditable) {
-      dispatch(getUserProducts({ editable: isEditable }));
+      dispatch(
+        getUserProducts(
+          createProductParams(
+            pageNum,
+            perPage,
+            region,
+            minPrice,
+            maxPrice,
+            isEditable,
+            true,
+          ),
+        ),
+      );
     } else {
       dispatch(
         getAllProducts(
@@ -45,7 +57,6 @@ const useProducts = () => {
   const postProduct = productData => dispatch(createProduct(productData));
   const updateProduct = productData => dispatch(editProduct(productData));
   const deleteProductForever = productId => {
-    console.log('productId in useProducts: ', productId);
     dispatch(deleteProduct(productId));
   };
 

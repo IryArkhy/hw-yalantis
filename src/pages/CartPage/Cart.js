@@ -6,14 +6,12 @@ import useCart from '../../hooks/useCart';
 import useOrders from '../../hooks/useOrders';
 import { cartPageTitle } from './cartPage.module.css';
 
-// TODO: redirect user to user orders page after sending the order
 const CartPage = () => {
   const {
     cart,
     addOneToCart,
     removeOneFromCart,
     removeAllFromCart,
-    // createOrder,
     emptyCart,
     totalPrice,
   } = useCart();

@@ -5,4 +5,5 @@
   grid-template-areas: 'sidebar  content';
   justify-items: stretch;
   align-items: stretch;
+  padding-bottom: 50px;
 }

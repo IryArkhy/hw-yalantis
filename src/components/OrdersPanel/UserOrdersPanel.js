@@ -25,19 +25,13 @@ const UserOrdersPanel = () => {
         <tbody className={styles.tableBody}>
           {allOrders.length > 0 &&
             allOrders.map(({ id, createdAt, pieces }) => {
-              const total = pieces.reduce(
-                (acc, item) => acc + item.count * item.product.price,
-                0,
-              );
-              const itemsNumber = pieces.length;
               const changePage = () => goToOrderPage(id);
               return (
                 <TableRow
                   key={id}
                   date={createdAt}
-                  totalPrice={total}
-                  itemsNumber={itemsNumber}
                   onChangePage={changePage}
+                  pieces={pieces}
                 />
               );
             })}
