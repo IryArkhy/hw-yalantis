@@ -4,10 +4,11 @@ const createProductParams = (
   origins = [],
   minPrice = 80,
   maxPrice = 1000,
+  editable,
 ) => {
   let region;
   if (origins.length === 0) {
-    region = '';
+    region = null;
   } else if (origins.length > 1) {
     region = origins.join(',');
   } else {
@@ -20,6 +21,7 @@ const createProductParams = (
     origins: region,
     minPrice,
     maxPrice,
+    editable,
   };
 };
 

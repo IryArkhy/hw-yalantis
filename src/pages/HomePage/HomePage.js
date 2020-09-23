@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import ProductCard from '../../components/Card';
 import Spinner from '../../components/Loader';
 import Layout from '../../components/Layout';
-import CustomBtn from '../../components/Buttons/CustomButton';
 import ControlPanel from '../../components/ControlPanel/ControlPanel';
-import styles from './home.module.css';
+import Pagination from '../../components/Pagination';
+import { homeTitle, productsWrapper, buttonsWrapper } from './home.module.css';
 import useProducts from '../../hooks/useProducts';
 import useFilters from '../../hooks/useFilters';
 import { getLoading } from '../../redux/selectors/selectors';
@@ -56,34 +56,22 @@ const HomePage = () => {
   return (
     <Layout>
       <ControlPanel options={optionsForControlPanel} />
-      <h2 className={styles.home_title}>Products List</h2>
-      <div className={styles.products_wrapper}>
-        {products.map(({ id, name, origin: region, price }) => (
+      <h2 className={homeTitle}>Products List</h2>
+      <div className={productsWrapper}>
+        {products.map(({ id, name, price, origin: region, isEditable }) => (
           <ProductCard
+            product={{ id, price, name, origin: region, isEditable }}
             key={id}
-            name={name}
-            origin={region}
-            price={price}
-            id={id}
           />
         ))}
       </div>
       {loading && <Spinner />}
-      <div className={styles.buttons_wrapper}>
-        <CustomBtn
-          actionCallback={handleChangePage}
-          text="Previous"
-          isDisabled={page === 1}
-        />
-        <p>
-          Page: {page}/{pages}
-        </p>
-        <CustomBtn
-          text="Next"
-          isDisabled={page === pages}
-          actionCallback={handleChangePage}
-        />
-      </div>
+      <Pagination
+        styles={buttonsWrapper}
+        page={page}
+        pages={pages}
+        onChangePage={handleChangePage}
+      />
     </Layout>
   );
 };

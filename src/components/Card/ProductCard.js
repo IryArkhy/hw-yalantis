@@ -1,62 +1,91 @@
 import React from 'react';
 import T from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { AddToCartButton, RemoveFromCartButton } from '../Buttons';
 import findProductById from '../../helpers/cartHelpers';
-import styles from './card.module.css';
+import {
+  cardWrapper,
+  cardWrapperHeader,
+  cardWrapperContent,
+} from './card.module.css';
 import useCart from '../../hooks/useCart';
 import routes from '../../routes';
+import { GeneralBtnSection, UserProductBtnSection } from './CardButtonSections';
 
-const ProductCard = ({ origin, name, price, id }) => {
+// TODO: remove onDeleteProduct from props inside the CardComponent (useProducts())
+
+const ProductCard = ({
+  product,
+  openModal,
+  onDeleteProduct,
+  onGetProductData,
+}) => {
   const { cart, addOneToCart, removeOneFromCart } = useCart();
-
-  const isInCart = findProductById(cart, id);
-
   const history = useHistory();
-
-  const getToProductPage = ({ target }) => {
+  const { origin, name, price, id, isEditable } = product;
+  const isInCart = findProductById(cart, id);
+  const getToProductPage = ({ target, currentTarget }) => {
     if (
       target.type === 'button' ||
       target.nodeName === 'path' ||
       target.nodeName === 'svg'
-    )
-      return;
-    history.push(routes.PRODUCT_PAGE.createPath(id));
+    ) {
+      if (!onGetProductData) return;
+      onGetProductData(currentTarget);
+    } else {
+      history.push(routes.PRODUCT_PAGE.createPath(id));
+    }
   };
 
   const addToCart = () => addOneToCart(id);
-  const removeFromCard = () => removeOneFromCart(id);
+  const removeFromCart = () => removeOneFromCart(id);
+  const deleteProduct = () => onDeleteProduct(id);
 
   return (
     <div
       role="presentation"
+      data-product={`${name}-${price}-${origin}`}
+      data-id={id}
       onClick={getToProductPage}
-      className={styles.card_wrapper}
+      className={cardWrapper}
     >
-      <header className={styles.card_wrapper_header}>
+      <header className={cardWrapperHeader}>
         <h3>{name}</h3>
         {isInCart && <p>In cart: {isInCart.count} </p>}
       </header>
-      <div className={styles.card_wrapper_content}>
+      <div className={cardWrapperContent}>
         <p>{origin}</p>
         <p>{price} $</p>
-        <div>
-          <button type="button" onClick={addToCart}>
-            {isInCart && isInCart.count >= 1 ? '+1' : <AddToCartButton />}
-          </button>
-          <button type="button" onClick={removeFromCard}>
-            {isInCart && isInCart.count > 1 ? '-1' : <RemoveFromCartButton />}
-          </button>
-        </div>
+        {isEditable ? (
+          <UserProductBtnSection
+            onDeleteProduct={deleteProduct}
+            onOpenModal={openModal}
+          />
+        ) : (
+          <GeneralBtnSection
+            productInCart={isInCart}
+            addToCart={addToCart}
+            removeFromCard={removeFromCart}
+          />
+        )}
       </div>
     </div>
   );
 };
-
+ProductCard.defaultProps = {
+  openModal: null,
+  onDeleteProduct: null,
+  onGetProductData: null,
+};
 ProductCard.propTypes = {
-  id: T.string.isRequired,
-  name: T.string.isRequired,
-  price: T.number.isRequired,
-  origin: T.string.isRequired,
+  product: T.shape({
+    id: T.string.isRequired,
+    name: T.string.isRequired,
+    price: T.number.isRequired,
+    origin: T.string.isRequired,
+    isEditable: T.bool,
+  }).isRequired,
+  openModal: T.func,
+  onDeleteProduct: T.func,
+  onGetProductData: T.func,
 };
 export default ProductCard;

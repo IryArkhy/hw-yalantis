@@ -128,3 +128,32 @@
   font-weight: 700;
   font-size: var(--h3);
 }
+
+.addNewProductBtn {
+  width: 60px;
+  height: 60px;
+  background-color: var(--champane);
+  border-radius: 50%;
+  border: none;
+  position: absolute;
+  top: 23%;
+  right: 25%;
+}
+
+.addNewProductBtn > svg {
+  transition: transform 0.25s, opacity 0.25s;
+  fill: var(--neutral-100);
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.addNewProductBtn > svg:hover {
+  transform: rotate(90deg);
+}
+
+.headerProfileLink {
+  position: absolute;
+  top: 23%;
+  right: 20%;
+}

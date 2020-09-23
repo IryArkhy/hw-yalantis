@@ -1,4 +1,4 @@
-.home_title {
+.homeTitle {
   font-size: var(--h2);
   color: var(--terracota);
   font-weight: 900;
@@ -6,30 +6,26 @@
   margin: 0 0 30px 0;
 }
 
-.products_wrapper {
+.productsWrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   margin-bottom: 20px;
 }
 
-.buttons_wrapper {
+.buttonsWrapper {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.buttons_wrapper > button {
+.buttonsWrapper > button {
   margin: 10px;
 }
 
-.buttons_wrapper > p {
+.buttonsWrapper > p {
   font-weight: 700;
   font-size: var(--h5);
   margin: 10px;
-}
-
-.mute:disabled {
-  background: var(--neutral-300);
 }

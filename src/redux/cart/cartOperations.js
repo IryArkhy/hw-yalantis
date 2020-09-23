@@ -1,4 +1,4 @@
-import api from '../../servises/api';
+import makeRequest from '../../servises/api';
 import cartActions from './cartActions';
 import findProductById from '../../helpers/cartHelpers';
 import { notifyError, notifySuccess } from '../../helpers/userNotifiers';
@@ -19,16 +19,15 @@ export const addProductToCart = productId => (dispatch, getState) => {
         count: alreadyInCart.count + 1,
       }),
     );
-    notifySuccess(USER_MESSAGES.ADD_TO_CART_SUCCESS);
+    notifySuccess(USER_MESSAGES.SUCCESS.ADD_TO_CART);
   } else {
-    api
-      .getProducts('get', ENDPOINTS.GET_PRODUCT_BY_ID.createURL(productId))
+    makeRequest('get', ENDPOINTS.CRUD_PRODUCT_BY_ID.createURL(productId))
       .then(({ data }) => {
         dispatch(cartActions.addToCartSuccess({ ...data, count: 1 }));
-        notifySuccess(USER_MESSAGES.ADD_TO_CART_SUCCESS);
+        notifySuccess(USER_MESSAGES.SUCCESS.ADD_TO_CART);
       })
       .catch(error => {
-        notifyError(USER_MESSAGES.ADD_OR_REMOVE_FROM_CART_FAILURE);
+        notifyError(USER_MESSAGES.ERROR.ADD_OR_REMOVE_FROM_CART);
         dispatch(cartActions.addToCartFailure(error));
       });
   }

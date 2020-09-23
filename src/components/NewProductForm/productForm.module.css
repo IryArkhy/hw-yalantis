@@ -1,0 +1,71 @@
+.formWraper {
+  position: absolute;
+  width: 80%;
+  top: 20%;
+  left: 10%;
+}
+
+.invalid,
+.input,
+.select {
+  font-family: 'Mulish';
+  font-weight: 500;
+  background: transparent;
+}
+
+.invalid {
+  color: var(--red-200);
+  margin: 0 0 5px 0;
+}
+
+.input {
+  width: 100%;
+  height: 46px;
+  margin: 10px 0;
+  padding: 8px;
+  border: 1px solid var(--champane);
+  border-radius: 5px;
+  font-size: 17px;
+  color: var(--neutral-400);
+}
+
+.select {
+  width: 100%;
+  height: 60px;
+  border: 1px solid var(--champane);
+  border-radius: 5px;
+  color: var(--neutral-400);
+  cursor: pointer;
+  padding: 17px;
+  margin: 10px 0 25px;
+  background: url(http://sharpik.com/wip/cuteselect/arrow.png) 295px 12px
+    no-repeat white;
+  transition: all 0.3s;
+}
+
+.select:hover {
+  background-color: var(--champane);
+  color: white;
+  font-weight: 600;
+  font-size: 20px;
+  padding: 15px 5px 15px 25px;
+  transition: all 0.3s;
+}
+
+.select:focus {
+  outline-color: var(--greensheen);
+}
+
+.select:disabled:hover {
+  background-color: transparent;
+  color: var(--neutral-400);
+  transition: none;
+  font-size: inherit;
+  padding: 17px;
+  font-weight: inherit;
+}
+
+.input:disabled,
+.select:disabled {
+  border: 1px solid var(--neutral-400);
+}

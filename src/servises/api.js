@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_API_URL;
+axios.defaults.headers.common.Authorization = process.env.REACT_APP_API_KEY;
 
-const getProducts = (method, url, params, data) =>
+const makeRequest = (method, url, params, data) =>
   axios({
     method,
     url,
@@ -12,6 +13,4 @@ const getProducts = (method, url, params, data) =>
     data,
   });
 
-export default {
-  getProducts,
-};
+export default makeRequest;

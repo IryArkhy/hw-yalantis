@@ -1,0 +1,53 @@
+.overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.527);
+  position: fixed;
+  top: 0;
+}
+
+.modalContentWrpr {
+  width: 40%;
+  height: 47%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  border-radius: 20px;
+  padding: 0 40px 30px;
+}
+
+.modal_header {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: var(--champane);
+  position: absolute;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 20px 10px;
+  left: 0;
+  top: 0;
+}
+
+.modal_header > h3 {
+  color: var(--neutral-600);
+}
+
+.closeModalBtn {
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  width: 30px;
+}
+
+.closeModalBtn > svg {
+  transition: transform 0.25s, opacity 0.25s;
+  opacity: 0.7;
+}
+
+.closeModalBtn > svg:hover {
+  opacity: 1;
+  transform: rotate(90deg);
+}

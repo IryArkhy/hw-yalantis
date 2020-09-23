@@ -12,6 +12,7 @@
   height: 60px;
   border: none;
   font-weight: 700;
+  margin: 20px;
   font-size: var(--h4);
   background-color: var(--champane);
   color: var(--independance);
@@ -20,5 +21,20 @@
 
 .customBtn[disabled],
 .customBtn:disabled {
-  background: var(--neutral-300);
+  background-color: var(--neutral-300);
+}
+
+.userBtn {
+  height: 60px;
+  width: 60px;
+}
+
+.userBtn:hover .yellow {
+  fill: var(--terracota);
+  transition: all 0.3s;
+}
+
+.userBtn:hover .orange {
+  fill: var(--terracota);
+  transition: all 0.3s;
 }

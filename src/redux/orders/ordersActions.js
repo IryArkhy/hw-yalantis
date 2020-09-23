@@ -23,10 +23,10 @@ const createOrderStart = () => ({
   type: ordersTypes.CREATE_ORDER_START,
 });
 
-const createOrderSuccess = data => ({
+const createOrderSuccess = order => ({
   type: ordersTypes.CREATE_ORDER_SUCCESS,
   payload: {
-    data,
+    order,
   },
 });
 
@@ -43,7 +43,7 @@ const getOrderStart = () => ({
 });
 
 const getOrderSuccess = order => ({
-  type: ordersTypes.CREATE_ORDER_SUCCESS,
+  type: ordersTypes.GET_ORDER_SUCCESS,
   payload: {
     order,
   },

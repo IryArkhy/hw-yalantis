@@ -7,4 +7,13 @@ export default {
     },
   },
   CART_PAGE: '/cart',
+  PROFILE_PAGE: '/profile',
+  PROFILE_PAGE_PODUCTS: '/profile/products',
+  PROFILE_PAGE_ORDERS: '/profile/orders',
+  ORDER_PAGE: {
+    INDEX: '/profile/orders/:orderId',
+    createPath: function createPath(id) {
+      return this.INDEX.replace(':orderId', id);
+    },
+  },
 };
