@@ -44,7 +44,7 @@ const UserProfile = () => {
             <NavLink to={routes.PROFILE_PAGE_PODUCTS}>Your Products</NavLink>
             <NavLink to={routes.PROFILE_PAGE_ORDERS}>Your Orders</NavLink>
           </div>
-          {pathname === '/profile/products' && (
+          {pathname === routes.PROFILE_PAGE_PODUCTS && (
             <ControlPanel
               options={optionsForControlPanel}
               style={styles.controlPanelWrpr}

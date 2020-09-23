@@ -1,11 +1,17 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 import { persistStore } from 'redux-persist';
 import rootReducer from './rootReducer';
+import rootSaga from './rootSaga';
 
-const middleware = [thunk];
-const enhuncer = composeWithDevTools(applyMiddleware(...middleware));
+const middleware = createSagaMiddleware();
+const enhancer = composeWithDevTools(applyMiddleware(middleware));
 
-export const store = createStore(rootReducer, enhuncer);
-export const persistor = persistStore(store);
+export const initialStore = () => {
+  const store = createStore(rootReducer, enhancer);
+  middleware.run(rootSaga);
+
+  return store;
+};
+export const persistor = persistStore(initialStore());
