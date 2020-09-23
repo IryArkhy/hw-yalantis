@@ -16,7 +16,7 @@ function* getAllOrdersWorker() {
   try {
     yield put(getAllOrdersStart());
     const { items } = yield call(makeRequest, 'get', ENDPOINTS.GET_POST_ORDERS);
-    console.log({ items });
+    // console.log({ items });
     yield put(getAllOrdersSuccess(items));
   } catch (error) {
     yield put(getAllOrdersFailure(error));
@@ -58,7 +58,7 @@ function* postOrderWorker({ payload }) {
   } = ordersActions;
   const requestBody = {
     order: {
-      pieces: cart.cart.map(product => ({
+      pieces: cart.map(product => ({
         productId: product.id,
         count: product.count,
       })),

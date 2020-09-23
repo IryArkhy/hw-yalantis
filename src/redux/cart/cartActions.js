@@ -36,13 +36,15 @@ const deletProductFromCart = (id, cart) => ({
   },
 });
 
-const removeFromCart = (id, updatedProduct) => ({
-  type: cartTypes.REMOVE_FROM_CART_SUCCESS,
-  payload: {
-    id,
-    updatedProduct,
-  },
-});
+const removeFromCartSuccess = (id, updatedProduct) => {
+  return {
+    type: cartTypes.REMOVE_FROM_CART_SUCCESS,
+    payload: {
+      id,
+      updatedProduct,
+    },
+  };
+};
 
 //--
 
@@ -74,7 +76,7 @@ export default {
   addToCartFailure,
 
   deletProductFromCart,
-  removeFromCart,
+  removeFromCartSuccess,
 
   removeAllInstances,
   removeAllInstancesSucces,

@@ -43,15 +43,16 @@ export function* addProductToCartWatcher() {
 
 function* removeProductFromCartWorker({ payload }) {
   const { id, cart } = payload;
-  const { removeFromCart } = cartActions;
+
+  const { removeFromCartSuccess } = cartActions;
   const productToDelete = findProductById(cart, id);
   if (!productToDelete) return;
 
   if (productToDelete.count === 1) {
-    yield put(removeFromCart(id, {}));
+    yield put(removeFromCartSuccess(id, {}));
   } else {
     yield put(
-      removeFromCart('', {
+      removeFromCartSuccess('', {
         ...productToDelete,
         count: productToDelete.count - 1,
       }),
