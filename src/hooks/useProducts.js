@@ -1,11 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  getAllProducts,
-  getUserProducts,
-  createProduct,
-  editProduct,
-  deleteProduct,
-} from '../redux/products/productsOperations';
 import createProductParams from '../helpers/requestHelpers';
 import {
   getProducts,
@@ -14,6 +7,7 @@ import {
   getCurrentPage,
   getTotalPages,
 } from '../redux/selectors/selectors';
+import PA from '../redux/products/productsActions';
 
 const useProducts = () => {
   const products = useSelector(getProducts);
@@ -34,7 +28,7 @@ const useProducts = () => {
   ) => {
     if (isEditable) {
       dispatch(
-        getUserProducts(
+        PA.getUserProducts(
           createProductParams(
             pageNum,
             perPage,
@@ -42,22 +36,25 @@ const useProducts = () => {
             minPrice,
             maxPrice,
             isEditable,
-            true,
           ),
         ),
       );
     } else {
       dispatch(
-        getAllProducts(
+        PA.getAllProducts(
           createProductParams(pageNum, perPage, region, minPrice, maxPrice),
         ),
       );
     }
   };
-  const postProduct = productData => dispatch(createProduct(productData));
-  const updateProduct = productData => dispatch(editProduct(productData));
+  const postProduct = ({ name, price, origin }) =>
+    dispatch(PA.createProduct(name, price, origin));
+
+  const updateProduct = ({ id, name, origin, price }) =>
+    dispatch(PA.updateProduct(id, name, origin, price));
+
   const deleteProductForever = productId => {
-    dispatch(deleteProduct(productId));
+    dispatch(PA.deleteProduct(productId));
   };
 
   const getPreviousPage = (pageNum, perPage, region, minPrice, maxPrice) => {

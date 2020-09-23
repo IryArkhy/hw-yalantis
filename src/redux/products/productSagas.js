@@ -1,94 +1,130 @@
-import { all, takeEvery, put, call } from 'redux-saga/effects';
+import { takeEvery, put, call } from 'redux-saga/effects';
 import makeRequest from '../../servises/api';
 import productsActions from './productsActions';
 import { notifyError, notifySuccess } from '../../helpers/userNotifiers';
 import { USER_MESSAGES } from '../../constants';
 import ENDPOINTS from '../../servises/api-constants';
+import PT from './productsTypes';
 
-export function* getAllProductsWorker(params) {
+// В worker func приходит action
+function* getAllProductsWorker({ payload }) {
+  const {
+    getAllProductsStart,
+    getAllProductsSuccess,
+    getAllProductsFailure,
+  } = productsActions;
+
   try {
-    put(productsActions.getAllProductsStart());
+    yield put(getAllProductsStart()); // Возможно убрать вообще этот тип экшена
     const { items, page, totalItems, perPage } = yield call(
-      makeRequest('get', ENDPOINTS.PRODUCTS, params),
+      makeRequest,
+      'get',
+      ENDPOINTS.PRODUCTS,
+      payload,
     );
     yield put(
-      productsActions.getAllProductsSuccess({
+      getAllProductsSuccess({
         products: items,
         page,
         pages: Math.ceil(totalItems / perPage),
       }),
     );
   } catch (error) {
-    yield put(productsActions.getAllProductsFailure(error));
+    yield put(getAllProductsFailure(error));
     notifyError(USER_MESSAGES.ERROR.LOAD_PRODUCTS);
   }
 }
-// export const getAllProducts = params => dispatch => {
-//   dispatch(productsActions.getAllProductsStart());
-//   makeRequest('get', ENDPOINTS.PRODUCTS, params)
-//     .then(res => {
-//       const { items, page, perPage, totalItems } = res.data;
-//       dispatch(
-//         productsActions.getAllProductsSuccess({
-//           products: items,
-//           page,
-//           pages: Math.ceil(totalItems / perPage),
-//         }),
-//       );
-//     })
-//     .catch(error => {
-//       notifyError(USER_MESSAGES.ERROR.LOAD_PRODUCTS);
-//       dispatch(productsActions.getAllProductsFailure(error));
-//     });
-// };
 
-export const getUserProducts = params => dispatch => {
-  dispatch(productsActions.getUserProductsStart());
-  makeRequest('get', ENDPOINTS.PRODUCTS, params)
-    .then(res => {
-      const { items, totalItems } = res.data;
-      dispatch(
-        productsActions.getUserProductsSuccess({
-          products: items,
-          count: totalItems,
-        }),
-      );
-    })
-    .catch(error => {
-      notifyError(USER_MESSAGES.ERROR.LOAD_PRODUCTS);
-      dispatch(productsActions.getUserProductsFailure(error));
-    });
-};
+export function* getAllProductsWatcher() {
+  // Ha  каждый выхов action типа GET_ALL_PRODUCTS будет срабатывать ф-я getAllProductsWorker
+  yield takeEvery(PT.GET_ALL_PRODUCTS, getAllProductsWorker);
+}
 
-export const getProduct = productId => dispatch => {
-  dispatch(productsActions.getProductStart());
+function* getUserProductsWorker({ payload }) {
+  const {
+    getUserProductsStart,
+    getUserProductsSuccess,
+    getUserProductsFailure,
+  } = productsActions;
 
-  makeRequest('get', ENDPOINTS.CRUD_PRODUCT_BY_ID.createURL(productId))
-    .then(({ data }) => {
-      dispatch(productsActions.getProductSuccess(data));
-    })
-    .catch(error => {
-      notifyError(USER_MESSAGES.ERROR.FIND_PRODUCT_BY_ID);
-      dispatch(productsActions.getProductFailure(error));
-    });
-};
+  try {
+    yield put(getUserProductsStart());
+    const { items, totalItems } = yield call(
+      makeRequest,
+      'get',
+      ENDPOINTS.PRODUCTS,
+      payload,
+    );
+    yield put(
+      getUserProductsSuccess({
+        products: items,
+        count: totalItems,
+      }),
+    );
+  } catch (error) {
+    yield put(getUserProductsFailure(error));
+    notifyError(USER_MESSAGES.ERROR.LOAD_PRODUCTS);
+  }
+}
 
-export const getProductsOrigins = () => dispatch => {
-  dispatch(productsActions.getProductOriginsStart());
+export function* getUserProductsWatcher() {
+  yield takeEvery(PT.GET_USER_PRODUCTS, getUserProductsWorker);
+}
 
-  makeRequest('get', ENDPOINTS.GET_PRODUCTS_ORIGINS)
-    .then(({ data }) => {
-      dispatch(productsActions.getProductOriginsSuccess(data.items));
-    })
-    .catch(error => {
-      notifyError(USER_MESSAGES.ERROR.LOAD_PRODUCT_ORIGINS);
-      dispatch(productsActions.getProductOriginsFailure(error));
-    });
-};
+function* getProductWorker({ payload }) {
+  const { productId } = payload;
 
-export const createProduct = productData => dispatch => {
-  dispatch(productsActions.createProductStart());
-  const { name, price, origin } = productData;
+  const {
+    getProductStart,
+    getProductSuccess,
+    getProductFailure,
+  } = productsActions;
+
+  try {
+    yield put(getProductStart());
+    const data = yield call(
+      makeRequest,
+      'get',
+      ENDPOINTS.CRUD_PRODUCT_BY_ID.createURL(productId),
+    );
+    yield put(getProductSuccess(data));
+  } catch (error) {
+    yield put(getProductFailure(error));
+    notifyError(USER_MESSAGES.ERROR.FIND_PRODUCT_BY_ID);
+  }
+}
+
+export function* getProductWatcher() {
+  yield takeEvery(PT.GET_PRODUCT, getProductWorker);
+}
+
+function* getProductsOriginsWorker() {
+  const {
+    getProductOriginsStart,
+    getProductOriginsSuccess,
+    getProductOriginsFailure,
+  } = productsActions;
+
+  try {
+    yield put(getProductOriginsStart());
+    const { items } = yield call(
+      makeRequest,
+      'get',
+      ENDPOINTS.GET_PRODUCTS_ORIGINS,
+    );
+    yield put(getProductOriginsSuccess(items));
+  } catch (error) {
+    notifyError(USER_MESSAGES.ERROR.LOAD_PRODUCT_ORIGINS);
+    put(getProductOriginsFailure(error));
+  }
+}
+
+export function* getProductsOriginsWatcher() {
+  yield takeEvery(PT.GET_PRODUCT_ORIGINS, getProductsOriginsWorker);
+}
+
+function* createProductWorker({ payload }) {
+  const { name, price, origin } = payload;
   const requestBody = {
     product: {
       name,
@@ -96,19 +132,34 @@ export const createProduct = productData => dispatch => {
       origin,
     },
   };
-  makeRequest('post', ENDPOINTS.PRODUCTS, {}, requestBody)
-    .then(({ data }) => {
-      dispatch(productsActions.createProductSuccess(data));
-      notifySuccess(USER_MESSAGES.SUCCESS.CREATE_PRODUCT);
-    })
-    .catch(error => {
-      notifyError(USER_MESSAGES.ERROR.CREATE_PRODUCT);
-      dispatch(productsActions.createProductFailure(error));
-    });
-};
+  const {
+    createProductStart,
+    createProductSuccess,
+    createProductFailure,
+  } = productsActions;
 
-export const editProduct = productData => dispatch => {
-  const { id, name, origin, price } = productData;
+  try {
+    yield put(createProductStart());
+    const data = yield call(
+      makeRequest,
+      'post',
+      ENDPOINTS.PRODUCTS,
+      {},
+      requestBody,
+    );
+    yield put(createProductSuccess(data));
+  } catch (error) {
+    notifyError(USER_MESSAGES.ERROR.CREATE_PRODUCT);
+    yield put(createProductFailure(error));
+  }
+}
+
+export function* createProductWatcher() {
+  yield takeEvery(PT.CREATE_PRODUCT, createProductWorker);
+}
+
+function* editProductWorker({ payload }) {
+  const { id, name, origin, price } = payload;
   const requestBody = {
     product: {
       name,
@@ -116,34 +167,56 @@ export const editProduct = productData => dispatch => {
       origin,
     },
   };
+  const {
+    updateProductStart,
+    updateProductSuccess,
+    updateProductFailure,
+  } = productsActions;
 
-  dispatch(productsActions.updateProductStart());
-  makeRequest(
-    'patch',
-    ENDPOINTS.CRUD_PRODUCT_BY_ID.createURL(id),
-    {},
-    requestBody,
-  )
-    .then(({ data }) => {
-      dispatch(productsActions.updateProductSuccess(data));
-      notifySuccess(USER_MESSAGES.SUCCESS.EDIT_PRODUCT);
-    })
-    .catch(error => {
-      dispatch(productsActions.updateProductFailure(error));
-      notifyError(USER_MESSAGES.ERROR.EDIT_PRODUCT);
-    });
-};
+  try {
+    yield put(updateProductStart());
+    const data = yield call(
+      makeRequest,
+      'patch',
+      ENDPOINTS.CRUD_PRODUCT_BY_ID.createURL(id),
+      {},
+      requestBody,
+    );
+    yield put(updateProductSuccess(data));
+    notifySuccess(USER_MESSAGES.SUCCESS.EDIT_PRODUCT);
+  } catch (error) {
+    yield put(updateProductFailure(error));
+    notifyError(USER_MESSAGES.ERROR.EDIT_PRODUCT);
+  }
+}
 
-export const deleteProduct = productId => dispatch => {
-  dispatch(productsActions.deleteProductStart());
+export function* editProductWatcher() {
+  yield takeEvery(PT.UPDATE_PRODUCT, editProductWorker);
+}
 
-  makeRequest('delete', ENDPOINTS.CRUD_PRODUCT_BY_ID.createURL(productId))
-    .then(({ data }) => {
-      dispatch(productsActions.deleteProductSuccess(productId));
-      notifySuccess(USER_MESSAGES.SUCCESS.DELETE_PRODUCT);
-    })
-    .catch(error => {
-      dispatch(productsActions.deleteProductFailure(error));
-      notifyError(USER_MESSAGES.ERROR.DELETE_PRODUCT);
-    });
-};
+function* deleteProductWorker({ payload }) {
+  const { productId } = payload;
+  const {
+    deleteProductStart,
+    deleteProductSuccess,
+    deleteProductFailure,
+  } = productsActions;
+
+  try {
+    yield put(deleteProductStart());
+    yield call(
+      makeRequest,
+      'delete',
+      ENDPOINTS.CRUD_PRODUCT_BY_ID.createURL(productId),
+    );
+    yield put(deleteProductSuccess(productId));
+    notifySuccess(USER_MESSAGES.SUCCESS.DELETE_PRODUCT);
+  } catch (error) {
+    yield put(deleteProductFailure(error));
+    notifyError(USER_MESSAGES.ERROR.DELETE_PRODUCT);
+  }
+}
+
+export function* deleteProductWatcher() {
+  yield takeEvery(PT.DELETE_PRODUCT, deleteProductWorker);
+}

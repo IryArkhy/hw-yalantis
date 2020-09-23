@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ToastContainer } from 'react-toastify';
-import { initialStore, persistor } from './redux/store';
+import { persistStore } from 'redux-persist';
+import initialStore from './redux/store';
 import App from './components/App';
 
+const store = initialStore();
+const persistor = persistStore(store);
 ReactDOM.render(
-  <Provider store={initialStore}>
+  <Provider store={store}>
     <PersistGate persistor={persistor}>
       <App />
       <ToastContainer />
@@ -15,3 +18,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root'),
 );
+
+export default store;

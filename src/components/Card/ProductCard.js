@@ -11,8 +11,6 @@ import useCart from '../../hooks/useCart';
 import routes from '../../routes';
 import { GeneralBtnSection, UserProductBtnSection } from './CardButtonSections';
 
-// TODO: remove onDeleteProduct from props inside the CardComponent (useProducts())
-
 const ProductCard = ({
   product,
   openModal,
