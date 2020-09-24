@@ -1,4 +1,4 @@
-import { takeEvery, put, call } from 'redux-saga/effects';
+import { takeEvery, put, call, delay } from 'redux-saga/effects';
 import makeRequest from '../../servises/api';
 import productsActions from './productsActions';
 import { notifyError, notifySuccess } from '../../helpers/userNotifiers';
@@ -6,7 +6,6 @@ import { USER_MESSAGES } from '../../constants';
 import ENDPOINTS from '../../servises/api-constants';
 import PT from './productsTypes';
 
-// В worker func приходит action
 function* getAllProductsWorker({ payload }) {
   const {
     getAllProductsStart,
@@ -15,7 +14,7 @@ function* getAllProductsWorker({ payload }) {
   } = productsActions;
 
   try {
-    yield put(getAllProductsStart()); // Возможно убрать вообще этот тип экшена
+    yield put(getAllProductsStart());
     const { items, page, totalItems, perPage } = yield call(
       makeRequest,
       'get',
@@ -36,8 +35,40 @@ function* getAllProductsWorker({ payload }) {
 }
 
 export function* getAllProductsWatcher() {
-  // Ha  каждый выхов action типа GET_ALL_PRODUCTS будет срабатывать ф-я getAllProductsWorker
   yield takeEvery(PT.GET_ALL_PRODUCTS, getAllProductsWorker);
+}
+function* productsWithDebounceWorker({ payload }) {
+  // const { pageNum, perPage, region, minPrice, maxPrice } = payload;
+  const {
+    getProductsDebounceStart,
+    getAllProductsSuccess,
+    getProductsDebounceFailure,
+  } = productsActions;
+
+  try {
+    yield call(delay, 2000);
+    yield put(getProductsDebounceStart());
+    const { items, page, totalItems, perPage } = yield call(
+      makeRequest,
+      'get',
+      ENDPOINTS.PRODUCTS,
+      payload,
+    );
+    yield put(
+      getAllProductsSuccess({
+        products: items,
+        page,
+        pages: Math.ceil(totalItems / perPage),
+      }),
+    );
+  } catch (error) {
+    yield put(getProductsDebounceFailure(error));
+    notifyError(USER_MESSAGES.ERROR.LOAD_PRODUCTS);
+  }
+}
+
+export function* productsWithDebounceWatcher() {
+  yield takeEvery(PT.LOAD_PRODUCTS_WITH_DEBOUNCE, productsWithDebounceWorker);
 }
 
 function* getUserProductsWorker({ payload }) {

@@ -1,6 +1,7 @@
 import { all } from 'redux-saga/effects';
 import {
   getAllProductsWatcher,
+  productsWithDebounceWatcher,
   getUserProductsWatcher,
   getProductWatcher,
   getProductsOriginsWatcher,
@@ -23,6 +24,7 @@ import {
 export default function* rootSaga() {
   yield all([
     getAllProductsWatcher(),
+    productsWithDebounceWatcher(),
     getUserProductsWatcher(),
     getProductWatcher(),
     getProductsOriginsWatcher(),

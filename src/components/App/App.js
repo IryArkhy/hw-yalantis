@@ -16,10 +16,8 @@ import '../../assets/stylesheets/main.css';
 const App = () => {
   const { loadProducts } = useProducts();
   const dispatch = useDispatch();
-
   useEffect(
     useCallback(() => {
-      loadProducts(null, 18);
       loadProducts(null, null, [], null, null, true);
       dispatch(PA.getProductsOrigins());
     }, [dispatch, loadProducts]),
