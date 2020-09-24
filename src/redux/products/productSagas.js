@@ -1,4 +1,4 @@
-import { takeEvery, put, call, delay } from 'redux-saga/effects';
+import { takeEvery, put, call, debounce } from 'redux-saga/effects';
 import makeRequest from '../../servises/api';
 import productsActions from './productsActions';
 import { notifyError, notifySuccess } from '../../helpers/userNotifiers';
@@ -38,7 +38,6 @@ export function* getAllProductsWatcher() {
   yield takeEvery(PT.GET_ALL_PRODUCTS, getAllProductsWorker);
 }
 function* productsWithDebounceWorker({ payload }) {
-  // const { pageNum, perPage, region, minPrice, maxPrice } = payload;
   const {
     getProductsDebounceStart,
     getAllProductsSuccess,
@@ -46,7 +45,6 @@ function* productsWithDebounceWorker({ payload }) {
   } = productsActions;
 
   try {
-    yield call(delay, 2000);
     yield put(getProductsDebounceStart());
     const { items, page, totalItems, perPage } = yield call(
       makeRequest,
@@ -68,7 +66,11 @@ function* productsWithDebounceWorker({ payload }) {
 }
 
 export function* productsWithDebounceWatcher() {
-  yield takeEvery(PT.LOAD_PRODUCTS_WITH_DEBOUNCE, productsWithDebounceWorker);
+  yield debounce(
+    3000,
+    PT.LOAD_PRODUCTS_WITH_DEBOUNCE,
+    productsWithDebounceWorker,
+  );
 }
 
 function* getUserProductsWorker({ payload }) {

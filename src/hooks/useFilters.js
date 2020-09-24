@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { DEFAULT_PRICE_RANGE, PROD_PER_PAGE } from '../constants';
@@ -13,7 +13,7 @@ const useFilters = () => {
   const [prices, setPrices] = useState(priceRange || DEFAULT_PRICE_RANGE);
   const [origin, setOrigin] = useState(region);
   const origins = useSelector(getProductsOrigins);
-  const { loadProducts, page } = useProducts();
+  const { loadProducts, page, loadWithDebounce } = useProducts();
   const history = useHistory();
   const location = useLocation();
 
@@ -37,6 +37,13 @@ const useFilters = () => {
     });
     LS.save('filterQS', location.search);
   }, [history, location.search, origin, origins, page, perPage, prices]);
+
+  useEffect(
+    useCallback(() => {
+      loadWithDebounce(1, perPage, origin, prices[0], prices[1]);
+    }, [loadWithDebounce, origin, perPage, prices]),
+    [perPage, origin, prices],
+  );
 
   return {
     perPage,

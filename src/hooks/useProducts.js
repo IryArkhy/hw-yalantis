@@ -47,12 +47,13 @@ const useProducts = () => {
       );
     }
   };
-  const loadWithDebounce = (pageNum, perPage, region, minPrice, maxPrice) =>
+  const loadWithDebounce = (pageNum, perPage, region, minPrice, maxPrice) => {
     dispatch(
       PA.getProductsDebounce(
         createProductParams(pageNum, perPage, region, minPrice, maxPrice),
       ),
     );
+  };
 
   const postProduct = ({ name, price, origin }) =>
     dispatch(PA.createProduct(name, price, origin));
