@@ -4,7 +4,7 @@ import ordersActions from './ordersActions';
 import { notifyError } from '../../helpers/userNotifiers';
 import { USER_MESSAGES } from '../../constants';
 import ENDPOINTS from '../../servises/api-constants';
-import OT from './ordersTypes';
+import ordersTypes from './ordersTypes';
 
 function* getAllOrdersWorker() {
   const {
@@ -22,9 +22,6 @@ function* getAllOrdersWorker() {
     yield put(getAllOrdersFailure(error));
     notifyError(USER_MESSAGES.ERROR.LOAD_ORDERS);
   }
-}
-export function* getAllOrdersWatcher() {
-  yield takeEvery(OT.GET_ALL_ORDERS, getAllOrdersWorker);
 }
 
 function* getOrderWorker({ payload }) {
@@ -44,9 +41,6 @@ function* getOrderWorker({ payload }) {
     yield put(getOrderFailure(error));
     notifyError(USER_MESSAGES.ERROR.GET_ORDER_BY_ID);
   }
-}
-export function* getOrderWatcher() {
-  yield takeEvery(OT.GET_ORDER, getOrderWorker);
 }
 
 function* postOrderWorker({ payload }) {
@@ -79,6 +73,9 @@ function* postOrderWorker({ payload }) {
     notifyError(USER_MESSAGES.ERROR.POST_ORDER);
   }
 }
-export function* postOrderWatcher() {
-  yield takeEvery(OT.CREATE_ORDER, postOrderWorker);
+
+export default function* ordersWatcher() {
+  yield takeEvery(ordersTypes.GET_ALL_ORDERS, getAllOrdersWorker);
+  yield takeEvery(ordersTypes.GET_ORDER, getOrderWorker);
+  yield takeEvery(ordersTypes.CREATE_ORDER, postOrderWorker);
 }

@@ -7,7 +7,7 @@ import {
   getCurrentPage,
   getTotalPages,
 } from '../redux/selectors/selectors';
-import PA from '../redux/products/productsActions';
+import productsActions from '../redux/products/productsActions';
 
 const useProducts = () => {
   const products = useSelector(getProducts);
@@ -28,7 +28,7 @@ const useProducts = () => {
   ) => {
     if (isEditable) {
       dispatch(
-        PA.getUserProducts(
+        productsActions.getUserProducts(
           createProductParams(
             pageNum,
             perPage,
@@ -41,7 +41,7 @@ const useProducts = () => {
       );
     } else {
       dispatch(
-        PA.getAllProducts(
+        productsActions.getAllProducts(
           createProductParams(pageNum, perPage, region, minPrice, maxPrice),
         ),
       );
@@ -49,20 +49,20 @@ const useProducts = () => {
   };
   const loadWithDebounce = (pageNum, perPage, region, minPrice, maxPrice) => {
     dispatch(
-      PA.getProductsDebounce(
+      productsActions.getProductsDebounce(
         createProductParams(pageNum, perPage, region, minPrice, maxPrice),
       ),
     );
   };
 
   const postProduct = ({ name, price, origin }) =>
-    dispatch(PA.createProduct(name, price, origin));
+    dispatch(productsActions.createProduct(name, price, origin));
 
   const updateProduct = ({ id, name, origin, price }) =>
-    dispatch(PA.updateProduct(id, name, origin, price));
+    dispatch(productsActions.updateProduct(id, name, origin, price));
 
   const deleteProductForever = productId => {
-    dispatch(PA.deleteProduct(productId));
+    dispatch(productsActions.deleteProduct(productId));
   };
 
   const getPreviousPage = (pageNum, perPage, region, minPrice, maxPrice) => {

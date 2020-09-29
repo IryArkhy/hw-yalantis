@@ -5,7 +5,7 @@ import Layout from '../../components/Layout';
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
 import useCart from '../../hooks/useCart';
 import { getCurrentProduct } from '../../redux/selectors/selectors';
-import PA from '../../redux/products/productsActions';
+import productsActions from '../../redux/products/productsActions';
 
 const ProductPage = () => {
   const params = useParams();
@@ -20,7 +20,7 @@ const ProductPage = () => {
 
   useEffect(
     useCallback(() => {
-      dispatch(PA.getProduct(id));
+      dispatch(productsActions.getProduct(id));
     }, [dispatch, id]),
     [dispatch, id],
   );

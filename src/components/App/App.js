@@ -10,7 +10,7 @@ import Header from '../Header';
 import Footer from '../Footer/Footer';
 import routes from '../../routes';
 import useProducts from '../../hooks/useProducts';
-import PA from '../../redux/products/productsActions';
+import productsActions from '../../redux/products/productsActions';
 import '../../assets/stylesheets/main.css';
 
 const App = () => {
@@ -19,7 +19,7 @@ const App = () => {
   useEffect(
     useCallback(() => {
       loadProducts(null, null, [], null, null, true);
-      dispatch(PA.getProductsOrigins());
+      dispatch(productsActions.getProductsOrigins());
     }, [dispatch, loadProducts]),
     [],
   );

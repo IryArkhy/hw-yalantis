@@ -4,7 +4,7 @@ import productsActions from './productsActions';
 import { notifyError, notifySuccess } from '../../helpers/userNotifiers';
 import { USER_MESSAGES } from '../../constants';
 import ENDPOINTS from '../../servises/api-constants';
-import PT from './productsTypes';
+import productTypes from './productsTypes';
 
 function* getAllProductsWorker({ payload }) {
   const {
@@ -34,9 +34,6 @@ function* getAllProductsWorker({ payload }) {
   }
 }
 
-export function* getAllProductsWatcher() {
-  yield takeEvery(PT.GET_ALL_PRODUCTS, getAllProductsWorker);
-}
 function* productsWithDebounceWorker({ payload }) {
   const {
     getProductsDebounceStart,
@@ -63,14 +60,6 @@ function* productsWithDebounceWorker({ payload }) {
     yield put(getProductsDebounceFailure(error));
     notifyError(USER_MESSAGES.ERROR.LOAD_PRODUCTS);
   }
-}
-
-export function* productsWithDebounceWatcher() {
-  yield debounce(
-    3000,
-    PT.LOAD_PRODUCTS_WITH_DEBOUNCE,
-    productsWithDebounceWorker,
-  );
 }
 
 function* getUserProductsWorker({ payload }) {
@@ -100,10 +89,6 @@ function* getUserProductsWorker({ payload }) {
   }
 }
 
-export function* getUserProductsWatcher() {
-  yield takeEvery(PT.GET_USER_PRODUCTS, getUserProductsWorker);
-}
-
 function* getProductWorker({ payload }) {
   const { productId } = payload;
 
@@ -127,10 +112,6 @@ function* getProductWorker({ payload }) {
   }
 }
 
-export function* getProductWatcher() {
-  yield takeEvery(PT.GET_PRODUCT, getProductWorker);
-}
-
 function* getProductsOriginsWorker() {
   const {
     getProductOriginsStart,
@@ -150,10 +131,6 @@ function* getProductsOriginsWorker() {
     notifyError(USER_MESSAGES.ERROR.LOAD_PRODUCT_ORIGINS);
     put(getProductOriginsFailure(error));
   }
-}
-
-export function* getProductsOriginsWatcher() {
-  yield takeEvery(PT.GET_PRODUCT_ORIGINS, getProductsOriginsWorker);
 }
 
 function* createProductWorker({ payload }) {
@@ -185,10 +162,6 @@ function* createProductWorker({ payload }) {
     notifyError(USER_MESSAGES.ERROR.CREATE_PRODUCT);
     yield put(createProductFailure(error));
   }
-}
-
-export function* createProductWatcher() {
-  yield takeEvery(PT.CREATE_PRODUCT, createProductWorker);
 }
 
 function* editProductWorker({ payload }) {
@@ -223,10 +196,6 @@ function* editProductWorker({ payload }) {
   }
 }
 
-export function* editProductWatcher() {
-  yield takeEvery(PT.UPDATE_PRODUCT, editProductWorker);
-}
-
 function* deleteProductWorker({ payload }) {
   const { productId } = payload;
   const {
@@ -250,6 +219,17 @@ function* deleteProductWorker({ payload }) {
   }
 }
 
-export function* deleteProductWatcher() {
-  yield takeEvery(PT.DELETE_PRODUCT, deleteProductWorker);
+export default function* productsWatcher() {
+  yield takeEvery(productTypes.GET_ALL_PRODUCTS, getAllProductsWorker);
+  yield debounce(
+    3000,
+    productTypes.LOAD_PRODUCTS_WITH_DEBOUNCE,
+    productsWithDebounceWorker,
+  );
+  yield takeEvery(productTypes.GET_USER_PRODUCTS, getUserProductsWorker);
+  yield takeEvery(productTypes.GET_PRODUCT, getProductWorker);
+  yield takeEvery(productTypes.GET_PRODUCT_ORIGINS, getProductsOriginsWorker);
+  yield takeEvery(productTypes.CREATE_PRODUCT, createProductWorker);
+  yield takeEvery(productTypes.UPDATE_PRODUCT, editProductWorker);
+  yield takeEvery(productTypes.DELETE_PRODUCT, deleteProductWorker);
 }

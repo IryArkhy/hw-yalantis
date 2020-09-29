@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getOrder, getOrders } from '../redux/selectors/selectors';
 import routes from '../routes';
-import OA from '../redux/orders/ordersActions';
+import ordersActions from '../redux/orders/ordersActions';
 import useCart from './useCart';
 
 const useOrders = () => {
@@ -13,11 +13,11 @@ const useOrders = () => {
   const history = useHistory();
 
   const postOrder = () => {
-    dispatch(OA.createOrder(cart));
+    dispatch(ordersActions.createOrder(cart));
     history.push(routes.PROFILE_PAGE_ORDERS);
   };
-  const getAllOrders = () => dispatch(OA.getAllOrders());
-  const getOrderById = orderId => dispatch(OA.getOrder(orderId));
+  const getAllOrders = () => dispatch(ordersActions.getAllOrders());
+  const getOrderById = orderId => dispatch(ordersActions.getOrder(orderId));
   const getToOrderDetailsPage = id =>
     history.push(routes.ORDER_PAGE.createPath(id));
 

@@ -5,7 +5,7 @@ import findProductById from '../../helpers/cartHelpers';
 import { notifyError, notifySuccess } from '../../helpers/userNotifiers';
 import { USER_MESSAGES } from '../../constants';
 import ENDPOINTS from '../../servises/api-constants';
-import CT from './cartTypes';
+import cartTypes from './cartTypes';
 
 function* addProductToCartWorker({ payload }) {
   const { productId, cart } = payload;
@@ -37,10 +37,6 @@ function* addProductToCartWorker({ payload }) {
   }
 }
 
-export function* addProductToCartWatcher() {
-  yield takeEvery(CT.ADD_TO_CART, addProductToCartWorker);
-}
-
 function* removeProductFromCartWorker({ payload }) {
   const { id, cart } = payload;
 
@@ -59,21 +55,22 @@ function* removeProductFromCartWorker({ payload }) {
     );
   }
 }
-export function* removeProductFromCartWatcher() {
-  yield takeEvery(CT.DELETE_FROM_CART, removeProductFromCartWorker);
-}
 
 function* removeAllInstancesOfProductWorker({ payload }) {
   const { id } = payload;
   yield put(cartActions.removeAllInstancesSucces(id));
 }
-export function* removeAllInstancesOfProductWatcher() {
-  yield takeEvery(CT.REMOVE_ALL_INSTANCES, removeAllInstancesOfProductWorker);
-}
 
 function* clearCartWorker() {
   yield put(cartActions.clearCartSucces());
 }
-export function* clearCartWatcher() {
-  yield takeEvery(CT.CLEAR_CART, clearCartWorker);
+
+export default function* cartWatcher() {
+  yield takeEvery(cartTypes.ADD_TO_CART, addProductToCartWorker);
+  yield takeEvery(cartTypes.DELETE_FROM_CART, removeProductFromCartWorker);
+  yield takeEvery(
+    cartTypes.REMOVE_ALL_INSTANCES,
+    removeAllInstancesOfProductWorker,
+  );
+  yield takeEvery(cartTypes.CLEAR_CART, clearCartWorker);
 }
