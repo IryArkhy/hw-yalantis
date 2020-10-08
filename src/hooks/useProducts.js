@@ -1,11 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  getAllProducts,
-  getUserProducts,
-  createProduct,
-  editProduct,
-  deleteProduct,
-} from '../redux/products/productsOperations';
 import createProductParams from '../helpers/requestHelpers';
 import {
   getProducts,
@@ -14,6 +7,7 @@ import {
   getCurrentPage,
   getTotalPages,
 } from '../redux/selectors/selectors';
+import productsActions from '../redux/products/productsActions';
 
 const useProducts = () => {
   const products = useSelector(getProducts);
@@ -34,7 +28,7 @@ const useProducts = () => {
   ) => {
     if (isEditable) {
       dispatch(
-        getUserProducts(
+        productsActions.getUserProducts(
           createProductParams(
             pageNum,
             perPage,
@@ -42,22 +36,33 @@ const useProducts = () => {
             minPrice,
             maxPrice,
             isEditable,
-            true,
           ),
         ),
       );
     } else {
       dispatch(
-        getAllProducts(
+        productsActions.getAllProducts(
           createProductParams(pageNum, perPage, region, minPrice, maxPrice),
         ),
       );
     }
   };
-  const postProduct = productData => dispatch(createProduct(productData));
-  const updateProduct = productData => dispatch(editProduct(productData));
+  const loadWithDebounce = (pageNum, perPage, region, minPrice, maxPrice) => {
+    dispatch(
+      productsActions.getProductsDebounce(
+        createProductParams(pageNum, perPage, region, minPrice, maxPrice),
+      ),
+    );
+  };
+
+  const postProduct = ({ name, price, origin }) =>
+    dispatch(productsActions.createProduct(name, price, origin));
+
+  const updateProduct = ({ id, name, origin, price }) =>
+    dispatch(productsActions.updateProduct(id, name, origin, price));
+
   const deleteProductForever = productId => {
-    dispatch(deleteProduct(productId));
+    dispatch(productsActions.deleteProduct(productId));
   };
 
   const getPreviousPage = (pageNum, perPage, region, minPrice, maxPrice) => {
@@ -81,6 +86,7 @@ const useProducts = () => {
     deleteProductForever,
     getPreviousPage,
     getNextPage,
+    loadWithDebounce,
   };
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import ProductCard from '../../components/Card';
 import Spinner from '../../components/Loader';
@@ -9,6 +9,7 @@ import { homeTitle, productsWrapper, buttonsWrapper } from './home.module.css';
 import useProducts from '../../hooks/useProducts';
 import useFilters from '../../hooks/useFilters';
 import { getLoading } from '../../redux/selectors/selectors';
+import useQuery from '../../hooks/useQuery';
 
 const HomePage = () => {
   const {
@@ -19,6 +20,14 @@ const HomePage = () => {
     getPreviousPage,
     getNextPage,
   } = useProducts();
+
+  const [perP, currentPage, priceRange, region] = useQuery();
+  useEffect(
+    useCallback(() => {
+      loadProducts(currentPage, perP, region, priceRange[0], priceRange[1]);
+    }, [currentPage, loadProducts, perP, priceRange, region]),
+    [],
+  );
 
   const {
     perPage,
@@ -42,7 +51,6 @@ const HomePage = () => {
       getNextPage(page, perPage, origin, prices[0], prices[1]);
     }
   };
-
   const optionsForControlPanel = {
     perPage,
     prices,
@@ -58,9 +66,9 @@ const HomePage = () => {
       <ControlPanel options={optionsForControlPanel} />
       <h2 className={homeTitle}>Products List</h2>
       <div className={productsWrapper}>
-        {products.map(({ id, name, price, origin: region, isEditable }) => (
+        {products.map(({ id, name, price, origin: orgn, isEditable }) => (
           <ProductCard
-            product={{ id, price, name, origin: region, isEditable }}
+            product={{ id, price, name, origin: orgn, isEditable }}
             key={id}
           />
         ))}

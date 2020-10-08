@@ -13,7 +13,7 @@ const cartReducer = (state = [], { type, payload }) => {
       );
     }
 
-    case cartTypes.REMOVE_FROM_CART: {
+    case cartTypes.REMOVE_FROM_CART_SUCCESS: {
       if (payload.id) return state.filter(product => product.id !== payload.id);
 
       return state.map(product =>
@@ -23,10 +23,10 @@ const cartReducer = (state = [], { type, payload }) => {
       );
     }
 
-    case cartTypes.REMOVE_ALL_INSTANCES:
+    case cartTypes.REMOVE_ALL_INSTANCES_SUCCESS:
       return state.filter(product => product.id !== payload.id);
 
-    case cartTypes.CLEAR_CART:
+    case cartTypes.CLEAR_CART_SUCCESS:
       return [];
     default:
       return state;

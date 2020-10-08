@@ -1,7 +1,6 @@
 import React from 'react';
 import T from 'prop-types';
 import styles from './pieces-table.module.css';
-import 'react-toastify/dist/ReactToastify.css';
 
 const PiecesTable = ({ pieces }) => {
   return (

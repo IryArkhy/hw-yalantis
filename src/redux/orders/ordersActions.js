@@ -1,5 +1,9 @@
 import ordersTypes from './ordersTypes';
 
+const getAllOrders = () => ({
+  type: ordersTypes.GET_ALL_ORDERS,
+});
+
 const getAllOrdersStart = () => ({
   type: ordersTypes.GET_ALL_ORDERS_START,
 });
@@ -19,6 +23,13 @@ const getAllOrdersFailure = error => ({
 });
 
 //--
+const createOrder = cart => ({
+  type: ordersTypes.CREATE_ORDER,
+  payload: {
+    cart,
+  },
+});
+
 const createOrderStart = () => ({
   type: ordersTypes.CREATE_ORDER_START,
 });
@@ -38,6 +49,16 @@ const createOrderFailure = error => ({
 });
 
 //--
+const getOrder = orderId => {
+  // console.log({ orderId });
+  return {
+    type: ordersTypes.GET_ORDER,
+    payload: {
+      orderId,
+    },
+  };
+};
+
 const getOrderStart = () => ({
   type: ordersTypes.GET_ORDER_START,
 });
@@ -57,14 +78,17 @@ const getOrderFailure = error => ({
 });
 
 export default {
+  getAllOrders,
   getAllOrdersStart,
   getAllOrdersSuccess,
   getAllOrdersFailure,
 
+  createOrder,
   createOrderStart,
   createOrderSuccess,
   createOrderFailure,
 
+  getOrder,
   getOrderStart,
   getOrderSuccess,
   getOrderFailure,

@@ -9,19 +9,17 @@ import OrderPage from '../../pages/OrderInfoPage';
 import Header from '../Header';
 import Footer from '../Footer/Footer';
 import routes from '../../routes';
-import { getProductsOrigins } from '../../redux/products/productsOperations';
 import useProducts from '../../hooks/useProducts';
+import productsActions from '../../redux/products/productsActions';
 import '../../assets/stylesheets/main.css';
 
 const App = () => {
   const { loadProducts } = useProducts();
   const dispatch = useDispatch();
-
   useEffect(
     useCallback(() => {
-      loadProducts(null, 18);
       loadProducts(null, null, [], null, null, true);
-      dispatch(getProductsOrigins());
+      dispatch(productsActions.getProductsOrigins());
     }, [dispatch, loadProducts]),
     [],
   );

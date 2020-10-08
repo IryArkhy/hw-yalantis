@@ -8,7 +8,12 @@ const UserOrdersPanel = () => {
   const goToOrderPage = id => {
     getToOrderDetailsPage(id);
   };
-  useEffect(useCallback(() => getAllOrders(), [getAllOrders]), []);
+  useEffect(
+    useCallback(() => {
+      getAllOrders();
+    }, [getAllOrders]),
+    [],
+  );
 
   return (
     <div className={styles.ordersWraper}>
