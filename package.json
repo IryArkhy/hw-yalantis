@@ -39,7 +39,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "homepage": "https://IryArkhy.github.io/yalantis-hw",
   "browserslist": {
     "production": [
       ">0.2%",
